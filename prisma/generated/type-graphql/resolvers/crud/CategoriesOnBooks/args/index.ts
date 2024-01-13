@@ -1,0 +1,14 @@
+export { AggregateCategoriesOnBooksArgs } from "./AggregateCategoriesOnBooksArgs";
+export { CreateManyCategoriesOnBooksArgs } from "./CreateManyCategoriesOnBooksArgs";
+export { CreateOneCategoriesOnBooksArgs } from "./CreateOneCategoriesOnBooksArgs";
+export { DeleteManyCategoriesOnBooksArgs } from "./DeleteManyCategoriesOnBooksArgs";
+export { DeleteOneCategoriesOnBooksArgs } from "./DeleteOneCategoriesOnBooksArgs";
+export { FindFirstCategoriesOnBooksArgs } from "./FindFirstCategoriesOnBooksArgs";
+export { FindFirstCategoriesOnBooksOrThrowArgs } from "./FindFirstCategoriesOnBooksOrThrowArgs";
+export { FindManyCategoriesOnBooksArgs } from "./FindManyCategoriesOnBooksArgs";
+export { FindUniqueCategoriesOnBooksArgs } from "./FindUniqueCategoriesOnBooksArgs";
+export { FindUniqueCategoriesOnBooksOrThrowArgs } from "./FindUniqueCategoriesOnBooksOrThrowArgs";
+export { GroupByCategoriesOnBooksArgs } from "./GroupByCategoriesOnBooksArgs";
+export { UpdateManyCategoriesOnBooksArgs } from "./UpdateManyCategoriesOnBooksArgs";
+export { UpdateOneCategoriesOnBooksArgs } from "./UpdateOneCategoriesOnBooksArgs";
+export { UpsertOneCategoriesOnBooksArgs } from "./UpsertOneCategoriesOnBooksArgs";
