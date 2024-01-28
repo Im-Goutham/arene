@@ -35,5 +35,5 @@ export class FindFirstCategoryArgs {
   @TypeGraphQL.Field(_type => [CategoryScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "name" | "displayName" | "created_at" | "updated_at"> | undefined;
+  distinct?: Array<"id" | "name" | "parentId"> | undefined;
 }

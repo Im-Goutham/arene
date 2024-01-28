@@ -2,39 +2,45 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { Role } from "../../enums/Role";
+import { OrderCreateNestedManyWithoutUserInput } from "../inputs/OrderCreateNestedManyWithoutUserInput";
+import { UserProviderCreateNestedManyWithoutUserInput } from "../inputs/UserProviderCreateNestedManyWithoutUserInput";
 
 @TypeGraphQL.InputType("UserCreateInput", {
   isAbstract: true
 })
 export class UserCreateInput {
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  user_name!: string;
+  id?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  email?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  password?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  email!: string;
+  firstName!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  password!: string;
+  lastName!: string;
 
-  @TypeGraphQL.Field(_type => Role, {
+  @TypeGraphQL.Field(_type => UserProviderCreateNestedManyWithoutUserInput, {
     nullable: true
   })
-  role?: "admin" | "editor" | undefined;
+  providers?: UserProviderCreateNestedManyWithoutUserInput | undefined;
 
-  @TypeGraphQL.Field(_type => Date, {
+  @TypeGraphQL.Field(_type => OrderCreateNestedManyWithoutUserInput, {
     nullable: true
   })
-  created_at?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updated_at?: Date | undefined;
+  orders?: OrderCreateNestedManyWithoutUserInput | undefined;
 }

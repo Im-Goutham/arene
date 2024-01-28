@@ -21,15 +21,5 @@ export class CategoryMaxOrderByAggregateInput {
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  displayName?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  created_at?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  updated_at?: "asc" | "desc" | undefined;
+  parentId?: "asc" | "desc" | undefined;
 }

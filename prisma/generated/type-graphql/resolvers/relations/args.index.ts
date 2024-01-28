@@ -1,3 +1,4 @@
-export * from "./Author/args";
-export * from "./Book/args";
 export * from "./Category/args";
+export * from "./Order/args";
+export * from "./Product/args";
+export * from "./User/args";

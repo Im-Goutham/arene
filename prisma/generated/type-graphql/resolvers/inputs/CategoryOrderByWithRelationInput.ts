@@ -2,7 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CategoriesOnBooksOrderByRelationAggregateInput } from "../inputs/CategoriesOnBooksOrderByRelationAggregateInput";
+import { CategoryOrderByRelationAggregateInput } from "../inputs/CategoryOrderByRelationAggregateInput";
+import { ProductOrderByRelationAggregateInput } from "../inputs/ProductOrderByRelationAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("CategoryOrderByWithRelationInput", {
@@ -19,23 +20,23 @@ export class CategoryOrderByWithRelationInput {
   })
   name?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrder, {
+  @TypeGraphQL.Field(_type => CategoryOrderByWithRelationInput, {
     nullable: true
   })
-  displayName?: "asc" | "desc" | undefined;
+  parent?: CategoryOrderByWithRelationInput | undefined;
 
   @TypeGraphQL.Field(_type => SortOrder, {
     nullable: true
   })
-  created_at?: "asc" | "desc" | undefined;
+  parentId?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrder, {
+  @TypeGraphQL.Field(_type => CategoryOrderByRelationAggregateInput, {
     nullable: true
   })
-  updated_at?: "asc" | "desc" | undefined;
+  children?: CategoryOrderByRelationAggregateInput | undefined;
 
-  @TypeGraphQL.Field(_type => CategoriesOnBooksOrderByRelationAggregateInput, {
+  @TypeGraphQL.Field(_type => ProductOrderByRelationAggregateInput, {
     nullable: true
   })
-  categoriesOnBooks?: CategoriesOnBooksOrderByRelationAggregateInput | undefined;
+  products?: ProductOrderByRelationAggregateInput | undefined;
 }

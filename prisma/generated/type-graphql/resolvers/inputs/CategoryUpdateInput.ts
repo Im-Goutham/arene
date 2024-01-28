@@ -2,8 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CategoriesOnBooksUpdateManyWithoutCategoryNestedInput } from "../inputs/CategoriesOnBooksUpdateManyWithoutCategoryNestedInput";
-import { NullableDateTimeFieldUpdateOperationsInput } from "../inputs/NullableDateTimeFieldUpdateOperationsInput";
+import { CategoryUpdateManyWithoutParentNestedInput } from "../inputs/CategoryUpdateManyWithoutParentNestedInput";
+import { CategoryUpdateOneWithoutChildrenNestedInput } from "../inputs/CategoryUpdateOneWithoutChildrenNestedInput";
+import { ProductUpdateManyWithoutCategoryNestedInput } from "../inputs/ProductUpdateManyWithoutCategoryNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("CategoryUpdateInput", {
@@ -13,25 +14,25 @@ export class CategoryUpdateInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  name?: StringFieldUpdateOperationsInput | undefined;
+  id?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  displayName?: StringFieldUpdateOperationsInput | undefined;
+  name?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => CategoryUpdateOneWithoutChildrenNestedInput, {
     nullable: true
   })
-  created_at?: NullableDateTimeFieldUpdateOperationsInput | undefined;
+  parent?: CategoryUpdateOneWithoutChildrenNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => CategoryUpdateManyWithoutParentNestedInput, {
     nullable: true
   })
-  updated_at?: NullableDateTimeFieldUpdateOperationsInput | undefined;
+  children?: CategoryUpdateManyWithoutParentNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => CategoriesOnBooksUpdateManyWithoutCategoryNestedInput, {
+  @TypeGraphQL.Field(_type => ProductUpdateManyWithoutCategoryNestedInput, {
     nullable: true
   })
-  categoriesOnBooks?: CategoriesOnBooksUpdateManyWithoutCategoryNestedInput | undefined;
+  products?: ProductUpdateManyWithoutCategoryNestedInput | undefined;
 }

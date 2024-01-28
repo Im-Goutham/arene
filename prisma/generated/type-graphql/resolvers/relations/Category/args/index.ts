@@ -1,1 +1,2 @@
-export { CategoryCategoriesOnBooksArgs } from "./CategoryCategoriesOnBooksArgs";
+export { CategoryChildrenArgs } from "./CategoryChildrenArgs";
+export { CategoryProductsArgs } from "./CategoryProductsArgs";

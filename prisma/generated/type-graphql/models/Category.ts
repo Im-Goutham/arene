@@ -2,39 +2,33 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
-import { CategoriesOnBooks } from "../models/CategoriesOnBooks";
+import { Product } from "../models/Product";
 import { CategoryCount } from "../resolvers/outputs/CategoryCount";
 
 @TypeGraphQL.ObjectType("Category", {
   isAbstract: true
 })
 export class Category {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   name!: string;
 
+  parent?: Category | null;
+
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  displayName!: string;
-
-  @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
-  created_at?: Date | null;
+  parentId?: string | null;
 
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updated_at?: Date | null;
+  children?: Category[];
 
-  categoriesOnBooks?: CategoriesOnBooks[];
+  products?: Product[];
 
   @TypeGraphQL.Field(_type => CategoryCount, {
     nullable: true

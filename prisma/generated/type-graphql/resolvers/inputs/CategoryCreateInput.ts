@@ -2,34 +2,36 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CategoriesOnBooksCreateNestedManyWithoutCategoryInput } from "../inputs/CategoriesOnBooksCreateNestedManyWithoutCategoryInput";
+import { CategoryCreateNestedManyWithoutParentInput } from "../inputs/CategoryCreateNestedManyWithoutParentInput";
+import { CategoryCreateNestedOneWithoutChildrenInput } from "../inputs/CategoryCreateNestedOneWithoutChildrenInput";
+import { ProductCreateNestedManyWithoutCategoryInput } from "../inputs/ProductCreateNestedManyWithoutCategoryInput";
 
 @TypeGraphQL.InputType("CategoryCreateInput", {
   isAbstract: true
 })
 export class CategoryCreateInput {
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  name!: string;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  displayName!: string;
+  name!: string;
 
-  @TypeGraphQL.Field(_type => Date, {
+  @TypeGraphQL.Field(_type => CategoryCreateNestedOneWithoutChildrenInput, {
     nullable: true
   })
-  created_at?: Date | undefined;
+  parent?: CategoryCreateNestedOneWithoutChildrenInput | undefined;
 
-  @TypeGraphQL.Field(_type => Date, {
+  @TypeGraphQL.Field(_type => CategoryCreateNestedManyWithoutParentInput, {
     nullable: true
   })
-  updated_at?: Date | undefined;
+  children?: CategoryCreateNestedManyWithoutParentInput | undefined;
 
-  @TypeGraphQL.Field(_type => CategoriesOnBooksCreateNestedManyWithoutCategoryInput, {
+  @TypeGraphQL.Field(_type => ProductCreateNestedManyWithoutCategoryInput, {
     nullable: true
   })
-  categoriesOnBooks?: CategoriesOnBooksCreateNestedManyWithoutCategoryInput | undefined;
+  products?: ProductCreateNestedManyWithoutCategoryInput | undefined;
 }

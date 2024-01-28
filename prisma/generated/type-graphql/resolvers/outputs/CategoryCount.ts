@@ -10,5 +10,10 @@ export class CategoryCount {
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
     nullable: false
   })
-  categoriesOnBooks!: number;
+  children!: number;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: false
+  })
+  products!: number;
 }

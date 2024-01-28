@@ -1,4 +1,7 @@
-export { AuthorRelationsResolver } from "./Author/AuthorRelationsResolver";
-export { BookRelationsResolver } from "./Book/BookRelationsResolver";
-export { CategoriesOnBooksRelationsResolver } from "./CategoriesOnBooks/CategoriesOnBooksRelationsResolver";
 export { CategoryRelationsResolver } from "./Category/CategoryRelationsResolver";
+export { OfferRelationsResolver } from "./Offer/OfferRelationsResolver";
+export { OrderRelationsResolver } from "./Order/OrderRelationsResolver";
+export { OrderItemRelationsResolver } from "./OrderItem/OrderItemRelationsResolver";
+export { ProductRelationsResolver } from "./Product/ProductRelationsResolver";
+export { UserRelationsResolver } from "./User/UserRelationsResolver";
+export { UserProviderRelationsResolver } from "./UserProvider/UserProviderRelationsResolver";

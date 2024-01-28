@@ -2,10 +2,11 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CategoriesOnBooksListRelationFilter } from "../inputs/CategoriesOnBooksListRelationFilter";
-import { DateTimeNullableFilter } from "../inputs/DateTimeNullableFilter";
-import { IntFilter } from "../inputs/IntFilter";
+import { CategoryListRelationFilter } from "../inputs/CategoryListRelationFilter";
+import { CategoryRelationFilter } from "../inputs/CategoryRelationFilter";
+import { ProductListRelationFilter } from "../inputs/ProductListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
+import { StringNullableFilter } from "../inputs/StringNullableFilter";
 
 @TypeGraphQL.InputType("CategoryWhereInput", {
   isAbstract: true
@@ -26,33 +27,33 @@ export class CategoryWhereInput {
   })
   NOT?: CategoryWhereInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  id?: IntFilter | undefined;
+  id?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
   name?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => CategoryRelationFilter, {
     nullable: true
   })
-  displayName?: StringFilter | undefined;
+  parent?: CategoryRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeNullableFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  created_at?: DateTimeNullableFilter | undefined;
+  parentId?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeNullableFilter, {
+  @TypeGraphQL.Field(_type => CategoryListRelationFilter, {
     nullable: true
   })
-  updated_at?: DateTimeNullableFilter | undefined;
+  children?: CategoryListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => CategoriesOnBooksListRelationFilter, {
+  @TypeGraphQL.Field(_type => ProductListRelationFilter, {
     nullable: true
   })
-  categoriesOnBooks?: CategoriesOnBooksListRelationFilter | undefined;
+  products?: ProductListRelationFilter | undefined;
 }

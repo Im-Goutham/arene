@@ -7,10 +7,10 @@ import { DecimalJSScalar } from "../../scalars";
   isAbstract: true
 })
 export class CategoryCreateManyInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id?: number | undefined;
+  id?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -18,17 +18,7 @@ export class CategoryCreateManyInput {
   name!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
-  })
-  displayName!: string;
-
-  @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
-  created_at?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updated_at?: Date | undefined;
+  parentId?: string | undefined;
 }

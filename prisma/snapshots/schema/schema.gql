@@ -7,1183 +7,224 @@ type AffectedRowsOutput {
   count: Int!
 }
 
-type AggregateAuthor {
-  _avg: AuthorAvgAggregate
-  _count: AuthorCountAggregate
-  _max: AuthorMaxAggregate
-  _min: AuthorMinAggregate
-  _sum: AuthorSumAggregate
-}
-
-type AggregateBook {
-  _avg: BookAvgAggregate
-  _count: BookCountAggregate
-  _max: BookMaxAggregate
-  _min: BookMinAggregate
-  _sum: BookSumAggregate
-}
-
-type AggregateCategoriesOnBooks {
-  _avg: CategoriesOnBooksAvgAggregate
-  _count: CategoriesOnBooksCountAggregate
-  _max: CategoriesOnBooksMaxAggregate
-  _min: CategoriesOnBooksMinAggregate
-  _sum: CategoriesOnBooksSumAggregate
-}
-
 type AggregateCategory {
-  _avg: CategoryAvgAggregate
   _count: CategoryCountAggregate
   _max: CategoryMaxAggregate
   _min: CategoryMinAggregate
-  _sum: CategorySumAggregate
+}
+
+type AggregateOffer {
+  _avg: OfferAvgAggregate
+  _count: OfferCountAggregate
+  _max: OfferMaxAggregate
+  _min: OfferMinAggregate
+  _sum: OfferSumAggregate
+}
+
+type AggregateOrder {
+  _avg: OrderAvgAggregate
+  _count: OrderCountAggregate
+  _max: OrderMaxAggregate
+  _min: OrderMinAggregate
+  _sum: OrderSumAggregate
+}
+
+type AggregateOrderItem {
+  _avg: OrderItemAvgAggregate
+  _count: OrderItemCountAggregate
+  _max: OrderItemMaxAggregate
+  _min: OrderItemMinAggregate
+  _sum: OrderItemSumAggregate
+}
+
+type AggregateProduct {
+  _avg: ProductAvgAggregate
+  _count: ProductCountAggregate
+  _max: ProductMaxAggregate
+  _min: ProductMinAggregate
+  _sum: ProductSumAggregate
 }
 
 type AggregateUser {
-  _avg: UserAvgAggregate
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
-  _sum: UserSumAggregate
 }
 
-type Author {
-  _count: AuthorCount
-  book(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): [Book!]!
-  created_at: DateTime
-  id: Int!
-  name: String!
-  updated_at: DateTime
-}
-
-type AuthorAvgAggregate {
-  id: Float
-}
-
-input AuthorAvgOrderByAggregateInput {
-  id: SortOrder
-}
-
-type AuthorCount {
-  book: Int!
-}
-
-type AuthorCountAggregate {
-  _all: Int!
-  created_at: Int!
-  id: Int!
-  name: Int!
-  updated_at: Int!
-}
-
-input AuthorCountOrderByAggregateInput {
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-input AuthorCreateInput {
-  book: BookCreateNestedManyWithoutAuthorInput
-  created_at: DateTime
-  name: String!
-  updated_at: DateTime
-}
-
-input AuthorCreateManyInput {
-  created_at: DateTime
-  id: Int
-  name: String!
-  updated_at: DateTime
-}
-
-input AuthorCreateNestedOneWithoutBookInput {
-  connect: AuthorWhereUniqueInput
-  connectOrCreate: AuthorCreateOrConnectWithoutBookInput
-  create: AuthorCreateWithoutBookInput
-}
-
-input AuthorCreateOrConnectWithoutBookInput {
-  create: AuthorCreateWithoutBookInput!
-  where: AuthorWhereUniqueInput!
-}
-
-input AuthorCreateWithoutBookInput {
-  created_at: DateTime
-  name: String!
-  updated_at: DateTime
-}
-
-type AuthorGroupBy {
-  _avg: AuthorAvgAggregate
-  _count: AuthorCountAggregate
-  _max: AuthorMaxAggregate
-  _min: AuthorMinAggregate
-  _sum: AuthorSumAggregate
-  created_at: DateTime
-  id: Int!
-  name: String!
-  updated_at: DateTime
-}
-
-type AuthorMaxAggregate {
-  created_at: DateTime
-  id: Int
-  name: String
-  updated_at: DateTime
-}
-
-input AuthorMaxOrderByAggregateInput {
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-type AuthorMinAggregate {
-  created_at: DateTime
-  id: Int
-  name: String
-  updated_at: DateTime
-}
-
-input AuthorMinOrderByAggregateInput {
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-input AuthorOrderByWithAggregationInput {
-  _avg: AuthorAvgOrderByAggregateInput
-  _count: AuthorCountOrderByAggregateInput
-  _max: AuthorMaxOrderByAggregateInput
-  _min: AuthorMinOrderByAggregateInput
-  _sum: AuthorSumOrderByAggregateInput
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-input AuthorOrderByWithRelationInput {
-  book: BookOrderByRelationAggregateInput
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-input AuthorRelationFilter {
-  is: AuthorWhereInput
-  isNot: AuthorWhereInput
-}
-
-enum AuthorScalarFieldEnum {
-  created_at
-  id
-  name
-  updated_at
-}
-
-input AuthorScalarWhereWithAggregatesInput {
-  AND: [AuthorScalarWhereWithAggregatesInput!]
-  NOT: [AuthorScalarWhereWithAggregatesInput!]
-  OR: [AuthorScalarWhereWithAggregatesInput!]
-  created_at: DateTimeNullableWithAggregatesFilter
-  id: IntWithAggregatesFilter
-  name: StringWithAggregatesFilter
-  updated_at: DateTimeNullableWithAggregatesFilter
-}
-
-type AuthorSumAggregate {
-  id: Int
-}
-
-input AuthorSumOrderByAggregateInput {
-  id: SortOrder
-}
-
-input AuthorUpdateInput {
-  book: BookUpdateManyWithoutAuthorNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input AuthorUpdateManyMutationInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input AuthorUpdateOneWithoutBookNestedInput {
-  connect: AuthorWhereUniqueInput
-  connectOrCreate: AuthorCreateOrConnectWithoutBookInput
-  create: AuthorCreateWithoutBookInput
-  delete: Boolean
-  disconnect: Boolean
-  update: AuthorUpdateWithoutBookInput
-  upsert: AuthorUpsertWithoutBookInput
-}
-
-input AuthorUpdateWithoutBookInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input AuthorUpsertWithoutBookInput {
-  create: AuthorCreateWithoutBookInput!
-  update: AuthorUpdateWithoutBookInput!
-}
-
-input AuthorWhereInput {
-  AND: [AuthorWhereInput!]
-  NOT: [AuthorWhereInput!]
-  OR: [AuthorWhereInput!]
-  book: BookListRelationFilter
-  created_at: DateTimeNullableFilter
-  id: IntFilter
-  name: StringFilter
-  updated_at: DateTimeNullableFilter
-}
-
-input AuthorWhereUniqueInput {
-  id: Int
-  name: String
-}
-
-type Book {
-  _count: BookCount
-  author: Author
-  authorId: Int
-  categories(cursor: CategoriesOnBooksWhereUniqueInput, distinct: [CategoriesOnBooksScalarFieldEnum!], orderBy: [CategoriesOnBooksOrderByWithRelationInput!], skip: Int, take: Int, where: CategoriesOnBooksWhereInput): [CategoriesOnBooks!]!
-  created_at: DateTime
-  description: String!
-  id: Int!
-  imageThumbnail: String!
-  isDeleted: Boolean!
-  isPublished: Boolean!
-  languageName: String!
-  published_at: DateTime
-  title: String!
-  updated_at: DateTime
-}
-
-type BookAvgAggregate {
-  authorId: Float
-  id: Float
-}
-
-input BookAvgOrderByAggregateInput {
-  authorId: SortOrder
-  id: SortOrder
-}
-
-type BookCount {
-  categories: Int!
-}
-
-type BookCountAggregate {
-  _all: Int!
-  authorId: Int!
-  created_at: Int!
-  description: Int!
-  id: Int!
-  imageThumbnail: Int!
-  isDeleted: Int!
-  isPublished: Int!
-  languageName: Int!
-  published_at: Int!
-  title: Int!
-  updated_at: Int!
-}
-
-input BookCountOrderByAggregateInput {
-  authorId: SortOrder
-  created_at: SortOrder
-  description: SortOrder
-  id: SortOrder
-  imageThumbnail: SortOrder
-  isDeleted: SortOrder
-  isPublished: SortOrder
-  languageName: SortOrder
-  published_at: SortOrder
-  title: SortOrder
-  updated_at: SortOrder
-}
-
-input BookCreateInput {
-  author: AuthorCreateNestedOneWithoutBookInput
-  categories: CategoriesOnBooksCreateNestedManyWithoutBookInput
-  created_at: DateTime
-  description: String!
-  imageThumbnail: String!
-  isDeleted: Boolean
-  isPublished: Boolean
-  languageName: String!
-  published_at: DateTime
-  title: String!
-  updated_at: DateTime
-}
-
-input BookCreateManyAuthorInput {
-  created_at: DateTime
-  description: String!
-  id: Int
-  imageThumbnail: String!
-  isDeleted: Boolean
-  isPublished: Boolean
-  languageName: String!
-  published_at: DateTime
-  title: String!
-  updated_at: DateTime
-}
-
-input BookCreateManyAuthorInputEnvelope {
-  data: [BookCreateManyAuthorInput!]!
-  skipDuplicates: Boolean
-}
-
-input BookCreateManyInput {
-  authorId: Int
-  created_at: DateTime
-  description: String!
-  id: Int
-  imageThumbnail: String!
-  isDeleted: Boolean
-  isPublished: Boolean
-  languageName: String!
-  published_at: DateTime
-  title: String!
-  updated_at: DateTime
-}
-
-input BookCreateNestedManyWithoutAuthorInput {
-  connect: [BookWhereUniqueInput!]
-  connectOrCreate: [BookCreateOrConnectWithoutAuthorInput!]
-  create: [BookCreateWithoutAuthorInput!]
-  createMany: BookCreateManyAuthorInputEnvelope
-}
-
-input BookCreateNestedOneWithoutCategoriesInput {
-  connect: BookWhereUniqueInput
-  connectOrCreate: BookCreateOrConnectWithoutCategoriesInput
-  create: BookCreateWithoutCategoriesInput
-}
-
-input BookCreateOrConnectWithoutAuthorInput {
-  create: BookCreateWithoutAuthorInput!
-  where: BookWhereUniqueInput!
-}
-
-input BookCreateOrConnectWithoutCategoriesInput {
-  create: BookCreateWithoutCategoriesInput!
-  where: BookWhereUniqueInput!
-}
-
-input BookCreateWithoutAuthorInput {
-  categories: CategoriesOnBooksCreateNestedManyWithoutBookInput
-  created_at: DateTime
-  description: String!
-  imageThumbnail: String!
-  isDeleted: Boolean
-  isPublished: Boolean
-  languageName: String!
-  published_at: DateTime
-  title: String!
-  updated_at: DateTime
-}
-
-input BookCreateWithoutCategoriesInput {
-  author: AuthorCreateNestedOneWithoutBookInput
-  created_at: DateTime
-  description: String!
-  imageThumbnail: String!
-  isDeleted: Boolean
-  isPublished: Boolean
-  languageName: String!
-  published_at: DateTime
-  title: String!
-  updated_at: DateTime
-}
-
-type BookGroupBy {
-  _avg: BookAvgAggregate
-  _count: BookCountAggregate
-  _max: BookMaxAggregate
-  _min: BookMinAggregate
-  _sum: BookSumAggregate
-  authorId: Int
-  created_at: DateTime
-  description: String!
-  id: Int!
-  imageThumbnail: String!
-  isDeleted: Boolean!
-  isPublished: Boolean!
-  languageName: String!
-  published_at: DateTime
-  title: String!
-  updated_at: DateTime
-}
-
-input BookListRelationFilter {
-  every: BookWhereInput
-  none: BookWhereInput
-  some: BookWhereInput
-}
-
-type BookMaxAggregate {
-  authorId: Int
-  created_at: DateTime
-  description: String
-  id: Int
-  imageThumbnail: String
-  isDeleted: Boolean
-  isPublished: Boolean
-  languageName: String
-  published_at: DateTime
-  title: String
-  updated_at: DateTime
-}
-
-input BookMaxOrderByAggregateInput {
-  authorId: SortOrder
-  created_at: SortOrder
-  description: SortOrder
-  id: SortOrder
-  imageThumbnail: SortOrder
-  isDeleted: SortOrder
-  isPublished: SortOrder
-  languageName: SortOrder
-  published_at: SortOrder
-  title: SortOrder
-  updated_at: SortOrder
-}
-
-type BookMinAggregate {
-  authorId: Int
-  created_at: DateTime
-  description: String
-  id: Int
-  imageThumbnail: String
-  isDeleted: Boolean
-  isPublished: Boolean
-  languageName: String
-  published_at: DateTime
-  title: String
-  updated_at: DateTime
-}
-
-input BookMinOrderByAggregateInput {
-  authorId: SortOrder
-  created_at: SortOrder
-  description: SortOrder
-  id: SortOrder
-  imageThumbnail: SortOrder
-  isDeleted: SortOrder
-  isPublished: SortOrder
-  languageName: SortOrder
-  published_at: SortOrder
-  title: SortOrder
-  updated_at: SortOrder
-}
-
-input BookOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
-input BookOrderByWithAggregationInput {
-  _avg: BookAvgOrderByAggregateInput
-  _count: BookCountOrderByAggregateInput
-  _max: BookMaxOrderByAggregateInput
-  _min: BookMinOrderByAggregateInput
-  _sum: BookSumOrderByAggregateInput
-  authorId: SortOrder
-  created_at: SortOrder
-  description: SortOrder
-  id: SortOrder
-  imageThumbnail: SortOrder
-  isDeleted: SortOrder
-  isPublished: SortOrder
-  languageName: SortOrder
-  published_at: SortOrder
-  title: SortOrder
-  updated_at: SortOrder
-}
-
-input BookOrderByWithRelationInput {
-  author: AuthorOrderByWithRelationInput
-  authorId: SortOrder
-  categories: CategoriesOnBooksOrderByRelationAggregateInput
-  created_at: SortOrder
-  description: SortOrder
-  id: SortOrder
-  imageThumbnail: SortOrder
-  isDeleted: SortOrder
-  isPublished: SortOrder
-  languageName: SortOrder
-  published_at: SortOrder
-  title: SortOrder
-  updated_at: SortOrder
-}
-
-input BookRelationFilter {
-  is: BookWhereInput
-  isNot: BookWhereInput
-}
-
-enum BookScalarFieldEnum {
-  authorId
-  created_at
-  description
-  id
-  imageThumbnail
-  isDeleted
-  isPublished
-  languageName
-  published_at
-  title
-  updated_at
-}
-
-input BookScalarWhereInput {
-  AND: [BookScalarWhereInput!]
-  NOT: [BookScalarWhereInput!]
-  OR: [BookScalarWhereInput!]
-  authorId: IntNullableFilter
-  created_at: DateTimeNullableFilter
-  description: StringFilter
-  id: IntFilter
-  imageThumbnail: StringFilter
-  isDeleted: BoolFilter
-  isPublished: BoolFilter
-  languageName: StringFilter
-  published_at: DateTimeNullableFilter
-  title: StringFilter
-  updated_at: DateTimeNullableFilter
-}
-
-input BookScalarWhereWithAggregatesInput {
-  AND: [BookScalarWhereWithAggregatesInput!]
-  NOT: [BookScalarWhereWithAggregatesInput!]
-  OR: [BookScalarWhereWithAggregatesInput!]
-  authorId: IntNullableWithAggregatesFilter
-  created_at: DateTimeNullableWithAggregatesFilter
-  description: StringWithAggregatesFilter
-  id: IntWithAggregatesFilter
-  imageThumbnail: StringWithAggregatesFilter
-  isDeleted: BoolWithAggregatesFilter
-  isPublished: BoolWithAggregatesFilter
-  languageName: StringWithAggregatesFilter
-  published_at: DateTimeNullableWithAggregatesFilter
-  title: StringWithAggregatesFilter
-  updated_at: DateTimeNullableWithAggregatesFilter
-}
-
-type BookSumAggregate {
-  authorId: Int
-  id: Int
-}
-
-input BookSumOrderByAggregateInput {
-  authorId: SortOrder
-  id: SortOrder
-}
-
-input BookUpdateInput {
-  author: AuthorUpdateOneWithoutBookNestedInput
-  categories: CategoriesOnBooksUpdateManyWithoutBookNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  imageThumbnail: StringFieldUpdateOperationsInput
-  isDeleted: BoolFieldUpdateOperationsInput
-  isPublished: BoolFieldUpdateOperationsInput
-  languageName: StringFieldUpdateOperationsInput
-  published_at: NullableDateTimeFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input BookUpdateManyMutationInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  imageThumbnail: StringFieldUpdateOperationsInput
-  isDeleted: BoolFieldUpdateOperationsInput
-  isPublished: BoolFieldUpdateOperationsInput
-  languageName: StringFieldUpdateOperationsInput
-  published_at: NullableDateTimeFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input BookUpdateManyWithWhereWithoutAuthorInput {
-  data: BookUpdateManyMutationInput!
-  where: BookScalarWhereInput!
-}
-
-input BookUpdateManyWithoutAuthorNestedInput {
-  connect: [BookWhereUniqueInput!]
-  connectOrCreate: [BookCreateOrConnectWithoutAuthorInput!]
-  create: [BookCreateWithoutAuthorInput!]
-  createMany: BookCreateManyAuthorInputEnvelope
-  delete: [BookWhereUniqueInput!]
-  deleteMany: [BookScalarWhereInput!]
-  disconnect: [BookWhereUniqueInput!]
-  set: [BookWhereUniqueInput!]
-  update: [BookUpdateWithWhereUniqueWithoutAuthorInput!]
-  updateMany: [BookUpdateManyWithWhereWithoutAuthorInput!]
-  upsert: [BookUpsertWithWhereUniqueWithoutAuthorInput!]
-}
-
-input BookUpdateOneRequiredWithoutCategoriesNestedInput {
-  connect: BookWhereUniqueInput
-  connectOrCreate: BookCreateOrConnectWithoutCategoriesInput
-  create: BookCreateWithoutCategoriesInput
-  update: BookUpdateWithoutCategoriesInput
-  upsert: BookUpsertWithoutCategoriesInput
-}
-
-input BookUpdateWithWhereUniqueWithoutAuthorInput {
-  data: BookUpdateWithoutAuthorInput!
-  where: BookWhereUniqueInput!
-}
-
-input BookUpdateWithoutAuthorInput {
-  categories: CategoriesOnBooksUpdateManyWithoutBookNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  imageThumbnail: StringFieldUpdateOperationsInput
-  isDeleted: BoolFieldUpdateOperationsInput
-  isPublished: BoolFieldUpdateOperationsInput
-  languageName: StringFieldUpdateOperationsInput
-  published_at: NullableDateTimeFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input BookUpdateWithoutCategoriesInput {
-  author: AuthorUpdateOneWithoutBookNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  description: StringFieldUpdateOperationsInput
-  imageThumbnail: StringFieldUpdateOperationsInput
-  isDeleted: BoolFieldUpdateOperationsInput
-  isPublished: BoolFieldUpdateOperationsInput
-  languageName: StringFieldUpdateOperationsInput
-  published_at: NullableDateTimeFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input BookUpsertWithWhereUniqueWithoutAuthorInput {
-  create: BookCreateWithoutAuthorInput!
-  update: BookUpdateWithoutAuthorInput!
-  where: BookWhereUniqueInput!
-}
-
-input BookUpsertWithoutCategoriesInput {
-  create: BookCreateWithoutCategoriesInput!
-  update: BookUpdateWithoutCategoriesInput!
-}
-
-input BookWhereInput {
-  AND: [BookWhereInput!]
-  NOT: [BookWhereInput!]
-  OR: [BookWhereInput!]
-  author: AuthorRelationFilter
-  authorId: IntNullableFilter
-  categories: CategoriesOnBooksListRelationFilter
-  created_at: DateTimeNullableFilter
-  description: StringFilter
-  id: IntFilter
-  imageThumbnail: StringFilter
-  isDeleted: BoolFilter
-  isPublished: BoolFilter
-  languageName: StringFilter
-  published_at: DateTimeNullableFilter
-  title: StringFilter
-  updated_at: DateTimeNullableFilter
-}
-
-input BookWhereUniqueInput {
-  id: Int
-}
-
-input BoolFieldUpdateOperationsInput {
-  set: Boolean
-}
-
-input BoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
-}
-
-input BoolWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedBoolFilter
-  _min: NestedBoolFilter
-  equals: Boolean
-  not: NestedBoolWithAggregatesFilter
-}
-
-type CategoriesOnBooks {
-  book: Book!
-  bookId: Int!
-  category: Category!
-  categoryId: Int!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-type CategoriesOnBooksAvgAggregate {
-  bookId: Float
-  categoryId: Float
-}
-
-input CategoriesOnBooksAvgOrderByAggregateInput {
-  bookId: SortOrder
-  categoryId: SortOrder
-}
-
-input CategoriesOnBooksCategoryIdBookIdCompoundUniqueInput {
-  bookId: Int!
-  categoryId: Int!
-}
-
-type CategoriesOnBooksCountAggregate {
-  _all: Int!
-  bookId: Int!
-  categoryId: Int!
-  created_at: Int!
-  updated_at: Int!
-}
-
-input CategoriesOnBooksCountOrderByAggregateInput {
-  bookId: SortOrder
-  categoryId: SortOrder
-  created_at: SortOrder
-  updated_at: SortOrder
-}
-
-input CategoriesOnBooksCreateInput {
-  book: BookCreateNestedOneWithoutCategoriesInput!
-  category: CategoryCreateNestedOneWithoutCategoriesOnBooksInput!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksCreateManyBookInput {
-  categoryId: Int!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksCreateManyBookInputEnvelope {
-  data: [CategoriesOnBooksCreateManyBookInput!]!
-  skipDuplicates: Boolean
-}
-
-input CategoriesOnBooksCreateManyCategoryInput {
-  bookId: Int!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksCreateManyCategoryInputEnvelope {
-  data: [CategoriesOnBooksCreateManyCategoryInput!]!
-  skipDuplicates: Boolean
-}
-
-input CategoriesOnBooksCreateManyInput {
-  bookId: Int!
-  categoryId: Int!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksCreateNestedManyWithoutBookInput {
-  connect: [CategoriesOnBooksWhereUniqueInput!]
-  connectOrCreate: [CategoriesOnBooksCreateOrConnectWithoutBookInput!]
-  create: [CategoriesOnBooksCreateWithoutBookInput!]
-  createMany: CategoriesOnBooksCreateManyBookInputEnvelope
-}
-
-input CategoriesOnBooksCreateNestedManyWithoutCategoryInput {
-  connect: [CategoriesOnBooksWhereUniqueInput!]
-  connectOrCreate: [CategoriesOnBooksCreateOrConnectWithoutCategoryInput!]
-  create: [CategoriesOnBooksCreateWithoutCategoryInput!]
-  createMany: CategoriesOnBooksCreateManyCategoryInputEnvelope
-}
-
-input CategoriesOnBooksCreateOrConnectWithoutBookInput {
-  create: CategoriesOnBooksCreateWithoutBookInput!
-  where: CategoriesOnBooksWhereUniqueInput!
-}
-
-input CategoriesOnBooksCreateOrConnectWithoutCategoryInput {
-  create: CategoriesOnBooksCreateWithoutCategoryInput!
-  where: CategoriesOnBooksWhereUniqueInput!
-}
-
-input CategoriesOnBooksCreateWithoutBookInput {
-  category: CategoryCreateNestedOneWithoutCategoriesOnBooksInput!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksCreateWithoutCategoryInput {
-  book: BookCreateNestedOneWithoutCategoriesInput!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-type CategoriesOnBooksGroupBy {
-  _avg: CategoriesOnBooksAvgAggregate
-  _count: CategoriesOnBooksCountAggregate
-  _max: CategoriesOnBooksMaxAggregate
-  _min: CategoriesOnBooksMinAggregate
-  _sum: CategoriesOnBooksSumAggregate
-  bookId: Int!
-  categoryId: Int!
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksListRelationFilter {
-  every: CategoriesOnBooksWhereInput
-  none: CategoriesOnBooksWhereInput
-  some: CategoriesOnBooksWhereInput
-}
-
-type CategoriesOnBooksMaxAggregate {
-  bookId: Int
-  categoryId: Int
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksMaxOrderByAggregateInput {
-  bookId: SortOrder
-  categoryId: SortOrder
-  created_at: SortOrder
-  updated_at: SortOrder
-}
-
-type CategoriesOnBooksMinAggregate {
-  bookId: Int
-  categoryId: Int
-  created_at: DateTime
-  updated_at: DateTime
-}
-
-input CategoriesOnBooksMinOrderByAggregateInput {
-  bookId: SortOrder
-  categoryId: SortOrder
-  created_at: SortOrder
-  updated_at: SortOrder
-}
-
-input CategoriesOnBooksOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
-input CategoriesOnBooksOrderByWithAggregationInput {
-  _avg: CategoriesOnBooksAvgOrderByAggregateInput
-  _count: CategoriesOnBooksCountOrderByAggregateInput
-  _max: CategoriesOnBooksMaxOrderByAggregateInput
-  _min: CategoriesOnBooksMinOrderByAggregateInput
-  _sum: CategoriesOnBooksSumOrderByAggregateInput
-  bookId: SortOrder
-  categoryId: SortOrder
-  created_at: SortOrder
-  updated_at: SortOrder
-}
-
-input CategoriesOnBooksOrderByWithRelationInput {
-  book: BookOrderByWithRelationInput
-  bookId: SortOrder
-  category: CategoryOrderByWithRelationInput
-  categoryId: SortOrder
-  created_at: SortOrder
-  updated_at: SortOrder
-}
-
-enum CategoriesOnBooksScalarFieldEnum {
-  bookId
-  categoryId
-  created_at
-  updated_at
-}
-
-input CategoriesOnBooksScalarWhereInput {
-  AND: [CategoriesOnBooksScalarWhereInput!]
-  NOT: [CategoriesOnBooksScalarWhereInput!]
-  OR: [CategoriesOnBooksScalarWhereInput!]
-  bookId: IntFilter
-  categoryId: IntFilter
-  created_at: DateTimeNullableFilter
-  updated_at: DateTimeNullableFilter
-}
-
-input CategoriesOnBooksScalarWhereWithAggregatesInput {
-  AND: [CategoriesOnBooksScalarWhereWithAggregatesInput!]
-  NOT: [CategoriesOnBooksScalarWhereWithAggregatesInput!]
-  OR: [CategoriesOnBooksScalarWhereWithAggregatesInput!]
-  bookId: IntWithAggregatesFilter
-  categoryId: IntWithAggregatesFilter
-  created_at: DateTimeNullableWithAggregatesFilter
-  updated_at: DateTimeNullableWithAggregatesFilter
-}
-
-type CategoriesOnBooksSumAggregate {
-  bookId: Int
-  categoryId: Int
-}
-
-input CategoriesOnBooksSumOrderByAggregateInput {
-  bookId: SortOrder
-  categoryId: SortOrder
-}
-
-input CategoriesOnBooksUpdateInput {
-  book: BookUpdateOneRequiredWithoutCategoriesNestedInput
-  category: CategoryUpdateOneRequiredWithoutCategoriesOnBooksNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input CategoriesOnBooksUpdateManyMutationInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input CategoriesOnBooksUpdateManyWithWhereWithoutBookInput {
-  data: CategoriesOnBooksUpdateManyMutationInput!
-  where: CategoriesOnBooksScalarWhereInput!
-}
-
-input CategoriesOnBooksUpdateManyWithWhereWithoutCategoryInput {
-  data: CategoriesOnBooksUpdateManyMutationInput!
-  where: CategoriesOnBooksScalarWhereInput!
-}
-
-input CategoriesOnBooksUpdateManyWithoutBookNestedInput {
-  connect: [CategoriesOnBooksWhereUniqueInput!]
-  connectOrCreate: [CategoriesOnBooksCreateOrConnectWithoutBookInput!]
-  create: [CategoriesOnBooksCreateWithoutBookInput!]
-  createMany: CategoriesOnBooksCreateManyBookInputEnvelope
-  delete: [CategoriesOnBooksWhereUniqueInput!]
-  deleteMany: [CategoriesOnBooksScalarWhereInput!]
-  disconnect: [CategoriesOnBooksWhereUniqueInput!]
-  set: [CategoriesOnBooksWhereUniqueInput!]
-  update: [CategoriesOnBooksUpdateWithWhereUniqueWithoutBookInput!]
-  updateMany: [CategoriesOnBooksUpdateManyWithWhereWithoutBookInput!]
-  upsert: [CategoriesOnBooksUpsertWithWhereUniqueWithoutBookInput!]
-}
-
-input CategoriesOnBooksUpdateManyWithoutCategoryNestedInput {
-  connect: [CategoriesOnBooksWhereUniqueInput!]
-  connectOrCreate: [CategoriesOnBooksCreateOrConnectWithoutCategoryInput!]
-  create: [CategoriesOnBooksCreateWithoutCategoryInput!]
-  createMany: CategoriesOnBooksCreateManyCategoryInputEnvelope
-  delete: [CategoriesOnBooksWhereUniqueInput!]
-  deleteMany: [CategoriesOnBooksScalarWhereInput!]
-  disconnect: [CategoriesOnBooksWhereUniqueInput!]
-  set: [CategoriesOnBooksWhereUniqueInput!]
-  update: [CategoriesOnBooksUpdateWithWhereUniqueWithoutCategoryInput!]
-  updateMany: [CategoriesOnBooksUpdateManyWithWhereWithoutCategoryInput!]
-  upsert: [CategoriesOnBooksUpsertWithWhereUniqueWithoutCategoryInput!]
-}
-
-input CategoriesOnBooksUpdateWithWhereUniqueWithoutBookInput {
-  data: CategoriesOnBooksUpdateWithoutBookInput!
-  where: CategoriesOnBooksWhereUniqueInput!
-}
-
-input CategoriesOnBooksUpdateWithWhereUniqueWithoutCategoryInput {
-  data: CategoriesOnBooksUpdateWithoutCategoryInput!
-  where: CategoriesOnBooksWhereUniqueInput!
-}
-
-input CategoriesOnBooksUpdateWithoutBookInput {
-  category: CategoryUpdateOneRequiredWithoutCategoriesOnBooksNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input CategoriesOnBooksUpdateWithoutCategoryInput {
-  book: BookUpdateOneRequiredWithoutCategoriesNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-}
-
-input CategoriesOnBooksUpsertWithWhereUniqueWithoutBookInput {
-  create: CategoriesOnBooksCreateWithoutBookInput!
-  update: CategoriesOnBooksUpdateWithoutBookInput!
-  where: CategoriesOnBooksWhereUniqueInput!
-}
-
-input CategoriesOnBooksUpsertWithWhereUniqueWithoutCategoryInput {
-  create: CategoriesOnBooksCreateWithoutCategoryInput!
-  update: CategoriesOnBooksUpdateWithoutCategoryInput!
-  where: CategoriesOnBooksWhereUniqueInput!
-}
-
-input CategoriesOnBooksWhereInput {
-  AND: [CategoriesOnBooksWhereInput!]
-  NOT: [CategoriesOnBooksWhereInput!]
-  OR: [CategoriesOnBooksWhereInput!]
-  book: BookRelationFilter
-  bookId: IntFilter
-  category: CategoryRelationFilter
-  categoryId: IntFilter
-  created_at: DateTimeNullableFilter
-  updated_at: DateTimeNullableFilter
-}
-
-input CategoriesOnBooksWhereUniqueInput {
-  categoryId_bookId: CategoriesOnBooksCategoryIdBookIdCompoundUniqueInput
+type AggregateUserProvider {
+  _count: UserProviderCountAggregate
+  _max: UserProviderMaxAggregate
+  _min: UserProviderMinAggregate
 }
 
 type Category {
   _count: CategoryCount
-  categoriesOnBooks(cursor: CategoriesOnBooksWhereUniqueInput, distinct: [CategoriesOnBooksScalarFieldEnum!], orderBy: [CategoriesOnBooksOrderByWithRelationInput!], skip: Int, take: Int, where: CategoriesOnBooksWhereInput): [CategoriesOnBooks!]!
-  created_at: DateTime
-  displayName: String!
-  id: Int!
+  childCategories: [Category]
+  children(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
+  id: String!
   name: String!
-  updated_at: DateTime
-}
-
-type CategoryAvgAggregate {
-  id: Float
-}
-
-input CategoryAvgOrderByAggregateInput {
-  id: SortOrder
+  parent: Category
+  parentCategory: Category
+  parentId: String
+  products(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
 }
 
 type CategoryCount {
-  categoriesOnBooks: Int!
+  children: Int!
+  products: Int!
 }
 
 type CategoryCountAggregate {
   _all: Int!
-  created_at: Int!
-  displayName: Int!
   id: Int!
   name: Int!
-  updated_at: Int!
+  parentId: Int!
 }
 
 input CategoryCountOrderByAggregateInput {
-  created_at: SortOrder
-  displayName: SortOrder
   id: SortOrder
   name: SortOrder
-  updated_at: SortOrder
+  parentId: SortOrder
 }
 
 input CategoryCreateInput {
-  categoriesOnBooks: CategoriesOnBooksCreateNestedManyWithoutCategoryInput
-  created_at: DateTime
-  displayName: String!
+  children: CategoryCreateNestedManyWithoutParentInput
+  id: String
   name: String!
-  updated_at: DateTime
+  parent: CategoryCreateNestedOneWithoutChildrenInput
+  products: ProductCreateNestedManyWithoutCategoryInput
 }
 
 input CategoryCreateManyInput {
-  created_at: DateTime
-  displayName: String!
-  id: Int
+  id: String
   name: String!
-  updated_at: DateTime
+  parentId: String
 }
 
-input CategoryCreateNestedOneWithoutCategoriesOnBooksInput {
+input CategoryCreateManyParentInput {
+  id: String
+  name: String!
+}
+
+input CategoryCreateManyParentInputEnvelope {
+  data: [CategoryCreateManyParentInput!]!
+  skipDuplicates: Boolean
+}
+
+input CategoryCreateNestedManyWithoutParentInput {
+  connect: [CategoryWhereUniqueInput!]
+  connectOrCreate: [CategoryCreateOrConnectWithoutParentInput!]
+  create: [CategoryCreateWithoutParentInput!]
+  createMany: CategoryCreateManyParentInputEnvelope
+}
+
+input CategoryCreateNestedOneWithoutChildrenInput {
   connect: CategoryWhereUniqueInput
-  connectOrCreate: CategoryCreateOrConnectWithoutCategoriesOnBooksInput
-  create: CategoryCreateWithoutCategoriesOnBooksInput
+  connectOrCreate: CategoryCreateOrConnectWithoutChildrenInput
+  create: CategoryCreateWithoutChildrenInput
 }
 
-input CategoryCreateOrConnectWithoutCategoriesOnBooksInput {
-  create: CategoryCreateWithoutCategoriesOnBooksInput!
+input CategoryCreateNestedOneWithoutProductsInput {
+  connect: CategoryWhereUniqueInput
+  connectOrCreate: CategoryCreateOrConnectWithoutProductsInput
+  create: CategoryCreateWithoutProductsInput
+}
+
+input CategoryCreateOrConnectWithoutChildrenInput {
+  create: CategoryCreateWithoutChildrenInput!
   where: CategoryWhereUniqueInput!
 }
 
-input CategoryCreateWithoutCategoriesOnBooksInput {
-  created_at: DateTime
-  displayName: String!
+input CategoryCreateOrConnectWithoutParentInput {
+  create: CategoryCreateWithoutParentInput!
+  where: CategoryWhereUniqueInput!
+}
+
+input CategoryCreateOrConnectWithoutProductsInput {
+  create: CategoryCreateWithoutProductsInput!
+  where: CategoryWhereUniqueInput!
+}
+
+input CategoryCreateWithoutChildrenInput {
+  id: String
   name: String!
-  updated_at: DateTime
+  parent: CategoryCreateNestedOneWithoutChildrenInput
+  products: ProductCreateNestedManyWithoutCategoryInput
+}
+
+input CategoryCreateWithoutParentInput {
+  children: CategoryCreateNestedManyWithoutParentInput
+  id: String
+  name: String!
+  products: ProductCreateNestedManyWithoutCategoryInput
+}
+
+input CategoryCreateWithoutProductsInput {
+  children: CategoryCreateNestedManyWithoutParentInput
+  id: String
+  name: String!
+  parent: CategoryCreateNestedOneWithoutChildrenInput
 }
 
 type CategoryGroupBy {
-  _avg: CategoryAvgAggregate
   _count: CategoryCountAggregate
   _max: CategoryMaxAggregate
   _min: CategoryMinAggregate
-  _sum: CategorySumAggregate
-  created_at: DateTime
-  displayName: String!
-  id: Int!
+  id: String!
   name: String!
-  updated_at: DateTime
+  parentId: String
+}
+
+input CategoryListRelationFilter {
+  every: CategoryWhereInput
+  none: CategoryWhereInput
+  some: CategoryWhereInput
 }
 
 type CategoryMaxAggregate {
-  created_at: DateTime
-  displayName: String
-  id: Int
+  id: String
   name: String
-  updated_at: DateTime
+  parentId: String
 }
 
 input CategoryMaxOrderByAggregateInput {
-  created_at: SortOrder
-  displayName: SortOrder
   id: SortOrder
   name: SortOrder
-  updated_at: SortOrder
+  parentId: SortOrder
 }
 
 type CategoryMinAggregate {
-  created_at: DateTime
-  displayName: String
-  id: Int
+  id: String
   name: String
-  updated_at: DateTime
+  parentId: String
 }
 
 input CategoryMinOrderByAggregateInput {
-  created_at: SortOrder
-  displayName: SortOrder
   id: SortOrder
   name: SortOrder
-  updated_at: SortOrder
+  parentId: SortOrder
+}
+
+input CategoryOrderByRelationAggregateInput {
+  _count: SortOrder
 }
 
 input CategoryOrderByWithAggregationInput {
-  _avg: CategoryAvgOrderByAggregateInput
   _count: CategoryCountOrderByAggregateInput
   _max: CategoryMaxOrderByAggregateInput
   _min: CategoryMinOrderByAggregateInput
-  _sum: CategorySumOrderByAggregateInput
-  created_at: SortOrder
-  displayName: SortOrder
   id: SortOrder
   name: SortOrder
-  updated_at: SortOrder
+  parentId: SortOrder
 }
 
 input CategoryOrderByWithRelationInput {
-  categoriesOnBooks: CategoriesOnBooksOrderByRelationAggregateInput
-  created_at: SortOrder
-  displayName: SortOrder
+  children: CategoryOrderByRelationAggregateInput
   id: SortOrder
   name: SortOrder
-  updated_at: SortOrder
+  parent: CategoryOrderByWithRelationInput
+  parentId: SortOrder
+  products: ProductOrderByRelationAggregateInput
 }
 
 input CategoryRelationFilter {
@@ -1192,88 +233,156 @@ input CategoryRelationFilter {
 }
 
 enum CategoryScalarFieldEnum {
-  created_at
-  displayName
   id
   name
-  updated_at
+  parentId
+}
+
+input CategoryScalarWhereInput {
+  AND: [CategoryScalarWhereInput!]
+  NOT: [CategoryScalarWhereInput!]
+  OR: [CategoryScalarWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  parentId: StringNullableFilter
 }
 
 input CategoryScalarWhereWithAggregatesInput {
   AND: [CategoryScalarWhereWithAggregatesInput!]
   NOT: [CategoryScalarWhereWithAggregatesInput!]
   OR: [CategoryScalarWhereWithAggregatesInput!]
-  created_at: DateTimeNullableWithAggregatesFilter
-  displayName: StringWithAggregatesFilter
-  id: IntWithAggregatesFilter
+  id: StringWithAggregatesFilter
   name: StringWithAggregatesFilter
-  updated_at: DateTimeNullableWithAggregatesFilter
-}
-
-type CategorySumAggregate {
-  id: Int
-}
-
-input CategorySumOrderByAggregateInput {
-  id: SortOrder
+  parentId: StringNullableWithAggregatesFilter
 }
 
 input CategoryUpdateInput {
-  categoriesOnBooks: CategoriesOnBooksUpdateManyWithoutCategoryNestedInput
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  displayName: StringFieldUpdateOperationsInput
+  children: CategoryUpdateManyWithoutParentNestedInput
+  id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
+  parent: CategoryUpdateOneWithoutChildrenNestedInput
+  products: ProductUpdateManyWithoutCategoryNestedInput
 }
 
 input CategoryUpdateManyMutationInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  displayName: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
 }
 
-input CategoryUpdateOneRequiredWithoutCategoriesOnBooksNestedInput {
+input CategoryUpdateManyWithWhereWithoutParentInput {
+  data: CategoryUpdateManyMutationInput!
+  where: CategoryScalarWhereInput!
+}
+
+input CategoryUpdateManyWithoutParentNestedInput {
+  connect: [CategoryWhereUniqueInput!]
+  connectOrCreate: [CategoryCreateOrConnectWithoutParentInput!]
+  create: [CategoryCreateWithoutParentInput!]
+  createMany: CategoryCreateManyParentInputEnvelope
+  delete: [CategoryWhereUniqueInput!]
+  deleteMany: [CategoryScalarWhereInput!]
+  disconnect: [CategoryWhereUniqueInput!]
+  set: [CategoryWhereUniqueInput!]
+  update: [CategoryUpdateWithWhereUniqueWithoutParentInput!]
+  updateMany: [CategoryUpdateManyWithWhereWithoutParentInput!]
+  upsert: [CategoryUpsertWithWhereUniqueWithoutParentInput!]
+}
+
+input CategoryUpdateOneRequiredWithoutProductsNestedInput {
   connect: CategoryWhereUniqueInput
-  connectOrCreate: CategoryCreateOrConnectWithoutCategoriesOnBooksInput
-  create: CategoryCreateWithoutCategoriesOnBooksInput
-  update: CategoryUpdateWithoutCategoriesOnBooksInput
-  upsert: CategoryUpsertWithoutCategoriesOnBooksInput
+  connectOrCreate: CategoryCreateOrConnectWithoutProductsInput
+  create: CategoryCreateWithoutProductsInput
+  update: CategoryUpdateWithoutProductsInput
+  upsert: CategoryUpsertWithoutProductsInput
 }
 
-input CategoryUpdateWithoutCategoriesOnBooksInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  displayName: StringFieldUpdateOperationsInput
+input CategoryUpdateOneWithoutChildrenNestedInput {
+  connect: CategoryWhereUniqueInput
+  connectOrCreate: CategoryCreateOrConnectWithoutChildrenInput
+  create: CategoryCreateWithoutChildrenInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CategoryUpdateWithoutChildrenInput
+  upsert: CategoryUpsertWithoutChildrenInput
+}
+
+input CategoryUpdateWithWhereUniqueWithoutParentInput {
+  data: CategoryUpdateWithoutParentInput!
+  where: CategoryWhereUniqueInput!
+}
+
+input CategoryUpdateWithoutChildrenInput {
+  id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
+  parent: CategoryUpdateOneWithoutChildrenNestedInput
+  products: ProductUpdateManyWithoutCategoryNestedInput
 }
 
-input CategoryUpsertWithoutCategoriesOnBooksInput {
-  create: CategoryCreateWithoutCategoriesOnBooksInput!
-  update: CategoryUpdateWithoutCategoriesOnBooksInput!
+input CategoryUpdateWithoutParentInput {
+  children: CategoryUpdateManyWithoutParentNestedInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  products: ProductUpdateManyWithoutCategoryNestedInput
+}
+
+input CategoryUpdateWithoutProductsInput {
+  children: CategoryUpdateManyWithoutParentNestedInput
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  parent: CategoryUpdateOneWithoutChildrenNestedInput
+}
+
+input CategoryUpsertWithWhereUniqueWithoutParentInput {
+  create: CategoryCreateWithoutParentInput!
+  update: CategoryUpdateWithoutParentInput!
+  where: CategoryWhereUniqueInput!
+}
+
+input CategoryUpsertWithoutChildrenInput {
+  create: CategoryCreateWithoutChildrenInput!
+  update: CategoryUpdateWithoutChildrenInput!
+}
+
+input CategoryUpsertWithoutProductsInput {
+  create: CategoryCreateWithoutProductsInput!
+  update: CategoryUpdateWithoutProductsInput!
 }
 
 input CategoryWhereInput {
   AND: [CategoryWhereInput!]
   NOT: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
-  categoriesOnBooks: CategoriesOnBooksListRelationFilter
-  created_at: DateTimeNullableFilter
-  displayName: StringFilter
-  id: IntFilter
+  children: CategoryListRelationFilter
+  id: StringFilter
   name: StringFilter
-  updated_at: DateTimeNullableFilter
+  parent: CategoryRelationFilter
+  parentId: StringNullableFilter
+  products: ProductListRelationFilter
 }
 
 input CategoryWhereUniqueInput {
-  id: Int
-  name: String
+  id: String
 }
 
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
 scalar DateTime
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
+}
 
 input DateTimeNullableFilter {
   equals: DateTime
@@ -1300,25 +409,61 @@ input DateTimeNullableWithAggregatesFilter {
   notIn: [DateTime!]
 }
 
-input EnumRoleFieldUpdateOperationsInput {
-  set: Role
-}
-
-input EnumRoleFilter {
-  equals: Role
-  in: [Role!]
-  not: NestedEnumRoleFilter
-  notIn: [Role!]
-}
-
-input EnumRoleWithAggregatesFilter {
+input DateTimeWithAggregatesFilter {
   _count: NestedIntFilter
-  _max: NestedEnumRoleFilter
-  _min: NestedEnumRoleFilter
-  equals: Role
-  in: [Role!]
-  not: NestedEnumRoleWithAggregatesFilter
-  notIn: [Role!]
+  _max: NestedDateTimeFilter
+  _min: NestedDateTimeFilter
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  notIn: [DateTime!]
+}
+
+input FloatFieldUpdateOperationsInput {
+  decrement: Float
+  divide: Float
+  increment: Float
+  multiply: Float
+  set: Float
+}
+
+input FloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
+}
+
+input FloatWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedFloatFilter
+  _min: NestedFloatFilter
+  _sum: NestedFloatFilter
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatWithAggregatesFilter
+  notIn: [Float!]
+}
+
+input IntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
 }
 
 input IntFilter {
@@ -1329,33 +474,6 @@ input IntFilter {
   lt: Int
   lte: Int
   not: NestedIntFilter
-  notIn: [Int!]
-}
-
-input IntNullableFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableFilter
-  notIn: [Int!]
-}
-
-input IntNullableWithAggregatesFilter {
-  _avg: NestedFloatNullableFilter
-  _count: NestedIntNullableFilter
-  _max: NestedIntNullableFilter
-  _min: NestedIntNullableFilter
-  _sum: NestedIntNullableFilter
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableWithAggregatesFilter
   notIn: [Int!]
 }
 
@@ -1376,54 +494,66 @@ input IntWithAggregatesFilter {
 }
 
 type Mutation {
-  createManyAuthor(data: [AuthorCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
-  createManyBook(data: [BookCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
-  createManyCategoriesOnBooks(data: [CategoriesOnBooksCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyCategory(data: [CategoryCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyOffer(data: [OfferCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyOrder(data: [OrderCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyOrderItem(data: [OrderItemCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyProduct(data: [ProductCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
-  createOneAuthor(data: AuthorCreateInput!): Author!
-  createOneBook(data: BookCreateInput!): Book!
-  createOneCategoriesOnBooks(data: CategoriesOnBooksCreateInput!): CategoriesOnBooks!
+  createManyUserProvider(data: [UserProviderCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createOneCategory(data: CategoryCreateInput!): Category!
+  createOneOffer(data: OfferCreateInput!): Offer!
+  createOneOrder(data: OrderCreateInput!): Order!
+  createOneOrderItem(data: OrderItemCreateInput!): OrderItem!
+  createOneProduct(data: ProductCreateInput!): Product!
   createOneUser(data: UserCreateInput!): User!
-  deleteManyAuthor(where: AuthorWhereInput): AffectedRowsOutput!
-  deleteManyBook(where: BookWhereInput): AffectedRowsOutput!
-  deleteManyCategoriesOnBooks(where: CategoriesOnBooksWhereInput): AffectedRowsOutput!
+  createOneUserProvider(data: UserProviderCreateInput!): UserProvider!
   deleteManyCategory(where: CategoryWhereInput): AffectedRowsOutput!
+  deleteManyOffer(where: OfferWhereInput): AffectedRowsOutput!
+  deleteManyOrder(where: OrderWhereInput): AffectedRowsOutput!
+  deleteManyOrderItem(where: OrderItemWhereInput): AffectedRowsOutput!
+  deleteManyProduct(where: ProductWhereInput): AffectedRowsOutput!
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
-  deleteOneAuthor(where: AuthorWhereUniqueInput!): Author
-  deleteOneBook(where: BookWhereUniqueInput!): Book
-  deleteOneCategoriesOnBooks(where: CategoriesOnBooksWhereUniqueInput!): CategoriesOnBooks
+  deleteManyUserProvider(where: UserProviderWhereInput): AffectedRowsOutput!
   deleteOneCategory(where: CategoryWhereUniqueInput!): Category
+  deleteOneOffer(where: OfferWhereUniqueInput!): Offer
+  deleteOneOrder(where: OrderWhereUniqueInput!): Order
+  deleteOneOrderItem(where: OrderItemWhereUniqueInput!): OrderItem
+  deleteOneProduct(where: ProductWhereUniqueInput!): Product
   deleteOneUser(where: UserWhereUniqueInput!): User
-  updateManyAuthor(data: AuthorUpdateManyMutationInput!, where: AuthorWhereInput): AffectedRowsOutput!
-  updateManyBook(data: BookUpdateManyMutationInput!, where: BookWhereInput): AffectedRowsOutput!
-  updateManyCategoriesOnBooks(data: CategoriesOnBooksUpdateManyMutationInput!, where: CategoriesOnBooksWhereInput): AffectedRowsOutput!
+  deleteOneUserProvider(where: UserProviderWhereUniqueInput!): UserProvider
   updateManyCategory(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): AffectedRowsOutput!
+  updateManyOffer(data: OfferUpdateManyMutationInput!, where: OfferWhereInput): AffectedRowsOutput!
+  updateManyOrder(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): AffectedRowsOutput!
+  updateManyOrderItem(data: OrderItemUpdateManyMutationInput!, where: OrderItemWhereInput): AffectedRowsOutput!
+  updateManyProduct(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
-  updateOneAuthor(data: AuthorUpdateInput!, where: AuthorWhereUniqueInput!): Author
-  updateOneBook(data: BookUpdateInput!, where: BookWhereUniqueInput!): Book
-  updateOneCategoriesOnBooks(data: CategoriesOnBooksUpdateInput!, where: CategoriesOnBooksWhereUniqueInput!): CategoriesOnBooks
+  updateManyUserProvider(data: UserProviderUpdateManyMutationInput!, where: UserProviderWhereInput): AffectedRowsOutput!
   updateOneCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  updateOneOffer(data: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer
+  updateOneOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
+  updateOneOrderItem(data: OrderItemUpdateInput!, where: OrderItemWhereUniqueInput!): OrderItem
+  updateOneProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  upsertOneAuthor(create: AuthorCreateInput!, update: AuthorUpdateInput!, where: AuthorWhereUniqueInput!): Author!
-  upsertOneBook(create: BookCreateInput!, update: BookUpdateInput!, where: BookWhereUniqueInput!): Book!
-  upsertOneCategoriesOnBooks(create: CategoriesOnBooksCreateInput!, update: CategoriesOnBooksUpdateInput!, where: CategoriesOnBooksWhereUniqueInput!): CategoriesOnBooks!
+  updateOneUserProvider(data: UserProviderUpdateInput!, where: UserProviderWhereUniqueInput!): UserProvider
   upsertOneCategory(create: CategoryCreateInput!, update: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
+  upsertOneOffer(create: OfferCreateInput!, update: OfferUpdateInput!, where: OfferWhereUniqueInput!): Offer!
+  upsertOneOrder(create: OrderCreateInput!, update: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order!
+  upsertOneOrderItem(create: OrderItemCreateInput!, update: OrderItemUpdateInput!, where: OrderItemWhereUniqueInput!): OrderItem!
+  upsertOneProduct(create: ProductCreateInput!, update: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
+  upsertOneUserProvider(create: UserProviderCreateInput!, update: UserProviderUpdateInput!, where: UserProviderWhereUniqueInput!): UserProvider!
 }
 
-input NestedBoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
-}
-
-input NestedBoolWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedBoolFilter
-  _min: NestedBoolFilter
-  equals: Boolean
-  not: NestedBoolWithAggregatesFilter
+input NestedDateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeFilter
+  notIn: [DateTime!]
 }
 
 input NestedDateTimeNullableFilter {
@@ -1451,21 +581,18 @@ input NestedDateTimeNullableWithAggregatesFilter {
   notIn: [DateTime!]
 }
 
-input NestedEnumRoleFilter {
-  equals: Role
-  in: [Role!]
-  not: NestedEnumRoleFilter
-  notIn: [Role!]
-}
-
-input NestedEnumRoleWithAggregatesFilter {
+input NestedDateTimeWithAggregatesFilter {
   _count: NestedIntFilter
-  _max: NestedEnumRoleFilter
-  _min: NestedEnumRoleFilter
-  equals: Role
-  in: [Role!]
-  not: NestedEnumRoleWithAggregatesFilter
-  notIn: [Role!]
+  _max: NestedDateTimeFilter
+  _min: NestedDateTimeFilter
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: NestedDateTimeWithAggregatesFilter
+  notIn: [DateTime!]
 }
 
 input NestedFloatFilter {
@@ -1479,14 +606,19 @@ input NestedFloatFilter {
   notIn: [Float!]
 }
 
-input NestedFloatNullableFilter {
+input NestedFloatWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedFloatFilter
+  _min: NestedFloatFilter
+  _sum: NestedFloatFilter
   equals: Float
   gt: Float
   gte: Float
   in: [Float!]
   lt: Float
   lte: Float
-  not: NestedFloatNullableFilter
+  not: NestedFloatWithAggregatesFilter
   notIn: [Float!]
 }
 
@@ -1509,22 +641,6 @@ input NestedIntNullableFilter {
   lt: Int
   lte: Int
   not: NestedIntNullableFilter
-  notIn: [Int!]
-}
-
-input NestedIntNullableWithAggregatesFilter {
-  _avg: NestedFloatNullableFilter
-  _count: NestedIntNullableFilter
-  _max: NestedIntNullableFilter
-  _min: NestedIntNullableFilter
-  _sum: NestedIntNullableFilter
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntNullableWithAggregatesFilter
   notIn: [Int!]
 }
 
@@ -1558,6 +674,37 @@ input NestedStringFilter {
   startsWith: String
 }
 
+input NestedStringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input NestedStringNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedStringNullableFilter
+  _min: NestedStringNullableFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableWithAggregatesFilter
+  notIn: [String!]
+  startsWith: String
+}
+
 input NestedStringWithAggregatesFilter {
   _count: NestedIntFilter
   _max: NestedStringFilter
@@ -1579,48 +726,1436 @@ input NullableDateTimeFieldUpdateOperationsInput {
   set: DateTime
 }
 
-type Query {
-  aggregateAuthor(cursor: AuthorWhereUniqueInput, orderBy: [AuthorOrderByWithRelationInput!], skip: Int, take: Int, where: AuthorWhereInput): AggregateAuthor!
-  aggregateBook(cursor: BookWhereUniqueInput, orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): AggregateBook!
-  aggregateCategoriesOnBooks(cursor: CategoriesOnBooksWhereUniqueInput, orderBy: [CategoriesOnBooksOrderByWithRelationInput!], skip: Int, take: Int, where: CategoriesOnBooksWhereInput): AggregateCategoriesOnBooks!
-  aggregateCategory(cursor: CategoryWhereUniqueInput, orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): AggregateCategory!
-  aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
-  author(where: AuthorWhereUniqueInput!): Author
-  authors(cursor: AuthorWhereUniqueInput, distinct: [AuthorScalarFieldEnum!], orderBy: [AuthorOrderByWithRelationInput!], skip: Int, take: Int, where: AuthorWhereInput): [Author!]!
-  bestUser: User
-  book(where: BookWhereUniqueInput!): Book
-  books(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): [Book!]!
-  categories(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
-  category(where: CategoryWhereUniqueInput!): Category
-  findFirstAuthor(cursor: AuthorWhereUniqueInput, distinct: [AuthorScalarFieldEnum!], orderBy: [AuthorOrderByWithRelationInput!], skip: Int, take: Int, where: AuthorWhereInput): Author
-  findFirstAuthorOrThrow(cursor: AuthorWhereUniqueInput, distinct: [AuthorScalarFieldEnum!], orderBy: [AuthorOrderByWithRelationInput!], skip: Int, take: Int, where: AuthorWhereInput): Author
-  findFirstBook(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): Book
-  findFirstBookOrThrow(cursor: BookWhereUniqueInput, distinct: [BookScalarFieldEnum!], orderBy: [BookOrderByWithRelationInput!], skip: Int, take: Int, where: BookWhereInput): Book
-  findFirstCategoriesOnBooks(cursor: CategoriesOnBooksWhereUniqueInput, distinct: [CategoriesOnBooksScalarFieldEnum!], orderBy: [CategoriesOnBooksOrderByWithRelationInput!], skip: Int, take: Int, where: CategoriesOnBooksWhereInput): CategoriesOnBooks
-  findFirstCategoriesOnBooksOrThrow(cursor: CategoriesOnBooksWhereUniqueInput, distinct: [CategoriesOnBooksScalarFieldEnum!], orderBy: [CategoriesOnBooksOrderByWithRelationInput!], skip: Int, take: Int, where: CategoriesOnBooksWhereInput): CategoriesOnBooks
-  findFirstCategory(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): Category
-  findFirstCategoryOrThrow(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): Category
-  findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
-  findFirstUserOrThrow(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
-  findManyCategoriesOnBooks(cursor: CategoriesOnBooksWhereUniqueInput, distinct: [CategoriesOnBooksScalarFieldEnum!], orderBy: [CategoriesOnBooksOrderByWithRelationInput!], skip: Int, take: Int, where: CategoriesOnBooksWhereInput): [CategoriesOnBooks!]!
-  findUniqueCategoriesOnBooks(where: CategoriesOnBooksWhereUniqueInput!): CategoriesOnBooks
-  findUniqueCategoriesOnBooksOrThrow(where: CategoriesOnBooksWhereUniqueInput!): CategoriesOnBooks
-  getAuthor(where: AuthorWhereUniqueInput!): Author
-  getBook(where: BookWhereUniqueInput!): Book
-  getCategory(where: CategoryWhereUniqueInput!): Category
-  getUser(where: UserWhereUniqueInput!): User
-  groupByAuthor(by: [AuthorScalarFieldEnum!]!, having: AuthorScalarWhereWithAggregatesInput, orderBy: [AuthorOrderByWithAggregationInput!], skip: Int, take: Int, where: AuthorWhereInput): [AuthorGroupBy!]!
-  groupByBook(by: [BookScalarFieldEnum!]!, having: BookScalarWhereWithAggregatesInput, orderBy: [BookOrderByWithAggregationInput!], skip: Int, take: Int, where: BookWhereInput): [BookGroupBy!]!
-  groupByCategoriesOnBooks(by: [CategoriesOnBooksScalarFieldEnum!]!, having: CategoriesOnBooksScalarWhereWithAggregatesInput, orderBy: [CategoriesOnBooksOrderByWithAggregationInput!], skip: Int, take: Int, where: CategoriesOnBooksWhereInput): [CategoriesOnBooksGroupBy!]!
-  groupByCategory(by: [CategoryScalarFieldEnum!]!, having: CategoryScalarWhereWithAggregatesInput, orderBy: [CategoryOrderByWithAggregationInput!], skip: Int, take: Int, where: CategoryWhereInput): [CategoryGroupBy!]!
-  groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
-  user(where: UserWhereUniqueInput!): User
-  users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+input NullableStringFieldUpdateOperationsInput {
+  set: String
 }
 
-enum Role {
-  admin
-  editor
+type Offer {
+  code: String
+  discount: Float!
+  endDate: DateTime
+  id: String!
+  product: Product!
+  productId: String!
+  startDate: DateTime
+  type: String!
+}
+
+type OfferAvgAggregate {
+  discount: Float
+}
+
+input OfferAvgOrderByAggregateInput {
+  discount: SortOrder
+}
+
+type OfferCountAggregate {
+  _all: Int!
+  code: Int!
+  discount: Int!
+  endDate: Int!
+  id: Int!
+  productId: Int!
+  startDate: Int!
+  type: Int!
+}
+
+input OfferCountOrderByAggregateInput {
+  code: SortOrder
+  discount: SortOrder
+  endDate: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  startDate: SortOrder
+  type: SortOrder
+}
+
+input OfferCreateInput {
+  code: String
+  discount: Float!
+  endDate: DateTime
+  id: String
+  product: ProductCreateNestedOneWithoutOffersInput!
+  startDate: DateTime
+  type: String!
+}
+
+input OfferCreateManyInput {
+  code: String
+  discount: Float!
+  endDate: DateTime
+  id: String
+  productId: String!
+  startDate: DateTime
+  type: String!
+}
+
+input OfferCreateManyProductInput {
+  code: String
+  discount: Float!
+  endDate: DateTime
+  id: String
+  startDate: DateTime
+  type: String!
+}
+
+input OfferCreateManyProductInputEnvelope {
+  data: [OfferCreateManyProductInput!]!
+  skipDuplicates: Boolean
+}
+
+input OfferCreateNestedManyWithoutProductInput {
+  connect: [OfferWhereUniqueInput!]
+  connectOrCreate: [OfferCreateOrConnectWithoutProductInput!]
+  create: [OfferCreateWithoutProductInput!]
+  createMany: OfferCreateManyProductInputEnvelope
+}
+
+input OfferCreateOrConnectWithoutProductInput {
+  create: OfferCreateWithoutProductInput!
+  where: OfferWhereUniqueInput!
+}
+
+input OfferCreateWithoutProductInput {
+  code: String
+  discount: Float!
+  endDate: DateTime
+  id: String
+  startDate: DateTime
+  type: String!
+}
+
+type OfferGroupBy {
+  _avg: OfferAvgAggregate
+  _count: OfferCountAggregate
+  _max: OfferMaxAggregate
+  _min: OfferMinAggregate
+  _sum: OfferSumAggregate
+  code: String
+  discount: Float!
+  endDate: DateTime
+  id: String!
+  productId: String!
+  startDate: DateTime
+  type: String!
+}
+
+input OfferListRelationFilter {
+  every: OfferWhereInput
+  none: OfferWhereInput
+  some: OfferWhereInput
+}
+
+type OfferMaxAggregate {
+  code: String
+  discount: Float
+  endDate: DateTime
+  id: String
+  productId: String
+  startDate: DateTime
+  type: String
+}
+
+input OfferMaxOrderByAggregateInput {
+  code: SortOrder
+  discount: SortOrder
+  endDate: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  startDate: SortOrder
+  type: SortOrder
+}
+
+type OfferMinAggregate {
+  code: String
+  discount: Float
+  endDate: DateTime
+  id: String
+  productId: String
+  startDate: DateTime
+  type: String
+}
+
+input OfferMinOrderByAggregateInput {
+  code: SortOrder
+  discount: SortOrder
+  endDate: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  startDate: SortOrder
+  type: SortOrder
+}
+
+input OfferOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input OfferOrderByWithAggregationInput {
+  _avg: OfferAvgOrderByAggregateInput
+  _count: OfferCountOrderByAggregateInput
+  _max: OfferMaxOrderByAggregateInput
+  _min: OfferMinOrderByAggregateInput
+  _sum: OfferSumOrderByAggregateInput
+  code: SortOrder
+  discount: SortOrder
+  endDate: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  startDate: SortOrder
+  type: SortOrder
+}
+
+input OfferOrderByWithRelationInput {
+  code: SortOrder
+  discount: SortOrder
+  endDate: SortOrder
+  id: SortOrder
+  product: ProductOrderByWithRelationInput
+  productId: SortOrder
+  startDate: SortOrder
+  type: SortOrder
+}
+
+enum OfferScalarFieldEnum {
+  code
+  discount
+  endDate
+  id
+  productId
+  startDate
+  type
+}
+
+input OfferScalarWhereInput {
+  AND: [OfferScalarWhereInput!]
+  NOT: [OfferScalarWhereInput!]
+  OR: [OfferScalarWhereInput!]
+  code: StringNullableFilter
+  discount: FloatFilter
+  endDate: DateTimeNullableFilter
+  id: StringFilter
+  productId: StringFilter
+  startDate: DateTimeNullableFilter
+  type: StringFilter
+}
+
+input OfferScalarWhereWithAggregatesInput {
+  AND: [OfferScalarWhereWithAggregatesInput!]
+  NOT: [OfferScalarWhereWithAggregatesInput!]
+  OR: [OfferScalarWhereWithAggregatesInput!]
+  code: StringNullableWithAggregatesFilter
+  discount: FloatWithAggregatesFilter
+  endDate: DateTimeNullableWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  productId: StringWithAggregatesFilter
+  startDate: DateTimeNullableWithAggregatesFilter
+  type: StringWithAggregatesFilter
+}
+
+type OfferSumAggregate {
+  discount: Float
+}
+
+input OfferSumOrderByAggregateInput {
+  discount: SortOrder
+}
+
+input OfferUpdateInput {
+  code: NullableStringFieldUpdateOperationsInput
+  discount: FloatFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  product: ProductUpdateOneRequiredWithoutOffersNestedInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  type: StringFieldUpdateOperationsInput
+}
+
+input OfferUpdateManyMutationInput {
+  code: NullableStringFieldUpdateOperationsInput
+  discount: FloatFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  type: StringFieldUpdateOperationsInput
+}
+
+input OfferUpdateManyWithWhereWithoutProductInput {
+  data: OfferUpdateManyMutationInput!
+  where: OfferScalarWhereInput!
+}
+
+input OfferUpdateManyWithoutProductNestedInput {
+  connect: [OfferWhereUniqueInput!]
+  connectOrCreate: [OfferCreateOrConnectWithoutProductInput!]
+  create: [OfferCreateWithoutProductInput!]
+  createMany: OfferCreateManyProductInputEnvelope
+  delete: [OfferWhereUniqueInput!]
+  deleteMany: [OfferScalarWhereInput!]
+  disconnect: [OfferWhereUniqueInput!]
+  set: [OfferWhereUniqueInput!]
+  update: [OfferUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [OfferUpdateManyWithWhereWithoutProductInput!]
+  upsert: [OfferUpsertWithWhereUniqueWithoutProductInput!]
+}
+
+input OfferUpdateWithWhereUniqueWithoutProductInput {
+  data: OfferUpdateWithoutProductInput!
+  where: OfferWhereUniqueInput!
+}
+
+input OfferUpdateWithoutProductInput {
+  code: NullableStringFieldUpdateOperationsInput
+  discount: FloatFieldUpdateOperationsInput
+  endDate: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  startDate: NullableDateTimeFieldUpdateOperationsInput
+  type: StringFieldUpdateOperationsInput
+}
+
+input OfferUpsertWithWhereUniqueWithoutProductInput {
+  create: OfferCreateWithoutProductInput!
+  update: OfferUpdateWithoutProductInput!
+  where: OfferWhereUniqueInput!
+}
+
+input OfferWhereInput {
+  AND: [OfferWhereInput!]
+  NOT: [OfferWhereInput!]
+  OR: [OfferWhereInput!]
+  code: StringNullableFilter
+  discount: FloatFilter
+  endDate: DateTimeNullableFilter
+  id: StringFilter
+  product: ProductRelationFilter
+  productId: StringFilter
+  startDate: DateTimeNullableFilter
+  type: StringFilter
+}
+
+input OfferWhereUniqueInput {
+  id: String
+}
+
+type Order {
+  _count: OrderCount
+  createdAt: DateTime!
+  id: String!
+  items(cursor: OrderItemWhereUniqueInput, distinct: [OrderItemScalarFieldEnum!], orderBy: [OrderItemOrderByWithRelationInput!], skip: Int, take: Int, where: OrderItemWhereInput): [OrderItem!]!
+  total: Float!
+  user: User!
+  userId: String!
+}
+
+type OrderAvgAggregate {
+  total: Float
+}
+
+input OrderAvgOrderByAggregateInput {
+  total: SortOrder
+}
+
+type OrderCount {
+  items: Int!
+}
+
+type OrderCountAggregate {
+  _all: Int!
+  createdAt: Int!
+  id: Int!
+  total: Int!
+  userId: Int!
+}
+
+input OrderCountOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  total: SortOrder
+  userId: SortOrder
+}
+
+input OrderCreateInput {
+  createdAt: DateTime
+  id: String
+  items: OrderItemCreateNestedManyWithoutOrderInput
+  total: Float!
+  user: UserCreateNestedOneWithoutOrdersInput!
+}
+
+input OrderCreateManyInput {
+  createdAt: DateTime
+  id: String
+  total: Float!
+  userId: String!
+}
+
+input OrderCreateManyUserInput {
+  createdAt: DateTime
+  id: String
+  total: Float!
+}
+
+input OrderCreateManyUserInputEnvelope {
+  data: [OrderCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input OrderCreateNestedManyWithoutUserInput {
+  connect: [OrderWhereUniqueInput!]
+  connectOrCreate: [OrderCreateOrConnectWithoutUserInput!]
+  create: [OrderCreateWithoutUserInput!]
+  createMany: OrderCreateManyUserInputEnvelope
+}
+
+input OrderCreateNestedOneWithoutItemsInput {
+  connect: OrderWhereUniqueInput
+  connectOrCreate: OrderCreateOrConnectWithoutItemsInput
+  create: OrderCreateWithoutItemsInput
+}
+
+input OrderCreateOrConnectWithoutItemsInput {
+  create: OrderCreateWithoutItemsInput!
+  where: OrderWhereUniqueInput!
+}
+
+input OrderCreateOrConnectWithoutUserInput {
+  create: OrderCreateWithoutUserInput!
+  where: OrderWhereUniqueInput!
+}
+
+input OrderCreateWithoutItemsInput {
+  createdAt: DateTime
+  id: String
+  total: Float!
+  user: UserCreateNestedOneWithoutOrdersInput!
+}
+
+input OrderCreateWithoutUserInput {
+  createdAt: DateTime
+  id: String
+  items: OrderItemCreateNestedManyWithoutOrderInput
+  total: Float!
+}
+
+type OrderGroupBy {
+  _avg: OrderAvgAggregate
+  _count: OrderCountAggregate
+  _max: OrderMaxAggregate
+  _min: OrderMinAggregate
+  _sum: OrderSumAggregate
+  createdAt: DateTime!
+  id: String!
+  total: Float!
+  userId: String!
+}
+
+type OrderItem {
+  id: String!
+  order: Order!
+  orderId: String!
+  price: Float!
+  product: Product!
+  productId: String!
+  quantity: Int!
+}
+
+type OrderItemAvgAggregate {
+  price: Float
+  quantity: Float
+}
+
+input OrderItemAvgOrderByAggregateInput {
+  price: SortOrder
+  quantity: SortOrder
+}
+
+type OrderItemCountAggregate {
+  _all: Int!
+  id: Int!
+  orderId: Int!
+  price: Int!
+  productId: Int!
+  quantity: Int!
+}
+
+input OrderItemCountOrderByAggregateInput {
+  id: SortOrder
+  orderId: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+}
+
+input OrderItemCreateInput {
+  id: String
+  order: OrderCreateNestedOneWithoutItemsInput!
+  price: Float!
+  product: ProductCreateNestedOneWithoutOrdersInput!
+  quantity: Int!
+}
+
+input OrderItemCreateManyInput {
+  id: String
+  orderId: String!
+  price: Float!
+  productId: String!
+  quantity: Int!
+}
+
+input OrderItemCreateManyOrderInput {
+  id: String
+  price: Float!
+  productId: String!
+  quantity: Int!
+}
+
+input OrderItemCreateManyOrderInputEnvelope {
+  data: [OrderItemCreateManyOrderInput!]!
+  skipDuplicates: Boolean
+}
+
+input OrderItemCreateManyProductInput {
+  id: String
+  orderId: String!
+  price: Float!
+  quantity: Int!
+}
+
+input OrderItemCreateManyProductInputEnvelope {
+  data: [OrderItemCreateManyProductInput!]!
+  skipDuplicates: Boolean
+}
+
+input OrderItemCreateNestedManyWithoutOrderInput {
+  connect: [OrderItemWhereUniqueInput!]
+  connectOrCreate: [OrderItemCreateOrConnectWithoutOrderInput!]
+  create: [OrderItemCreateWithoutOrderInput!]
+  createMany: OrderItemCreateManyOrderInputEnvelope
+}
+
+input OrderItemCreateNestedManyWithoutProductInput {
+  connect: [OrderItemWhereUniqueInput!]
+  connectOrCreate: [OrderItemCreateOrConnectWithoutProductInput!]
+  create: [OrderItemCreateWithoutProductInput!]
+  createMany: OrderItemCreateManyProductInputEnvelope
+}
+
+input OrderItemCreateOrConnectWithoutOrderInput {
+  create: OrderItemCreateWithoutOrderInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemCreateOrConnectWithoutProductInput {
+  create: OrderItemCreateWithoutProductInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemCreateWithoutOrderInput {
+  id: String
+  price: Float!
+  product: ProductCreateNestedOneWithoutOrdersInput!
+  quantity: Int!
+}
+
+input OrderItemCreateWithoutProductInput {
+  id: String
+  order: OrderCreateNestedOneWithoutItemsInput!
+  price: Float!
+  quantity: Int!
+}
+
+type OrderItemGroupBy {
+  _avg: OrderItemAvgAggregate
+  _count: OrderItemCountAggregate
+  _max: OrderItemMaxAggregate
+  _min: OrderItemMinAggregate
+  _sum: OrderItemSumAggregate
+  id: String!
+  orderId: String!
+  price: Float!
+  productId: String!
+  quantity: Int!
+}
+
+input OrderItemListRelationFilter {
+  every: OrderItemWhereInput
+  none: OrderItemWhereInput
+  some: OrderItemWhereInput
+}
+
+type OrderItemMaxAggregate {
+  id: String
+  orderId: String
+  price: Float
+  productId: String
+  quantity: Int
+}
+
+input OrderItemMaxOrderByAggregateInput {
+  id: SortOrder
+  orderId: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+}
+
+type OrderItemMinAggregate {
+  id: String
+  orderId: String
+  price: Float
+  productId: String
+  quantity: Int
+}
+
+input OrderItemMinOrderByAggregateInput {
+  id: SortOrder
+  orderId: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+}
+
+input OrderItemOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input OrderItemOrderByWithAggregationInput {
+  _avg: OrderItemAvgOrderByAggregateInput
+  _count: OrderItemCountOrderByAggregateInput
+  _max: OrderItemMaxOrderByAggregateInput
+  _min: OrderItemMinOrderByAggregateInput
+  _sum: OrderItemSumOrderByAggregateInput
+  id: SortOrder
+  orderId: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+}
+
+input OrderItemOrderByWithRelationInput {
+  id: SortOrder
+  order: OrderOrderByWithRelationInput
+  orderId: SortOrder
+  price: SortOrder
+  product: ProductOrderByWithRelationInput
+  productId: SortOrder
+  quantity: SortOrder
+}
+
+enum OrderItemScalarFieldEnum {
+  id
+  orderId
+  price
+  productId
+  quantity
+}
+
+input OrderItemScalarWhereInput {
+  AND: [OrderItemScalarWhereInput!]
+  NOT: [OrderItemScalarWhereInput!]
+  OR: [OrderItemScalarWhereInput!]
+  id: StringFilter
+  orderId: StringFilter
+  price: FloatFilter
+  productId: StringFilter
+  quantity: IntFilter
+}
+
+input OrderItemScalarWhereWithAggregatesInput {
+  AND: [OrderItemScalarWhereWithAggregatesInput!]
+  NOT: [OrderItemScalarWhereWithAggregatesInput!]
+  OR: [OrderItemScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  orderId: StringWithAggregatesFilter
+  price: FloatWithAggregatesFilter
+  productId: StringWithAggregatesFilter
+  quantity: IntWithAggregatesFilter
+}
+
+type OrderItemSumAggregate {
+  price: Float
+  quantity: Int
+}
+
+input OrderItemSumOrderByAggregateInput {
+  price: SortOrder
+  quantity: SortOrder
+}
+
+input OrderItemUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  order: OrderUpdateOneRequiredWithoutItemsNestedInput
+  price: FloatFieldUpdateOperationsInput
+  product: ProductUpdateOneRequiredWithoutOrdersNestedInput
+  quantity: IntFieldUpdateOperationsInput
+}
+
+input OrderItemUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  price: FloatFieldUpdateOperationsInput
+  quantity: IntFieldUpdateOperationsInput
+}
+
+input OrderItemUpdateManyWithWhereWithoutOrderInput {
+  data: OrderItemUpdateManyMutationInput!
+  where: OrderItemScalarWhereInput!
+}
+
+input OrderItemUpdateManyWithWhereWithoutProductInput {
+  data: OrderItemUpdateManyMutationInput!
+  where: OrderItemScalarWhereInput!
+}
+
+input OrderItemUpdateManyWithoutOrderNestedInput {
+  connect: [OrderItemWhereUniqueInput!]
+  connectOrCreate: [OrderItemCreateOrConnectWithoutOrderInput!]
+  create: [OrderItemCreateWithoutOrderInput!]
+  createMany: OrderItemCreateManyOrderInputEnvelope
+  delete: [OrderItemWhereUniqueInput!]
+  deleteMany: [OrderItemScalarWhereInput!]
+  disconnect: [OrderItemWhereUniqueInput!]
+  set: [OrderItemWhereUniqueInput!]
+  update: [OrderItemUpdateWithWhereUniqueWithoutOrderInput!]
+  updateMany: [OrderItemUpdateManyWithWhereWithoutOrderInput!]
+  upsert: [OrderItemUpsertWithWhereUniqueWithoutOrderInput!]
+}
+
+input OrderItemUpdateManyWithoutProductNestedInput {
+  connect: [OrderItemWhereUniqueInput!]
+  connectOrCreate: [OrderItemCreateOrConnectWithoutProductInput!]
+  create: [OrderItemCreateWithoutProductInput!]
+  createMany: OrderItemCreateManyProductInputEnvelope
+  delete: [OrderItemWhereUniqueInput!]
+  deleteMany: [OrderItemScalarWhereInput!]
+  disconnect: [OrderItemWhereUniqueInput!]
+  set: [OrderItemWhereUniqueInput!]
+  update: [OrderItemUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [OrderItemUpdateManyWithWhereWithoutProductInput!]
+  upsert: [OrderItemUpsertWithWhereUniqueWithoutProductInput!]
+}
+
+input OrderItemUpdateWithWhereUniqueWithoutOrderInput {
+  data: OrderItemUpdateWithoutOrderInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemUpdateWithWhereUniqueWithoutProductInput {
+  data: OrderItemUpdateWithoutProductInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemUpdateWithoutOrderInput {
+  id: StringFieldUpdateOperationsInput
+  price: FloatFieldUpdateOperationsInput
+  product: ProductUpdateOneRequiredWithoutOrdersNestedInput
+  quantity: IntFieldUpdateOperationsInput
+}
+
+input OrderItemUpdateWithoutProductInput {
+  id: StringFieldUpdateOperationsInput
+  order: OrderUpdateOneRequiredWithoutItemsNestedInput
+  price: FloatFieldUpdateOperationsInput
+  quantity: IntFieldUpdateOperationsInput
+}
+
+input OrderItemUpsertWithWhereUniqueWithoutOrderInput {
+  create: OrderItemCreateWithoutOrderInput!
+  update: OrderItemUpdateWithoutOrderInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemUpsertWithWhereUniqueWithoutProductInput {
+  create: OrderItemCreateWithoutProductInput!
+  update: OrderItemUpdateWithoutProductInput!
+  where: OrderItemWhereUniqueInput!
+}
+
+input OrderItemWhereInput {
+  AND: [OrderItemWhereInput!]
+  NOT: [OrderItemWhereInput!]
+  OR: [OrderItemWhereInput!]
+  id: StringFilter
+  order: OrderRelationFilter
+  orderId: StringFilter
+  price: FloatFilter
+  product: ProductRelationFilter
+  productId: StringFilter
+  quantity: IntFilter
+}
+
+input OrderItemWhereUniqueInput {
+  id: String
+}
+
+input OrderListRelationFilter {
+  every: OrderWhereInput
+  none: OrderWhereInput
+  some: OrderWhereInput
+}
+
+type OrderMaxAggregate {
+  createdAt: DateTime
+  id: String
+  total: Float
+  userId: String
+}
+
+input OrderMaxOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  total: SortOrder
+  userId: SortOrder
+}
+
+type OrderMinAggregate {
+  createdAt: DateTime
+  id: String
+  total: Float
+  userId: String
+}
+
+input OrderMinOrderByAggregateInput {
+  createdAt: SortOrder
+  id: SortOrder
+  total: SortOrder
+  userId: SortOrder
+}
+
+input OrderOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input OrderOrderByWithAggregationInput {
+  _avg: OrderAvgOrderByAggregateInput
+  _count: OrderCountOrderByAggregateInput
+  _max: OrderMaxOrderByAggregateInput
+  _min: OrderMinOrderByAggregateInput
+  _sum: OrderSumOrderByAggregateInput
+  createdAt: SortOrder
+  id: SortOrder
+  total: SortOrder
+  userId: SortOrder
+}
+
+input OrderOrderByWithRelationInput {
+  createdAt: SortOrder
+  id: SortOrder
+  items: OrderItemOrderByRelationAggregateInput
+  total: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+}
+
+input OrderRelationFilter {
+  is: OrderWhereInput
+  isNot: OrderWhereInput
+}
+
+enum OrderScalarFieldEnum {
+  createdAt
+  id
+  total
+  userId
+}
+
+input OrderScalarWhereInput {
+  AND: [OrderScalarWhereInput!]
+  NOT: [OrderScalarWhereInput!]
+  OR: [OrderScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  total: FloatFilter
+  userId: StringFilter
+}
+
+input OrderScalarWhereWithAggregatesInput {
+  AND: [OrderScalarWhereWithAggregatesInput!]
+  NOT: [OrderScalarWhereWithAggregatesInput!]
+  OR: [OrderScalarWhereWithAggregatesInput!]
+  createdAt: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  total: FloatWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
+type OrderSumAggregate {
+  total: Float
+}
+
+input OrderSumOrderByAggregateInput {
+  total: SortOrder
+}
+
+input OrderUpdateInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  items: OrderItemUpdateManyWithoutOrderNestedInput
+  total: FloatFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutOrdersNestedInput
+}
+
+input OrderUpdateManyMutationInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  total: FloatFieldUpdateOperationsInput
+}
+
+input OrderUpdateManyWithWhereWithoutUserInput {
+  data: OrderUpdateManyMutationInput!
+  where: OrderScalarWhereInput!
+}
+
+input OrderUpdateManyWithoutUserNestedInput {
+  connect: [OrderWhereUniqueInput!]
+  connectOrCreate: [OrderCreateOrConnectWithoutUserInput!]
+  create: [OrderCreateWithoutUserInput!]
+  createMany: OrderCreateManyUserInputEnvelope
+  delete: [OrderWhereUniqueInput!]
+  deleteMany: [OrderScalarWhereInput!]
+  disconnect: [OrderWhereUniqueInput!]
+  set: [OrderWhereUniqueInput!]
+  update: [OrderUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [OrderUpdateManyWithWhereWithoutUserInput!]
+  upsert: [OrderUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input OrderUpdateOneRequiredWithoutItemsNestedInput {
+  connect: OrderWhereUniqueInput
+  connectOrCreate: OrderCreateOrConnectWithoutItemsInput
+  create: OrderCreateWithoutItemsInput
+  update: OrderUpdateWithoutItemsInput
+  upsert: OrderUpsertWithoutItemsInput
+}
+
+input OrderUpdateWithWhereUniqueWithoutUserInput {
+  data: OrderUpdateWithoutUserInput!
+  where: OrderWhereUniqueInput!
+}
+
+input OrderUpdateWithoutItemsInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  total: FloatFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutOrdersNestedInput
+}
+
+input OrderUpdateWithoutUserInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  items: OrderItemUpdateManyWithoutOrderNestedInput
+  total: FloatFieldUpdateOperationsInput
+}
+
+input OrderUpsertWithWhereUniqueWithoutUserInput {
+  create: OrderCreateWithoutUserInput!
+  update: OrderUpdateWithoutUserInput!
+  where: OrderWhereUniqueInput!
+}
+
+input OrderUpsertWithoutItemsInput {
+  create: OrderCreateWithoutItemsInput!
+  update: OrderUpdateWithoutItemsInput!
+}
+
+input OrderWhereInput {
+  AND: [OrderWhereInput!]
+  NOT: [OrderWhereInput!]
+  OR: [OrderWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  items: OrderItemListRelationFilter
+  total: FloatFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input OrderWhereUniqueInput {
+  id: String
+}
+
+type Product {
+  _count: ProductCount
+  category: Category!
+  categoryId: String!
+  id: String!
+  image: String!
+  name: String!
+  offers(cursor: OfferWhereUniqueInput, distinct: [OfferScalarFieldEnum!], orderBy: [OfferOrderByWithRelationInput!], skip: Int, take: Int, where: OfferWhereInput): [Offer!]!
+  orders(cursor: OrderItemWhereUniqueInput, distinct: [OrderItemScalarFieldEnum!], orderBy: [OrderItemOrderByWithRelationInput!], skip: Int, take: Int, where: OrderItemWhereInput): [OrderItem!]!
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+type ProductAvgAggregate {
+  price: Float
+  stock: Float
+}
+
+input ProductAvgOrderByAggregateInput {
+  price: SortOrder
+  stock: SortOrder
+}
+
+type ProductCount {
+  offers: Int!
+  orders: Int!
+}
+
+type ProductCountAggregate {
+  _all: Int!
+  categoryId: Int!
+  id: Int!
+  image: Int!
+  name: Int!
+  price: Int!
+  sku: Int!
+  stock: Int!
+}
+
+input ProductCountOrderByAggregateInput {
+  categoryId: SortOrder
+  id: SortOrder
+  image: SortOrder
+  name: SortOrder
+  price: SortOrder
+  sku: SortOrder
+  stock: SortOrder
+}
+
+input ProductCreateInput {
+  category: CategoryCreateNestedOneWithoutProductsInput!
+  id: String
+  image: String!
+  name: String!
+  offers: OfferCreateNestedManyWithoutProductInput
+  orders: OrderItemCreateNestedManyWithoutProductInput
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+input ProductCreateManyCategoryInput {
+  id: String
+  image: String!
+  name: String!
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+input ProductCreateManyCategoryInputEnvelope {
+  data: [ProductCreateManyCategoryInput!]!
+  skipDuplicates: Boolean
+}
+
+input ProductCreateManyInput {
+  categoryId: String!
+  id: String
+  image: String!
+  name: String!
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+input ProductCreateNestedManyWithoutCategoryInput {
+  connect: [ProductWhereUniqueInput!]
+  connectOrCreate: [ProductCreateOrConnectWithoutCategoryInput!]
+  create: [ProductCreateWithoutCategoryInput!]
+  createMany: ProductCreateManyCategoryInputEnvelope
+}
+
+input ProductCreateNestedOneWithoutOffersInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutOffersInput
+  create: ProductCreateWithoutOffersInput
+}
+
+input ProductCreateNestedOneWithoutOrdersInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutOrdersInput
+  create: ProductCreateWithoutOrdersInput
+}
+
+input ProductCreateOrConnectWithoutCategoryInput {
+  create: ProductCreateWithoutCategoryInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateOrConnectWithoutOffersInput {
+  create: ProductCreateWithoutOffersInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateOrConnectWithoutOrdersInput {
+  create: ProductCreateWithoutOrdersInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateWithoutCategoryInput {
+  id: String
+  image: String!
+  name: String!
+  offers: OfferCreateNestedManyWithoutProductInput
+  orders: OrderItemCreateNestedManyWithoutProductInput
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+input ProductCreateWithoutOffersInput {
+  category: CategoryCreateNestedOneWithoutProductsInput!
+  id: String
+  image: String!
+  name: String!
+  orders: OrderItemCreateNestedManyWithoutProductInput
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+input ProductCreateWithoutOrdersInput {
+  category: CategoryCreateNestedOneWithoutProductsInput!
+  id: String
+  image: String!
+  name: String!
+  offers: OfferCreateNestedManyWithoutProductInput
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+type ProductGroupBy {
+  _avg: ProductAvgAggregate
+  _count: ProductCountAggregate
+  _max: ProductMaxAggregate
+  _min: ProductMinAggregate
+  _sum: ProductSumAggregate
+  categoryId: String!
+  id: String!
+  image: String!
+  name: String!
+  price: Float!
+  sku: String!
+  stock: Int!
+}
+
+input ProductListRelationFilter {
+  every: ProductWhereInput
+  none: ProductWhereInput
+  some: ProductWhereInput
+}
+
+type ProductMaxAggregate {
+  categoryId: String
+  id: String
+  image: String
+  name: String
+  price: Float
+  sku: String
+  stock: Int
+}
+
+input ProductMaxOrderByAggregateInput {
+  categoryId: SortOrder
+  id: SortOrder
+  image: SortOrder
+  name: SortOrder
+  price: SortOrder
+  sku: SortOrder
+  stock: SortOrder
+}
+
+type ProductMinAggregate {
+  categoryId: String
+  id: String
+  image: String
+  name: String
+  price: Float
+  sku: String
+  stock: Int
+}
+
+input ProductMinOrderByAggregateInput {
+  categoryId: SortOrder
+  id: SortOrder
+  image: SortOrder
+  name: SortOrder
+  price: SortOrder
+  sku: SortOrder
+  stock: SortOrder
+}
+
+input ProductOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductOrderByWithAggregationInput {
+  _avg: ProductAvgOrderByAggregateInput
+  _count: ProductCountOrderByAggregateInput
+  _max: ProductMaxOrderByAggregateInput
+  _min: ProductMinOrderByAggregateInput
+  _sum: ProductSumOrderByAggregateInput
+  categoryId: SortOrder
+  id: SortOrder
+  image: SortOrder
+  name: SortOrder
+  price: SortOrder
+  sku: SortOrder
+  stock: SortOrder
+}
+
+input ProductOrderByWithRelationInput {
+  category: CategoryOrderByWithRelationInput
+  categoryId: SortOrder
+  id: SortOrder
+  image: SortOrder
+  name: SortOrder
+  offers: OfferOrderByRelationAggregateInput
+  orders: OrderItemOrderByRelationAggregateInput
+  price: SortOrder
+  sku: SortOrder
+  stock: SortOrder
+}
+
+input ProductRelationFilter {
+  is: ProductWhereInput
+  isNot: ProductWhereInput
+}
+
+enum ProductScalarFieldEnum {
+  categoryId
+  id
+  image
+  name
+  price
+  sku
+  stock
+}
+
+input ProductScalarWhereInput {
+  AND: [ProductScalarWhereInput!]
+  NOT: [ProductScalarWhereInput!]
+  OR: [ProductScalarWhereInput!]
+  categoryId: StringFilter
+  id: StringFilter
+  image: StringFilter
+  name: StringFilter
+  price: FloatFilter
+  sku: StringFilter
+  stock: IntFilter
+}
+
+input ProductScalarWhereWithAggregatesInput {
+  AND: [ProductScalarWhereWithAggregatesInput!]
+  NOT: [ProductScalarWhereWithAggregatesInput!]
+  OR: [ProductScalarWhereWithAggregatesInput!]
+  categoryId: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  image: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  price: FloatWithAggregatesFilter
+  sku: StringWithAggregatesFilter
+  stock: IntWithAggregatesFilter
+}
+
+type ProductSumAggregate {
+  price: Float
+  stock: Int
+}
+
+input ProductSumOrderByAggregateInput {
+  price: SortOrder
+  stock: SortOrder
+}
+
+input ProductUpdateInput {
+  category: CategoryUpdateOneRequiredWithoutProductsNestedInput
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  offers: OfferUpdateManyWithoutProductNestedInput
+  orders: OrderItemUpdateManyWithoutProductNestedInput
+  price: FloatFieldUpdateOperationsInput
+  sku: StringFieldUpdateOperationsInput
+  stock: IntFieldUpdateOperationsInput
+}
+
+input ProductUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  price: FloatFieldUpdateOperationsInput
+  sku: StringFieldUpdateOperationsInput
+  stock: IntFieldUpdateOperationsInput
+}
+
+input ProductUpdateManyWithWhereWithoutCategoryInput {
+  data: ProductUpdateManyMutationInput!
+  where: ProductScalarWhereInput!
+}
+
+input ProductUpdateManyWithoutCategoryNestedInput {
+  connect: [ProductWhereUniqueInput!]
+  connectOrCreate: [ProductCreateOrConnectWithoutCategoryInput!]
+  create: [ProductCreateWithoutCategoryInput!]
+  createMany: ProductCreateManyCategoryInputEnvelope
+  delete: [ProductWhereUniqueInput!]
+  deleteMany: [ProductScalarWhereInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  update: [ProductUpdateWithWhereUniqueWithoutCategoryInput!]
+  updateMany: [ProductUpdateManyWithWhereWithoutCategoryInput!]
+  upsert: [ProductUpsertWithWhereUniqueWithoutCategoryInput!]
+}
+
+input ProductUpdateOneRequiredWithoutOffersNestedInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutOffersInput
+  create: ProductCreateWithoutOffersInput
+  update: ProductUpdateWithoutOffersInput
+  upsert: ProductUpsertWithoutOffersInput
+}
+
+input ProductUpdateOneRequiredWithoutOrdersNestedInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutOrdersInput
+  create: ProductCreateWithoutOrdersInput
+  update: ProductUpdateWithoutOrdersInput
+  upsert: ProductUpsertWithoutOrdersInput
+}
+
+input ProductUpdateWithWhereUniqueWithoutCategoryInput {
+  data: ProductUpdateWithoutCategoryInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductUpdateWithoutCategoryInput {
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  offers: OfferUpdateManyWithoutProductNestedInput
+  orders: OrderItemUpdateManyWithoutProductNestedInput
+  price: FloatFieldUpdateOperationsInput
+  sku: StringFieldUpdateOperationsInput
+  stock: IntFieldUpdateOperationsInput
+}
+
+input ProductUpdateWithoutOffersInput {
+  category: CategoryUpdateOneRequiredWithoutProductsNestedInput
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  orders: OrderItemUpdateManyWithoutProductNestedInput
+  price: FloatFieldUpdateOperationsInput
+  sku: StringFieldUpdateOperationsInput
+  stock: IntFieldUpdateOperationsInput
+}
+
+input ProductUpdateWithoutOrdersInput {
+  category: CategoryUpdateOneRequiredWithoutProductsNestedInput
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  offers: OfferUpdateManyWithoutProductNestedInput
+  price: FloatFieldUpdateOperationsInput
+  sku: StringFieldUpdateOperationsInput
+  stock: IntFieldUpdateOperationsInput
+}
+
+input ProductUpsertWithWhereUniqueWithoutCategoryInput {
+  create: ProductCreateWithoutCategoryInput!
+  update: ProductUpdateWithoutCategoryInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductUpsertWithoutOffersInput {
+  create: ProductCreateWithoutOffersInput!
+  update: ProductUpdateWithoutOffersInput!
+}
+
+input ProductUpsertWithoutOrdersInput {
+  create: ProductCreateWithoutOrdersInput!
+  update: ProductUpdateWithoutOrdersInput!
+}
+
+input ProductWhereInput {
+  AND: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  category: CategoryRelationFilter
+  categoryId: StringFilter
+  id: StringFilter
+  image: StringFilter
+  name: StringFilter
+  offers: OfferListRelationFilter
+  orders: OrderItemListRelationFilter
+  price: FloatFilter
+  sku: StringFilter
+  stock: IntFilter
+}
+
+input ProductWhereUniqueInput {
+  id: String
+  sku: String
+}
+
+type Query {
+  aggregateCategory(cursor: CategoryWhereUniqueInput, orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): AggregateCategory!
+  aggregateOffer(cursor: OfferWhereUniqueInput, orderBy: [OfferOrderByWithRelationInput!], skip: Int, take: Int, where: OfferWhereInput): AggregateOffer!
+  aggregateOrder(cursor: OrderWhereUniqueInput, orderBy: [OrderOrderByWithRelationInput!], skip: Int, take: Int, where: OrderWhereInput): AggregateOrder!
+  aggregateOrderItem(cursor: OrderItemWhereUniqueInput, orderBy: [OrderItemOrderByWithRelationInput!], skip: Int, take: Int, where: OrderItemWhereInput): AggregateOrderItem!
+  aggregateProduct(cursor: ProductWhereUniqueInput, orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): AggregateProduct!
+  aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
+  aggregateUserProvider(cursor: UserProviderWhereUniqueInput, orderBy: [UserProviderOrderByWithRelationInput!], skip: Int, take: Int, where: UserProviderWhereInput): AggregateUserProvider!
+  allCategories: [Category]
+  allProducts: [Product]
+  allUsers: [User]
+  categories(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
+  category(where: CategoryWhereUniqueInput!): Category
+  categoryById(id: String): Category
+  findFirstCategory(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): Category
+  findFirstCategoryOrThrow(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): Category
+  findFirstOffer(cursor: OfferWhereUniqueInput, distinct: [OfferScalarFieldEnum!], orderBy: [OfferOrderByWithRelationInput!], skip: Int, take: Int, where: OfferWhereInput): Offer
+  findFirstOfferOrThrow(cursor: OfferWhereUniqueInput, distinct: [OfferScalarFieldEnum!], orderBy: [OfferOrderByWithRelationInput!], skip: Int, take: Int, where: OfferWhereInput): Offer
+  findFirstOrder(cursor: OrderWhereUniqueInput, distinct: [OrderScalarFieldEnum!], orderBy: [OrderOrderByWithRelationInput!], skip: Int, take: Int, where: OrderWhereInput): Order
+  findFirstOrderItem(cursor: OrderItemWhereUniqueInput, distinct: [OrderItemScalarFieldEnum!], orderBy: [OrderItemOrderByWithRelationInput!], skip: Int, take: Int, where: OrderItemWhereInput): OrderItem
+  findFirstOrderItemOrThrow(cursor: OrderItemWhereUniqueInput, distinct: [OrderItemScalarFieldEnum!], orderBy: [OrderItemOrderByWithRelationInput!], skip: Int, take: Int, where: OrderItemWhereInput): OrderItem
+  findFirstOrderOrThrow(cursor: OrderWhereUniqueInput, distinct: [OrderScalarFieldEnum!], orderBy: [OrderOrderByWithRelationInput!], skip: Int, take: Int, where: OrderWhereInput): Order
+  findFirstProduct(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): Product
+  findFirstProductOrThrow(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): Product
+  findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
+  findFirstUserOrThrow(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
+  findFirstUserProvider(cursor: UserProviderWhereUniqueInput, distinct: [UserProviderScalarFieldEnum!], orderBy: [UserProviderOrderByWithRelationInput!], skip: Int, take: Int, where: UserProviderWhereInput): UserProvider
+  findFirstUserProviderOrThrow(cursor: UserProviderWhereUniqueInput, distinct: [UserProviderScalarFieldEnum!], orderBy: [UserProviderOrderByWithRelationInput!], skip: Int, take: Int, where: UserProviderWhereInput): UserProvider
+  getCategory(where: CategoryWhereUniqueInput!): Category
+  getOffer(where: OfferWhereUniqueInput!): Offer
+  getOrder(where: OrderWhereUniqueInput!): Order
+  getOrderItem(where: OrderItemWhereUniqueInput!): OrderItem
+  getProduct(where: ProductWhereUniqueInput!): Product
+  getUser(where: UserWhereUniqueInput!): User
+  getUserProvider(where: UserProviderWhereUniqueInput!): UserProvider
+  groupByCategory(by: [CategoryScalarFieldEnum!]!, having: CategoryScalarWhereWithAggregatesInput, orderBy: [CategoryOrderByWithAggregationInput!], skip: Int, take: Int, where: CategoryWhereInput): [CategoryGroupBy!]!
+  groupByOffer(by: [OfferScalarFieldEnum!]!, having: OfferScalarWhereWithAggregatesInput, orderBy: [OfferOrderByWithAggregationInput!], skip: Int, take: Int, where: OfferWhereInput): [OfferGroupBy!]!
+  groupByOrder(by: [OrderScalarFieldEnum!]!, having: OrderScalarWhereWithAggregatesInput, orderBy: [OrderOrderByWithAggregationInput!], skip: Int, take: Int, where: OrderWhereInput): [OrderGroupBy!]!
+  groupByOrderItem(by: [OrderItemScalarFieldEnum!]!, having: OrderItemScalarWhereWithAggregatesInput, orderBy: [OrderItemOrderByWithAggregationInput!], skip: Int, take: Int, where: OrderItemWhereInput): [OrderItemGroupBy!]!
+  groupByProduct(by: [ProductScalarFieldEnum!]!, having: ProductScalarWhereWithAggregatesInput, orderBy: [ProductOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductWhereInput): [ProductGroupBy!]!
+  groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
+  groupByUserProvider(by: [UserProviderScalarFieldEnum!]!, having: UserProviderScalarWhereWithAggregatesInput, orderBy: [UserProviderOrderByWithAggregationInput!], skip: Int, take: Int, where: UserProviderWhereInput): [UserProviderGroupBy!]!
+  offer(where: OfferWhereUniqueInput!): Offer
+  offers(cursor: OfferWhereUniqueInput, distinct: [OfferScalarFieldEnum!], orderBy: [OfferOrderByWithRelationInput!], skip: Int, take: Int, where: OfferWhereInput): [Offer!]!
+  order(where: OrderWhereUniqueInput!): Order
+  orderItem(where: OrderItemWhereUniqueInput!): OrderItem
+  orderItems(cursor: OrderItemWhereUniqueInput, distinct: [OrderItemScalarFieldEnum!], orderBy: [OrderItemOrderByWithRelationInput!], skip: Int, take: Int, where: OrderItemWhereInput): [OrderItem!]!
+  orders(cursor: OrderWhereUniqueInput, distinct: [OrderScalarFieldEnum!], orderBy: [OrderOrderByWithRelationInput!], skip: Int, take: Int, where: OrderWhereInput): [Order!]!
+  product(where: ProductWhereUniqueInput!): Product
+  productById(id: String): Product
+  products(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
+  user(where: UserWhereUniqueInput!): User
+  userById: User
+  userProvider(where: UserProviderWhereUniqueInput!): UserProvider
+  userProviders(cursor: UserProviderWhereUniqueInput, distinct: [UserProviderScalarFieldEnum!], orderBy: [UserProviderOrderByWithRelationInput!], skip: Int, take: Int, where: UserProviderWhereInput): [UserProvider!]!
+  users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
 
 enum SortOrder {
@@ -1646,6 +2181,37 @@ input StringFilter {
   startsWith: String
 }
 
+input StringNullableFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableFilter
+  notIn: [String!]
+  startsWith: String
+}
+
+input StringNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedStringNullableFilter
+  _min: NestedStringNullableFilter
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: NestedStringNullableWithAggregatesFilter
+  notIn: [String!]
+  startsWith: String
+}
+
 input StringWithAggregatesFilter {
   _count: NestedIntFilter
   _max: NestedStringFilter
@@ -1664,212 +2230,525 @@ input StringWithAggregatesFilter {
 }
 
 type User {
-  created_at: DateTime
-  email: String!
-  favoriteBookByAuthor: Book
-  id: Int!
-  password: String!
-  role: Role!
-  updated_at: DateTime
-  user_name: String!
+  _count: UserCount
+  email: String
+  firstName: String!
+  id: String!
+  lastName: String!
+  orders(cursor: OrderWhereUniqueInput, distinct: [OrderScalarFieldEnum!], orderBy: [OrderOrderByWithRelationInput!], skip: Int, take: Int, where: OrderWhereInput): [Order!]!
+  password: String
+  providers(cursor: UserProviderWhereUniqueInput, distinct: [UserProviderScalarFieldEnum!], orderBy: [UserProviderOrderByWithRelationInput!], skip: Int, take: Int, where: UserProviderWhereInput): [UserProvider!]!
 }
 
-type UserAvgAggregate {
-  id: Float
-}
-
-input UserAvgOrderByAggregateInput {
-  id: SortOrder
+type UserCount {
+  orders: Int!
+  providers: Int!
 }
 
 type UserCountAggregate {
   _all: Int!
-  created_at: Int!
   email: Int!
+  firstName: Int!
   id: Int!
+  lastName: Int!
   password: Int!
-  role: Int!
-  updated_at: Int!
-  user_name: Int!
 }
 
 input UserCountOrderByAggregateInput {
-  created_at: SortOrder
   email: SortOrder
+  firstName: SortOrder
   id: SortOrder
+  lastName: SortOrder
   password: SortOrder
-  role: SortOrder
-  updated_at: SortOrder
-  user_name: SortOrder
 }
 
 input UserCreateInput {
-  created_at: DateTime
-  email: String!
-  password: String!
-  role: Role
-  updated_at: DateTime
-  user_name: String!
+  email: String
+  firstName: String!
+  id: String
+  lastName: String!
+  orders: OrderCreateNestedManyWithoutUserInput
+  password: String
+  providers: UserProviderCreateNestedManyWithoutUserInput
 }
 
 input UserCreateManyInput {
-  created_at: DateTime
-  email: String!
-  id: Int
-  password: String!
-  role: Role
-  updated_at: DateTime
-  user_name: String!
+  email: String
+  firstName: String!
+  id: String
+  lastName: String!
+  password: String
+}
+
+input UserCreateNestedOneWithoutOrdersInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutOrdersInput
+  create: UserCreateWithoutOrdersInput
+}
+
+input UserCreateNestedOneWithoutProvidersInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutProvidersInput
+  create: UserCreateWithoutProvidersInput
+}
+
+input UserCreateOrConnectWithoutOrdersInput {
+  create: UserCreateWithoutOrdersInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateOrConnectWithoutProvidersInput {
+  create: UserCreateWithoutProvidersInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutOrdersInput {
+  email: String
+  firstName: String!
+  id: String
+  lastName: String!
+  password: String
+  providers: UserProviderCreateNestedManyWithoutUserInput
+}
+
+input UserCreateWithoutProvidersInput {
+  email: String
+  firstName: String!
+  id: String
+  lastName: String!
+  orders: OrderCreateNestedManyWithoutUserInput
+  password: String
 }
 
 type UserGroupBy {
-  _avg: UserAvgAggregate
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
-  _sum: UserSumAggregate
-  created_at: DateTime
-  email: String!
-  id: Int!
-  password: String!
-  role: Role!
-  updated_at: DateTime
-  user_name: String!
+  email: String
+  firstName: String!
+  id: String!
+  lastName: String!
+  password: String
 }
 
 type UserMaxAggregate {
-  created_at: DateTime
   email: String
-  id: Int
+  firstName: String
+  id: String
+  lastName: String
   password: String
-  role: Role
-  updated_at: DateTime
-  user_name: String
 }
 
 input UserMaxOrderByAggregateInput {
-  created_at: SortOrder
   email: SortOrder
+  firstName: SortOrder
   id: SortOrder
+  lastName: SortOrder
   password: SortOrder
-  role: SortOrder
-  updated_at: SortOrder
-  user_name: SortOrder
 }
 
 type UserMinAggregate {
-  created_at: DateTime
   email: String
-  id: Int
+  firstName: String
+  id: String
+  lastName: String
   password: String
-  role: Role
-  updated_at: DateTime
-  user_name: String
 }
 
 input UserMinOrderByAggregateInput {
-  created_at: SortOrder
   email: SortOrder
+  firstName: SortOrder
   id: SortOrder
+  lastName: SortOrder
   password: SortOrder
-  role: SortOrder
-  updated_at: SortOrder
-  user_name: SortOrder
 }
 
 input UserOrderByWithAggregationInput {
-  _avg: UserAvgOrderByAggregateInput
   _count: UserCountOrderByAggregateInput
   _max: UserMaxOrderByAggregateInput
   _min: UserMinOrderByAggregateInput
-  _sum: UserSumOrderByAggregateInput
-  created_at: SortOrder
   email: SortOrder
+  firstName: SortOrder
   id: SortOrder
+  lastName: SortOrder
   password: SortOrder
-  role: SortOrder
-  updated_at: SortOrder
-  user_name: SortOrder
 }
 
 input UserOrderByWithRelationInput {
-  created_at: SortOrder
   email: SortOrder
+  firstName: SortOrder
   id: SortOrder
+  lastName: SortOrder
+  orders: OrderOrderByRelationAggregateInput
   password: SortOrder
-  role: SortOrder
-  updated_at: SortOrder
-  user_name: SortOrder
+  providers: UserProviderOrderByRelationAggregateInput
+}
+
+type UserProvider {
+  facebookEmail: String
+  facebookToken: String
+  id: String!
+  provider: String!
+  providerId: String!
+  user: User!
+  userId: String!
+}
+
+type UserProviderCountAggregate {
+  _all: Int!
+  facebookEmail: Int!
+  facebookToken: Int!
+  id: Int!
+  provider: Int!
+  providerId: Int!
+  userId: Int!
+}
+
+input UserProviderCountOrderByAggregateInput {
+  facebookEmail: SortOrder
+  facebookToken: SortOrder
+  id: SortOrder
+  provider: SortOrder
+  providerId: SortOrder
+  userId: SortOrder
+}
+
+input UserProviderCreateInput {
+  facebookEmail: String
+  facebookToken: String
+  id: String
+  provider: String!
+  providerId: String!
+  user: UserCreateNestedOneWithoutProvidersInput!
+}
+
+input UserProviderCreateManyInput {
+  facebookEmail: String
+  facebookToken: String
+  id: String
+  provider: String!
+  providerId: String!
+  userId: String!
+}
+
+input UserProviderCreateManyUserInput {
+  facebookEmail: String
+  facebookToken: String
+  id: String
+  provider: String!
+  providerId: String!
+}
+
+input UserProviderCreateManyUserInputEnvelope {
+  data: [UserProviderCreateManyUserInput!]!
+  skipDuplicates: Boolean
+}
+
+input UserProviderCreateNestedManyWithoutUserInput {
+  connect: [UserProviderWhereUniqueInput!]
+  connectOrCreate: [UserProviderCreateOrConnectWithoutUserInput!]
+  create: [UserProviderCreateWithoutUserInput!]
+  createMany: UserProviderCreateManyUserInputEnvelope
+}
+
+input UserProviderCreateOrConnectWithoutUserInput {
+  create: UserProviderCreateWithoutUserInput!
+  where: UserProviderWhereUniqueInput!
+}
+
+input UserProviderCreateWithoutUserInput {
+  facebookEmail: String
+  facebookToken: String
+  id: String
+  provider: String!
+  providerId: String!
+}
+
+type UserProviderGroupBy {
+  _count: UserProviderCountAggregate
+  _max: UserProviderMaxAggregate
+  _min: UserProviderMinAggregate
+  facebookEmail: String
+  facebookToken: String
+  id: String!
+  provider: String!
+  providerId: String!
+  userId: String!
+}
+
+input UserProviderListRelationFilter {
+  every: UserProviderWhereInput
+  none: UserProviderWhereInput
+  some: UserProviderWhereInput
+}
+
+type UserProviderMaxAggregate {
+  facebookEmail: String
+  facebookToken: String
+  id: String
+  provider: String
+  providerId: String
+  userId: String
+}
+
+input UserProviderMaxOrderByAggregateInput {
+  facebookEmail: SortOrder
+  facebookToken: SortOrder
+  id: SortOrder
+  provider: SortOrder
+  providerId: SortOrder
+  userId: SortOrder
+}
+
+type UserProviderMinAggregate {
+  facebookEmail: String
+  facebookToken: String
+  id: String
+  provider: String
+  providerId: String
+  userId: String
+}
+
+input UserProviderMinOrderByAggregateInput {
+  facebookEmail: SortOrder
+  facebookToken: SortOrder
+  id: SortOrder
+  provider: SortOrder
+  providerId: SortOrder
+  userId: SortOrder
+}
+
+input UserProviderOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input UserProviderOrderByWithAggregationInput {
+  _count: UserProviderCountOrderByAggregateInput
+  _max: UserProviderMaxOrderByAggregateInput
+  _min: UserProviderMinOrderByAggregateInput
+  facebookEmail: SortOrder
+  facebookToken: SortOrder
+  id: SortOrder
+  provider: SortOrder
+  providerId: SortOrder
+  userId: SortOrder
+}
+
+input UserProviderOrderByWithRelationInput {
+  facebookEmail: SortOrder
+  facebookToken: SortOrder
+  id: SortOrder
+  provider: SortOrder
+  providerId: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+}
+
+enum UserProviderScalarFieldEnum {
+  facebookEmail
+  facebookToken
+  id
+  provider
+  providerId
+  userId
+}
+
+input UserProviderScalarWhereInput {
+  AND: [UserProviderScalarWhereInput!]
+  NOT: [UserProviderScalarWhereInput!]
+  OR: [UserProviderScalarWhereInput!]
+  facebookEmail: StringNullableFilter
+  facebookToken: StringNullableFilter
+  id: StringFilter
+  provider: StringFilter
+  providerId: StringFilter
+  userId: StringFilter
+}
+
+input UserProviderScalarWhereWithAggregatesInput {
+  AND: [UserProviderScalarWhereWithAggregatesInput!]
+  NOT: [UserProviderScalarWhereWithAggregatesInput!]
+  OR: [UserProviderScalarWhereWithAggregatesInput!]
+  facebookEmail: StringNullableWithAggregatesFilter
+  facebookToken: StringNullableWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  provider: StringWithAggregatesFilter
+  providerId: StringWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
+input UserProviderUpdateInput {
+  facebookEmail: NullableStringFieldUpdateOperationsInput
+  facebookToken: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  provider: StringFieldUpdateOperationsInput
+  providerId: StringFieldUpdateOperationsInput
+  user: UserUpdateOneRequiredWithoutProvidersNestedInput
+}
+
+input UserProviderUpdateManyMutationInput {
+  facebookEmail: NullableStringFieldUpdateOperationsInput
+  facebookToken: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  provider: StringFieldUpdateOperationsInput
+  providerId: StringFieldUpdateOperationsInput
+}
+
+input UserProviderUpdateManyWithWhereWithoutUserInput {
+  data: UserProviderUpdateManyMutationInput!
+  where: UserProviderScalarWhereInput!
+}
+
+input UserProviderUpdateManyWithoutUserNestedInput {
+  connect: [UserProviderWhereUniqueInput!]
+  connectOrCreate: [UserProviderCreateOrConnectWithoutUserInput!]
+  create: [UserProviderCreateWithoutUserInput!]
+  createMany: UserProviderCreateManyUserInputEnvelope
+  delete: [UserProviderWhereUniqueInput!]
+  deleteMany: [UserProviderScalarWhereInput!]
+  disconnect: [UserProviderWhereUniqueInput!]
+  set: [UserProviderWhereUniqueInput!]
+  update: [UserProviderUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [UserProviderUpdateManyWithWhereWithoutUserInput!]
+  upsert: [UserProviderUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input UserProviderUpdateWithWhereUniqueWithoutUserInput {
+  data: UserProviderUpdateWithoutUserInput!
+  where: UserProviderWhereUniqueInput!
+}
+
+input UserProviderUpdateWithoutUserInput {
+  facebookEmail: NullableStringFieldUpdateOperationsInput
+  facebookToken: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  provider: StringFieldUpdateOperationsInput
+  providerId: StringFieldUpdateOperationsInput
+}
+
+input UserProviderUpsertWithWhereUniqueWithoutUserInput {
+  create: UserProviderCreateWithoutUserInput!
+  update: UserProviderUpdateWithoutUserInput!
+  where: UserProviderWhereUniqueInput!
+}
+
+input UserProviderWhereInput {
+  AND: [UserProviderWhereInput!]
+  NOT: [UserProviderWhereInput!]
+  OR: [UserProviderWhereInput!]
+  facebookEmail: StringNullableFilter
+  facebookToken: StringNullableFilter
+  id: StringFilter
+  provider: StringFilter
+  providerId: StringFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input UserProviderWhereUniqueInput {
+  id: String
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
 }
 
 enum UserScalarFieldEnum {
-  created_at
   email
+  firstName
   id
+  lastName
   password
-  role
-  updated_at
-  user_name
 }
 
 input UserScalarWhereWithAggregatesInput {
   AND: [UserScalarWhereWithAggregatesInput!]
   NOT: [UserScalarWhereWithAggregatesInput!]
   OR: [UserScalarWhereWithAggregatesInput!]
-  created_at: DateTimeNullableWithAggregatesFilter
-  email: StringWithAggregatesFilter
-  id: IntWithAggregatesFilter
-  password: StringWithAggregatesFilter
-  role: EnumRoleWithAggregatesFilter
-  updated_at: DateTimeNullableWithAggregatesFilter
-  user_name: StringWithAggregatesFilter
-}
-
-type UserSumAggregate {
-  id: Int
-}
-
-input UserSumOrderByAggregateInput {
-  id: SortOrder
+  email: StringNullableWithAggregatesFilter
+  firstName: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  lastName: StringWithAggregatesFilter
+  password: StringNullableWithAggregatesFilter
 }
 
 input UserUpdateInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-  user_name: StringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  orders: OrderUpdateManyWithoutUserNestedInput
+  password: NullableStringFieldUpdateOperationsInput
+  providers: UserProviderUpdateManyWithoutUserNestedInput
 }
 
 input UserUpdateManyMutationInput {
-  created_at: NullableDateTimeFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
-  updated_at: NullableDateTimeFieldUpdateOperationsInput
-  user_name: StringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
 }
 
-input UserUser_nameEmailCompoundUniqueInput {
-  email: String!
-  user_name: String!
+input UserUpdateOneRequiredWithoutOrdersNestedInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutOrdersInput
+  create: UserCreateWithoutOrdersInput
+  update: UserUpdateWithoutOrdersInput
+  upsert: UserUpsertWithoutOrdersInput
+}
+
+input UserUpdateOneRequiredWithoutProvidersNestedInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutProvidersInput
+  create: UserCreateWithoutProvidersInput
+  update: UserUpdateWithoutProvidersInput
+  upsert: UserUpsertWithoutProvidersInput
+}
+
+input UserUpdateWithoutOrdersInput {
+  email: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  password: NullableStringFieldUpdateOperationsInput
+  providers: UserProviderUpdateManyWithoutUserNestedInput
+}
+
+input UserUpdateWithoutProvidersInput {
+  email: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  orders: OrderUpdateManyWithoutUserNestedInput
+  password: NullableStringFieldUpdateOperationsInput
+}
+
+input UserUpsertWithoutOrdersInput {
+  create: UserCreateWithoutOrdersInput!
+  update: UserUpdateWithoutOrdersInput!
+}
+
+input UserUpsertWithoutProvidersInput {
+  create: UserCreateWithoutProvidersInput!
+  update: UserUpdateWithoutProvidersInput!
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  created_at: DateTimeNullableFilter
-  email: StringFilter
-  id: IntFilter
-  password: StringFilter
-  role: EnumRoleFilter
-  updated_at: DateTimeNullableFilter
-  user_name: StringFilter
+  email: StringNullableFilter
+  firstName: StringFilter
+  id: StringFilter
+  lastName: StringFilter
+  orders: OrderListRelationFilter
+  password: StringNullableFilter
+  providers: UserProviderListRelationFilter
 }
 
 input UserWhereUniqueInput {
-  id: Int
-  user_name_email: UserUser_nameEmailCompoundUniqueInput
+  email: String
+  id: String
 }

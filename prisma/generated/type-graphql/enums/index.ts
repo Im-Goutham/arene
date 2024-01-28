@@ -1,8 +1,9 @@
-export { AuthorScalarFieldEnum } from "./AuthorScalarFieldEnum";
-export { BookScalarFieldEnum } from "./BookScalarFieldEnum";
-export { CategoriesOnBooksScalarFieldEnum } from "./CategoriesOnBooksScalarFieldEnum";
 export { CategoryScalarFieldEnum } from "./CategoryScalarFieldEnum";
-export { Role } from "./Role";
+export { OfferScalarFieldEnum } from "./OfferScalarFieldEnum";
+export { OrderItemScalarFieldEnum } from "./OrderItemScalarFieldEnum";
+export { OrderScalarFieldEnum } from "./OrderScalarFieldEnum";
+export { ProductScalarFieldEnum } from "./ProductScalarFieldEnum";
 export { SortOrder } from "./SortOrder";
 export { TransactionIsolationLevel } from "./TransactionIsolationLevel";
+export { UserProviderScalarFieldEnum } from "./UserProviderScalarFieldEnum";
 export { UserScalarFieldEnum } from "./UserScalarFieldEnum";

@@ -2,10 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { DateTimeNullableFilter } from "../inputs/DateTimeNullableFilter";
-import { EnumRoleFilter } from "../inputs/EnumRoleFilter";
-import { IntFilter } from "../inputs/IntFilter";
+import { OrderListRelationFilter } from "../inputs/OrderListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
+import { StringNullableFilter } from "../inputs/StringNullableFilter";
+import { UserProviderListRelationFilter } from "../inputs/UserProviderListRelationFilter";
 
 @TypeGraphQL.InputType("UserWhereInput", {
   isAbstract: true
@@ -26,38 +26,38 @@ export class UserWhereInput {
   })
   NOT?: UserWhereInput[] | undefined;
 
-  @TypeGraphQL.Field(_type => IntFilter, {
+  @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  id?: IntFilter | undefined;
+  id?: StringFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
+    nullable: true
+  })
+  email?: StringNullableFilter | undefined;
+
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
+    nullable: true
+  })
+  password?: StringNullableFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  user_name?: StringFilter | undefined;
+  firstName?: StringFilter | undefined;
 
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  email?: StringFilter | undefined;
+  lastName?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => UserProviderListRelationFilter, {
     nullable: true
   })
-  password?: StringFilter | undefined;
+  providers?: UserProviderListRelationFilter | undefined;
 
-  @TypeGraphQL.Field(_type => EnumRoleFilter, {
+  @TypeGraphQL.Field(_type => OrderListRelationFilter, {
     nullable: true
   })
-  role?: EnumRoleFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeNullableFilter, {
-    nullable: true
-  })
-  created_at?: DateTimeNullableFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeNullableFilter, {
-    nullable: true
-  })
-  updated_at?: DateTimeNullableFilter | undefined;
+  orders?: OrderListRelationFilter | undefined;
 }

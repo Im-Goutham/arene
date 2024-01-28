@@ -2,9 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdateOperationsInput";
-import { NullableDateTimeFieldUpdateOperationsInput } from "../inputs/NullableDateTimeFieldUpdateOperationsInput";
+import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { OrderUpdateManyWithoutUserNestedInput } from "../inputs/OrderUpdateManyWithoutUserNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { UserProviderUpdateManyWithoutUserNestedInput } from "../inputs/UserProviderUpdateManyWithoutUserNestedInput";
 
 @TypeGraphQL.InputType("UserUpdateInput", {
   isAbstract: true
@@ -13,30 +14,35 @@ export class UserUpdateInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  user_name?: StringFieldUpdateOperationsInput | undefined;
+  id?: StringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  email?: NullableStringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  password?: NullableStringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  email?: StringFieldUpdateOperationsInput | undefined;
+  firstName?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  password?: StringFieldUpdateOperationsInput | undefined;
+  lastName?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => EnumRoleFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => UserProviderUpdateManyWithoutUserNestedInput, {
     nullable: true
   })
-  role?: EnumRoleFieldUpdateOperationsInput | undefined;
+  providers?: UserProviderUpdateManyWithoutUserNestedInput | undefined;
 
-  @TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => OrderUpdateManyWithoutUserNestedInput, {
     nullable: true
   })
-  created_at?: NullableDateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => NullableDateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  updated_at?: NullableDateTimeFieldUpdateOperationsInput | undefined;
+  orders?: OrderUpdateManyWithoutUserNestedInput | undefined;
 }

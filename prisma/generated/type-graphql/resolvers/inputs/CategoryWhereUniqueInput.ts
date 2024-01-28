@@ -7,13 +7,8 @@ import { DecimalJSScalar } from "../../scalars";
   isAbstract: true
 })
 export class CategoryWhereUniqueInput {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  id?: number | undefined;
-
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  name?: string | undefined;
+  id?: string | undefined;
 }

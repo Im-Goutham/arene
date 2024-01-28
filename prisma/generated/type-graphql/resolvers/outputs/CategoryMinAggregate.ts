@@ -7,10 +7,10 @@ import { DecimalJSScalar } from "../../scalars";
   isAbstract: true
 })
 export class CategoryMinAggregate {
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  id!: number | null;
+  id!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
@@ -20,15 +20,5 @@ export class CategoryMinAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  displayName!: string | null;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  created_at!: Date | null;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updated_at!: Date | null;
+  parentId!: string | null;
 }
