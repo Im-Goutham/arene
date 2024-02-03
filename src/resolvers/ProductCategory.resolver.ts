@@ -3,7 +3,7 @@ import { ProductCategory, } from "../../prisma/generated/type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 
 @Resolver(of => ProductCategory)
-export class ProductResolver {
+export class ProductCategoryResolver {
   // Query to fetch all product categories
   @Query(returns => [ProductCategory])
     async allProductCategories(@Ctx() { prisma }: PrismaContext): Promise<ProductCategory[]> {
