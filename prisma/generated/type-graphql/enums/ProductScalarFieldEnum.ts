@@ -2,12 +2,10 @@ import * as TypeGraphQL from "type-graphql";
 
 export enum ProductScalarFieldEnum {
   id = "id",
+  category_id = "category_id",
   name = "name",
-  sku = "sku",
-  price = "price",
-  image = "image",
-  stock = "stock",
-  categoryId = "categoryId"
+  description = "description",
+  product_image = "product_image"
 }
 TypeGraphQL.registerEnumType(ProductScalarFieldEnum, {
   name: "ProductScalarFieldEnum",
