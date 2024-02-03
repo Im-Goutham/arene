@@ -15,30 +15,20 @@ export class ProductMinAggregate {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
+  category_id!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
   name!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  sku!: string | null;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
-    nullable: true
-  })
-  price!: number | null;
+  description!: string | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  image!: string | null;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: true
-  })
-  stock!: number | null;
-
-  @TypeGraphQL.Field(_type => String, {
-    nullable: true
-  })
-  categoryId!: string | null;
+  product_image!: string | null;
 }

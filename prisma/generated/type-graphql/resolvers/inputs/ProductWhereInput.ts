@@ -2,12 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { CategoryRelationFilter } from "../inputs/CategoryRelationFilter";
-import { FloatFilter } from "../inputs/FloatFilter";
-import { IntFilter } from "../inputs/IntFilter";
-import { OfferListRelationFilter } from "../inputs/OfferListRelationFilter";
-import { OrderItemListRelationFilter } from "../inputs/OrderItemListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
+import { StringNullableFilter } from "../inputs/StringNullableFilter";
 
 @TypeGraphQL.InputType("ProductWhereInput", {
   isAbstract: true
@@ -36,45 +32,20 @@ export class ProductWhereInput {
   @TypeGraphQL.Field(_type => StringFilter, {
     nullable: true
   })
-  name?: StringFilter | undefined;
+  category_id?: StringFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  sku?: StringFilter | undefined;
+  name?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => FloatFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  price?: FloatFilter | undefined;
+  description?: StringNullableFilter | undefined;
 
-  @TypeGraphQL.Field(_type => StringFilter, {
+  @TypeGraphQL.Field(_type => StringNullableFilter, {
     nullable: true
   })
-  image?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => IntFilter, {
-    nullable: true
-  })
-  stock?: IntFilter | undefined;
-
-  @TypeGraphQL.Field(_type => CategoryRelationFilter, {
-    nullable: true
-  })
-  category?: CategoryRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => StringFilter, {
-    nullable: true
-  })
-  categoryId?: StringFilter | undefined;
-
-  @TypeGraphQL.Field(_type => OfferListRelationFilter, {
-    nullable: true
-  })
-  offers?: OfferListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => OrderItemListRelationFilter, {
-    nullable: true
-  })
-  orders?: OrderItemListRelationFilter | undefined;
+  product_image?: StringNullableFilter | undefined;
 }

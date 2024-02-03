@@ -1,36 +1,19 @@
-import { Arg, Ctx, FieldResolver, Query, Resolver, Root } from "type-graphql";
-import { Category, Product } from "../../prisma/generated/type-graphql";
+import { Arg, Ctx, Query, Resolver } from "type-graphql";
+import { ProductCategory, } from "../../prisma/generated/type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 
-@Resolver(of => Category)
-export default class CategoryResolver {
-  // Query to fetch all categories
-  @Query(returns => [Category])
-    async allCategories(@Ctx() { prisma }: PrismaContext): Promise<Category[]> {
-        return await prisma.category.findMany();
+@Resolver(of => ProductCategory)
+export class ProductResolver {
+  // Query to fetch all product categories
+  @Query(returns => [ProductCategory])
+    async allProductCategories(@Ctx() { prisma }: PrismaContext): Promise<ProductCategory[]> {
+        return await prisma.productCategory.findMany();
     }
 
-// Query to fetch a category by ID
-@Query(returns => Category, { nullable: true })
-  async categoryById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<Category | null> { // Use Int as a type
-      return await prisma.category.findFirst({ where: { id } });
+  // Query to fetch a product category by ID
+  @Query(returns => ProductCategory, { nullable: true })
+  async productCategoryById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<ProductCategory | null> {
+      return await prisma.productCategory.findFirst({ where: { id } });
   }
-
-  // Field resolver for products within a category
-  @FieldResolver(type => [Product])
-async products(@Root() category: Category, @Ctx() { prisma }: PrismaContext): Promise<Product[]> {
-    return await prisma.product.findMany({ where: { categoryId: category.id } });
-}
-
-  // Field resolver for parent category
-  @FieldResolver(type => Category)
-  async parentCategory(@Root() category: Category, @Ctx() { prisma }: PrismaContext): Promise<Category | null> {
-      return await prisma.category.findFirst({ where: { id: category.parentId|| "" } });
-  }
-
-  // Field resolver for child categories
-  @FieldResolver(type => [Category])
-  async childCategories(@Root() category: Category, @Ctx() { prisma }: PrismaContext): Promise<Category[]> {
-      return await prisma.category.findMany({ where: { parentId: category.id } });
-  }
+ 
 }

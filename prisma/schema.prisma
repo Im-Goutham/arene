@@ -15,74 +15,195 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String         @id @default(cuid())
-  email     String?        @unique
-  password  String?
-  firstName String
-  lastName  String
-  providers UserProvider[]
-  orders    Order[]
+model Country {
+  id           String  @id @default(cuid())
+  country_name String?
+
+  @@map(name: "country")
 }
 
-model UserProvider {
+model Address {
   id            String  @id @default(cuid())
-  userId        String
-  user          User    @relation(fields: [userId], references: [id])
-  provider      String
-  providerId    String
-  facebookToken String?
-  facebookEmail String?
+  unit_number   String?
+  street_number String?
+  address_line1 String?
+  address_line2 String?
+  city          String?
+  region        String?
+  postal_code   String?
+  country_id    String
+
+  @@map(name: "address")
+}
+
+model SiteUser {
+  id            String  @id @default(cuid())
+  email_address String?
+  phone_number  String?
+  password      String?
+
+  @@map(name: "site_user")
+}
+
+model UserAddress {
+  user_id    String
+  address_id String
+  is_default Int?
+
+  @@unique([user_id, address_id])
+  @@map(name: "user_address")
+}
+
+model ProductCategory {
+  id                 String  @id @default(cuid())
+  parent_category_id String
+  category_name      String?
+
+  @@map(name: "product_category")
+}
+
+model Promotion {
+  id            String  @id @default(cuid())
+  name          String?
+  description   String?
+  discount_rate Int?
+  start_date    String?
+  end_date      String?
+
+  @@map(name: "promotion")
+}
+
+model PromotionCategory {
+  category_id  String
+  promotion_id String
+
+  @@unique([category_id, promotion_id])
+  @@map(name: "promotion_category")
 }
 
 model Product {
-  id         String      @id @default(cuid())
-  name       String
-  sku        String      @unique
-  price      Float
-  image      String
-  stock      Int
-  category   Category    @relation(fields: [categoryId], references: [id])
-  categoryId String
-  offers     Offer[]
-  orders     OrderItem[]
+  id            String  @id @default(cuid())
+  category_id   String
+  name          String?
+  description   String?
+  product_image String?
+
+  @@map(name: "product")
 }
 
-model Category {
-  id       String     @id @default(cuid())
-  name     String
-  parent   Category?  @relation("subcategories", fields: [parentId], references: [id])
-  parentId String?
-  children Category[] @relation("subcategories")
-  products Product[]
+model ProductItem {
+  id            String  @id @default(cuid())
+  product_id    String
+  sku           String?
+  qty_in_stock  Int?
+  product_image String?
+  price         Int?
+
+  @@map(name: "product_item")
 }
 
-model Order {
-  id        String      @id @default(cuid())
-  userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  total     Float
-  createdAt DateTime    @default(now())
-  items     OrderItem[]
+model Variation {
+  id          String  @id @default(cuid())
+  category_id String
+  name        String?
+
+  @@map(name: "variation")
 }
 
-model OrderItem {
-  id        String  @id @default(cuid())
-  orderId   String
-  order     Order   @relation(fields: [orderId], references: [id])
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
+model VariationOption {
+  id           String  @id @default(cuid())
+  variation_id String
+  value        String?
+
+  @@map(name: "variation_option")
 }
 
-model Offer {
-  id        String    @id @default(cuid())
-  product   Product   @relation(fields: [productId], references: [id])
-  productId String
-  type      String
-  code      String?
-  discount  Float
-  startDate DateTime?
-  endDate   DateTime?
+model ProductConfiguration {
+  product_item_id     String
+  variation_option_id String
+
+  @@unique([product_item_id, variation_option_id])
+  @@map(name: "product_configuration")
+}
+
+model PaymentType {
+  id    String  @id @default(cuid())
+  value String?
+
+  @@map(name: "payment_type")
+}
+
+model UserPaymentMethod {
+  id              String  @id @default(cuid())
+  user_id         String
+  payment_type_id String
+  provider        String?
+  account_number  String?
+  is_default      Int?
+
+  @@map(name: "user_payment_method")
+}
+
+model ShoppingCart {
+  id      String @id @default(cuid())
+  user_id String
+
+  @@map(name: "shopping_cart")
+}
+
+model ShoppingCartItem {
+  id              String @id @default(cuid())
+  cart_id         String
+  product_item_id String
+  qty             Int?
+
+  @@map(name: "shopping_cart_item")
+}
+
+model ShippingMethod {
+  id    String  @id @default(cuid())
+  name  String?
+  price Int?
+
+  @@map(name: "shipping_method")
+}
+
+model OrderStatus {
+  id     String  @id @default(cuid())
+  status String?
+
+  @@map(name: "order_status")
+}
+
+model ShopOrder {
+  id                String  @id @default(cuid())
+  user_id           String
+  order_date        String?
+  payment_method_id String
+  shipping_address  Int?
+  shipping_method   Int?
+  order_total       Int?
+  order_status      Int?
+
+  @@map(name: "shop_order")
+}
+
+model OrderLine {
+  id              String @id @default(cuid())
+  product_item_id String
+  order_id        String
+  qty             Int?
+  price           Int?
+
+  @@map(name: "order_line")
+}
+
+model UserReview {
+  id                 String  @id @default(cuid())
+  user_id            String
+  ordered_product_id String
+  rating_value       Int?
+  comment            String?
+
+  @@map(name: "user_review")
 }

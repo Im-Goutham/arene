@@ -2,8 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
-import { FloatFieldUpdateOperationsInput } from "../inputs/FloatFieldUpdateOperationsInput";
-import { IntFieldUpdateOperationsInput } from "../inputs/IntFieldUpdateOperationsInput";
+import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("ProductUpdateManyMutationInput", {
@@ -18,25 +17,20 @@ export class ProductUpdateManyMutationInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  name?: StringFieldUpdateOperationsInput | undefined;
+  category_id?: StringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  sku?: StringFieldUpdateOperationsInput | undefined;
+  name?: NullableStringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => FloatFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  price?: FloatFieldUpdateOperationsInput | undefined;
+  description?: NullableStringFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
+  @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  image?: StringFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => IntFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  stock?: IntFieldUpdateOperationsInput | undefined;
+  product_image?: NullableStringFieldUpdateOperationsInput | undefined;
 }

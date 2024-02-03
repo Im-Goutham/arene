@@ -15,30 +15,20 @@ export class ProductCreateManyInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
-  name!: string;
+  category_id!: string;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  sku!: string;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Float, {
-    nullable: false
-  })
-  price!: number;
+  name?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  image!: string;
-
-  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    nullable: false
-  })
-  stock!: number;
+  description?: string | undefined;
 
   @TypeGraphQL.Field(_type => String, {
-    nullable: false
+    nullable: true
   })
-  categoryId!: string;
+  product_image?: string | undefined;
 }
