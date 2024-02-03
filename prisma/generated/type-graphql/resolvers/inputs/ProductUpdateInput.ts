@@ -2,7 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { CategoryUpdateOneRequiredWithoutProductNestedInput } from "../inputs/CategoryUpdateOneRequiredWithoutProductNestedInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { ProductItemUpdateManyWithoutProductNestedInput } from "../inputs/ProductItemUpdateManyWithoutProductNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
 @TypeGraphQL.InputType("ProductUpdateInput", {
@@ -13,11 +15,6 @@ export class ProductUpdateInput {
     nullable: true
   })
   id?: StringFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  category_id?: StringFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
@@ -33,4 +30,14 @@ export class ProductUpdateInput {
     nullable: true
   })
   product_image?: NullableStringFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => CategoryUpdateOneRequiredWithoutProductNestedInput, {
+    nullable: true
+  })
+  category?: CategoryUpdateOneRequiredWithoutProductNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => ProductItemUpdateManyWithoutProductNestedInput, {
+    nullable: true
+  })
+  ProductItem?: ProductItemUpdateManyWithoutProductNestedInput | undefined;
 }

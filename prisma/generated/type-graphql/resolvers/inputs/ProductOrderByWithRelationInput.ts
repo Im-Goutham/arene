@@ -2,6 +2,8 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { CategoryOrderByWithRelationInput } from "../inputs/CategoryOrderByWithRelationInput";
+import { ProductItemOrderByRelationAggregateInput } from "../inputs/ProductItemOrderByRelationAggregateInput";
 import { SortOrder } from "../../enums/SortOrder";
 
 @TypeGraphQL.InputType("ProductOrderByWithRelationInput", {
@@ -32,4 +34,14 @@ export class ProductOrderByWithRelationInput {
     nullable: true
   })
   product_image?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => CategoryOrderByWithRelationInput, {
+    nullable: true
+  })
+  category?: CategoryOrderByWithRelationInput | undefined;
+
+  @TypeGraphQL.Field(_type => ProductItemOrderByRelationAggregateInput, {
+    nullable: true
+  })
+  ProductItem?: ProductItemOrderByRelationAggregateInput | undefined;
 }

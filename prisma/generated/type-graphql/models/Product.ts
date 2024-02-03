@@ -2,6 +2,9 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Category } from "../models/Category";
+import { ProductItem } from "../models/ProductItem";
+import { ProductCount } from "../resolvers/outputs/ProductCount";
 
 @TypeGraphQL.ObjectType("Product", {
   isAbstract: true
@@ -31,4 +34,13 @@ export class Product {
     nullable: true
   })
   product_image?: string | null;
+
+  category?: Category;
+
+  ProductItem?: ProductItem[];
+
+  @TypeGraphQL.Field(_type => ProductCount, {
+    nullable: true
+  })
+  _count?: ProductCount | null;
 }

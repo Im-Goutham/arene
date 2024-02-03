@@ -1,10 +1,10 @@
 export { AddressCrudResolver } from "./Address/AddressCrudResolver";
+export { CategoryCrudResolver } from "./Category/CategoryCrudResolver";
 export { CountryCrudResolver } from "./Country/CountryCrudResolver";
 export { OrderLineCrudResolver } from "./OrderLine/OrderLineCrudResolver";
 export { OrderStatusCrudResolver } from "./OrderStatus/OrderStatusCrudResolver";
 export { PaymentTypeCrudResolver } from "./PaymentType/PaymentTypeCrudResolver";
 export { ProductCrudResolver } from "./Product/ProductCrudResolver";
-export { ProductCategoryCrudResolver } from "./ProductCategory/ProductCategoryCrudResolver";
 export { ProductConfigurationCrudResolver } from "./ProductConfiguration/ProductConfigurationCrudResolver";
 export { ProductItemCrudResolver } from "./ProductItem/ProductItemCrudResolver";
 export { PromotionCrudResolver } from "./Promotion/PromotionCrudResolver";
@@ -13,7 +13,7 @@ export { ShippingMethodCrudResolver } from "./ShippingMethod/ShippingMethodCrudR
 export { ShopOrderCrudResolver } from "./ShopOrder/ShopOrderCrudResolver";
 export { ShoppingCartCrudResolver } from "./ShoppingCart/ShoppingCartCrudResolver";
 export { ShoppingCartItemCrudResolver } from "./ShoppingCartItem/ShoppingCartItemCrudResolver";
-export { SiteUserCrudResolver } from "./SiteUser/SiteUserCrudResolver";
+export { UserCrudResolver } from "./User/UserCrudResolver";
 export { UserAddressCrudResolver } from "./UserAddress/UserAddressCrudResolver";
 export { UserPaymentMethodCrudResolver } from "./UserPaymentMethod/UserPaymentMethodCrudResolver";
 export { UserReviewCrudResolver } from "./UserReview/UserReviewCrudResolver";

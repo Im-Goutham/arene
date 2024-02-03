@@ -22,7 +22,7 @@ CREATE TABLE `address` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `site_user` (
+CREATE TABLE `user` (
     `id` VARCHAR(191) NOT NULL,
     `email_address` VARCHAR(191) NULL,
     `phone_number` VARCHAR(191) NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `user_address` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `product_category` (
+CREATE TABLE `category` (
     `id` VARCHAR(191) NOT NULL,
     `parent_category_id` VARCHAR(191) NOT NULL,
     `category_name` VARCHAR(191) NULL,
@@ -63,10 +63,11 @@ CREATE TABLE `promotion` (
 
 -- CreateTable
 CREATE TABLE `promotion_category` (
+    `id` VARCHAR(191) NOT NULL,
     `category_id` VARCHAR(191) NOT NULL,
     `promotion_id` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `promotion_category_category_id_promotion_id_key`(`category_id`, `promotion_id`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -112,10 +113,11 @@ CREATE TABLE `variation_option` (
 
 -- CreateTable
 CREATE TABLE `product_configuration` (
+    `id` VARCHAR(191) NOT NULL,
     `product_item_id` VARCHAR(191) NOT NULL,
     `variation_option_id` VARCHAR(191) NOT NULL,
 
-    UNIQUE INDEX `product_configuration_product_item_id_variation_option_id_key`(`product_item_id`, `variation_option_id`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -179,8 +181,8 @@ CREATE TABLE `shop_order` (
     `user_id` VARCHAR(191) NOT NULL,
     `order_date` VARCHAR(191) NULL,
     `payment_method_id` VARCHAR(191) NOT NULL,
-    `shipping_address` INTEGER NULL,
-    `shipping_method` INTEGER NULL,
+    `shipping_address` VARCHAR(191) NULL,
+    `shipping_method` VARCHAR(191) NULL,
     `order_total` INTEGER NULL,
     `order_status` INTEGER NULL,
 
@@ -208,3 +210,69 @@ CREATE TABLE `user_review` (
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `address` ADD CONSTRAINT `address_country_id_fkey` FOREIGN KEY (`country_id`) REFERENCES `country`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_address` ADD CONSTRAINT `user_address_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_address` ADD CONSTRAINT `user_address_address_id_fkey` FOREIGN KEY (`address_id`) REFERENCES `address`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `promotion_category` ADD CONSTRAINT `promotion_category_category_id_fkey` FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `promotion_category` ADD CONSTRAINT `promotion_category_promotion_id_fkey` FOREIGN KEY (`promotion_id`) REFERENCES `promotion`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `product` ADD CONSTRAINT `product_category_id_fkey` FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `product_item` ADD CONSTRAINT `product_item_product_id_fkey` FOREIGN KEY (`product_id`) REFERENCES `product`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `variation` ADD CONSTRAINT `variation_category_id_fkey` FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `variation_option` ADD CONSTRAINT `variation_option_variation_id_fkey` FOREIGN KEY (`variation_id`) REFERENCES `variation`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `product_configuration` ADD CONSTRAINT `product_configuration_product_item_id_fkey` FOREIGN KEY (`product_item_id`) REFERENCES `product_item`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `product_configuration` ADD CONSTRAINT `product_configuration_variation_option_id_fkey` FOREIGN KEY (`variation_option_id`) REFERENCES `variation_option`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_payment_method` ADD CONSTRAINT `user_payment_method_payment_type_id_fkey` FOREIGN KEY (`payment_type_id`) REFERENCES `payment_type`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_payment_method` ADD CONSTRAINT `user_payment_method_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `shopping_cart` ADD CONSTRAINT `shopping_cart_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `shopping_cart_item` ADD CONSTRAINT `shopping_cart_item_product_item_id_fkey` FOREIGN KEY (`product_item_id`) REFERENCES `product_item`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `shopping_cart_item` ADD CONSTRAINT `shopping_cart_item_cart_id_fkey` FOREIGN KEY (`cart_id`) REFERENCES `shopping_cart`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `shop_order` ADD CONSTRAINT `shop_order_payment_method_id_fkey` FOREIGN KEY (`payment_method_id`) REFERENCES `user_payment_method`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `shop_order` ADD CONSTRAINT `shop_order_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `order_line` ADD CONSTRAINT `order_line_product_item_id_fkey` FOREIGN KEY (`product_item_id`) REFERENCES `product_item`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `order_line` ADD CONSTRAINT `order_line_order_id_fkey` FOREIGN KEY (`order_id`) REFERENCES `shop_order`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_review` ADD CONSTRAINT `user_review_ordered_product_id_fkey` FOREIGN KEY (`ordered_product_id`) REFERENCES `product_item`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `user_review` ADD CONSTRAINT `user_review_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
