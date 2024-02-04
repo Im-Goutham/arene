@@ -76,7 +76,7 @@ const appConfig = async (): Promise<Application> => {
 
   
     app.use(
-        "/graphiql",
+        "/graphql",
         graphqlHTTP(async (req, res, params) => ({
             schema,
             context: { prisma },
