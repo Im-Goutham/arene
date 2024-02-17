@@ -68,7 +68,8 @@ model UserAddress {
 model Category {
   id                 String              @id @default(cuid())
   parent_category_id String
-  category_name      String?
+  name               String?
+  description        String?
   promotionCategory  PromotionCategory[]
   product            Product[]
   variation          Variation[]
