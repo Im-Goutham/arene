@@ -34,7 +34,7 @@ model Address {
   postal_code   String?
   country_id    String
   country       Country       @relation(fields: [country_id], references: [id])
-  UserAddress   UserAddress[]
+  userAddress   UserAddress[]
 
   @@map(name: "address")
 }
@@ -44,11 +44,12 @@ model User {
   email_address     String?
   phone_number      String?
   password          String?
-  UserAddress       UserAddress[]
-  UserPaymentMethod UserPaymentMethod[]
-  ShoppingCart      ShoppingCart[]
-  ShopOrder         ShopOrder[]
-  UserReview        UserReview[]
+  userAddress       UserAddress[]
+  userPaymentMethod UserPaymentMethod[]
+  shoppingCart      ShoppingCart[]
+  shopOrder         ShopOrder[]
+  userReview        UserReview[]
+  is_deleted        Boolean             @default(false)
 
   @@map(name: "user")
 }
@@ -68,9 +69,10 @@ model Category {
   id                 String              @id @default(cuid())
   parent_category_id String
   category_name      String?
-  PromotionCategory  PromotionCategory[]
-  Product            Product[]
-  Variation          Variation[]
+  promotionCategory  PromotionCategory[]
+  product            Product[]
+  variation          Variation[]
+  is_deleted         Boolean             @default(false)
 
   @@map(name: "category")
 }
@@ -82,7 +84,7 @@ model Promotion {
   discount_rate     Int?
   start_date        String?
   end_date          String?
-  PromotionCategory PromotionCategory[]
+  promotionCategory PromotionCategory[]
 
   @@map(name: "promotion")
 }
@@ -106,7 +108,8 @@ model Product {
   product_image String?
 
   category    Category      @relation(fields: [category_id], references: [id])
-  ProductItem ProductItem[]
+  productItem ProductItem[]
+  is_deleted  Boolean       @default(false)
 
   @@map(name: "product")
 }
@@ -120,10 +123,11 @@ model ProductItem {
   price         Int?
 
   product              Product                @relation(fields: [product_id], references: [id])
-  ProductConfiguration ProductConfiguration[]
-  ShoppingCartItem     ShoppingCartItem[]
-  OrderLine            OrderLine[]
-  UserReview           UserReview[]
+  productConfiguration ProductConfiguration[]
+  shoppingCartItem     ShoppingCartItem[]
+  orderLine            OrderLine[]
+  userReview           UserReview[]
+  is_deleted           Boolean                @default(false)
 
   @@map(name: "product_item")
 }
@@ -134,7 +138,7 @@ model Variation {
   name        String?
 
   category        Category          @relation(fields: [category_id], references: [id])
-  VariationOption VariationOption[]
+  variationOption VariationOption[]
 
   @@map(name: "variation")
 }
@@ -145,7 +149,7 @@ model VariationOption {
   value        String?
 
   variation            Variation              @relation(fields: [variation_id], references: [id])
-  ProductConfiguration ProductConfiguration[]
+  productConfiguration ProductConfiguration[]
 
   @@map(name: "variation_option")
 }
@@ -164,7 +168,7 @@ model ProductConfiguration {
 model PaymentType {
   id                String              @id @default(cuid())
   value             String?
-  UserPaymentMethod UserPaymentMethod[]
+  userPaymentMethod UserPaymentMethod[]
 
   @@map(name: "payment_type")
 }
@@ -179,7 +183,7 @@ model UserPaymentMethod {
 
   paymentType PaymentType @relation(fields: [payment_type_id], references: [id])
   user        User        @relation(fields: [user_id], references: [id])
-  ShopOrder   ShopOrder[]
+  shopOrder   ShopOrder[]
 
   @@map(name: "user_payment_method")
 }
@@ -189,7 +193,7 @@ model ShoppingCart {
   user_id String
 
   user             User               @relation(fields: [user_id], references: [id])
-  ShoppingCartItem ShoppingCartItem[]
+  shoppingCartItem ShoppingCartItem[]
 
   @@map(name: "shopping_cart")
 }

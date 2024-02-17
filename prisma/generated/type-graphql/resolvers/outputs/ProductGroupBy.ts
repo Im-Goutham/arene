@@ -35,6 +35,11 @@ export class ProductGroupBy {
   })
   product_image!: string | null;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  is_deleted!: boolean;
+
   @TypeGraphQL.Field(_type => ProductCountAggregate, {
     nullable: true
   })

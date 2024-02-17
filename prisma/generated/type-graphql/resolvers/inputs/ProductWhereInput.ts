@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { BoolFilter } from "../inputs/BoolFilter";
 import { CategoryRelationFilter } from "../inputs/CategoryRelationFilter";
 import { ProductItemListRelationFilter } from "../inputs/ProductItemListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
@@ -59,5 +60,10 @@ export class ProductWhereInput {
   @TypeGraphQL.Field(_type => ProductItemListRelationFilter, {
     nullable: true
   })
-  ProductItem?: ProductItemListRelationFilter | undefined;
+  productItem?: ProductItemListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => BoolFilter, {
+    nullable: true
+  })
+  is_deleted?: BoolFilter | undefined;
 }

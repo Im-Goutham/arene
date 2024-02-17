@@ -37,5 +37,10 @@ export class ProductCreateInput {
   @TypeGraphQL.Field(_type => ProductItemCreateNestedManyWithoutProductInput, {
     nullable: true
   })
-  ProductItem?: ProductItemCreateNestedManyWithoutProductInput | undefined;
+  productItem?: ProductItemCreateNestedManyWithoutProductInput | undefined;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  is_deleted?: boolean | undefined;
 }

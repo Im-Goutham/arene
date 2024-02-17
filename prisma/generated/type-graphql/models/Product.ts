@@ -37,7 +37,12 @@ export class Product {
 
   category?: Category;
 
-  ProductItem?: ProductItem[];
+  productItem?: ProductItem[];
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  is_deleted!: boolean;
 
   @TypeGraphQL.Field(_type => ProductCount, {
     nullable: true

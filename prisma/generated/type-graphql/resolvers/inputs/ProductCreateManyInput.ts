@@ -31,4 +31,9 @@ export class ProductCreateManyInput {
     nullable: true
   })
   product_image?: string | undefined;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  is_deleted?: boolean | undefined;
 }

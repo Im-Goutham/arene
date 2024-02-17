@@ -31,4 +31,9 @@ export class ProductMaxAggregate {
     nullable: true
   })
   product_image!: string | null;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  is_deleted!: boolean | null;
 }

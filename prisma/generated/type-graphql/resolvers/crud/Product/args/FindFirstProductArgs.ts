@@ -35,5 +35,5 @@ export class FindFirstProductArgs {
   @TypeGraphQL.Field(_type => [ProductScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "category_id" | "name" | "description" | "product_image"> | undefined;
+  distinct?: Array<"id" | "category_id" | "name" | "description" | "product_image" | "is_deleted"> | undefined;
 }

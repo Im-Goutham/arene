@@ -5,7 +5,8 @@ export enum ProductScalarFieldEnum {
   category_id = "category_id",
   name = "name",
   description = "description",
-  product_image = "product_image"
+  product_image = "product_image",
+  is_deleted = "is_deleted"
 }
 TypeGraphQL.registerEnumType(ProductScalarFieldEnum, {
   name: "ProductScalarFieldEnum",

@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { CategoryUpdateOneRequiredWithoutProductNestedInput } from "../inputs/CategoryUpdateOneRequiredWithoutProductNestedInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { ProductItemUpdateManyWithoutProductNestedInput } from "../inputs/ProductItemUpdateManyWithoutProductNestedInput";
@@ -39,5 +40,10 @@ export class ProductUpdateInput {
   @TypeGraphQL.Field(_type => ProductItemUpdateManyWithoutProductNestedInput, {
     nullable: true
   })
-  ProductItem?: ProductItemUpdateManyWithoutProductNestedInput | undefined;
+  productItem?: ProductItemUpdateManyWithoutProductNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  is_deleted?: BoolFieldUpdateOperationsInput | undefined;
 }

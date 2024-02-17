@@ -4,7 +4,6 @@
 # -----------------------------------------------
 
 type Address {
-  UserAddress(cursor: UserAddressWhereUniqueInput, distinct: [UserAddressScalarFieldEnum!], orderBy: [UserAddressOrderByWithRelationInput!], skip: Int, take: Int, where: UserAddressWhereInput): [UserAddress!]!
   _count: AddressCount
   address_line1: String
   address_line2: String
@@ -16,10 +15,11 @@ type Address {
   region: String
   street_number: String
   unit_number: String
+  userAddress(cursor: UserAddressWhereUniqueInput, distinct: [UserAddressScalarFieldEnum!], orderBy: [UserAddressOrderByWithRelationInput!], skip: Int, take: Int, where: UserAddressWhereInput): [UserAddress!]!
 }
 
 type AddressCount {
-  UserAddress: Int!
+  userAddress: Int!
 }
 
 type AddressCountAggregate {
@@ -48,7 +48,6 @@ input AddressCountOrderByAggregateInput {
 }
 
 input AddressCreateInput {
-  UserAddress: UserAddressCreateNestedManyWithoutAddressInput
   address_line1: String
   address_line2: String
   city: String
@@ -58,6 +57,7 @@ input AddressCreateInput {
   region: String
   street_number: String
   unit_number: String
+  userAddress: UserAddressCreateNestedManyWithoutAddressInput
 }
 
 input AddressCreateManyCountryInput {
@@ -112,7 +112,6 @@ input AddressCreateOrConnectWithoutUserAddressInput {
 }
 
 input AddressCreateWithoutCountryInput {
-  UserAddress: UserAddressCreateNestedManyWithoutAddressInput
   address_line1: String
   address_line2: String
   city: String
@@ -121,6 +120,7 @@ input AddressCreateWithoutCountryInput {
   region: String
   street_number: String
   unit_number: String
+  userAddress: UserAddressCreateNestedManyWithoutAddressInput
 }
 
 input AddressCreateWithoutUserAddressInput {
@@ -224,7 +224,6 @@ input AddressOrderByWithAggregationInput {
 }
 
 input AddressOrderByWithRelationInput {
-  UserAddress: UserAddressOrderByRelationAggregateInput
   address_line1: SortOrder
   address_line2: SortOrder
   city: SortOrder
@@ -235,6 +234,7 @@ input AddressOrderByWithRelationInput {
   region: SortOrder
   street_number: SortOrder
   unit_number: SortOrder
+  userAddress: UserAddressOrderByRelationAggregateInput
 }
 
 input AddressRelationFilter {
@@ -285,7 +285,6 @@ input AddressScalarWhereWithAggregatesInput {
 }
 
 input AddressUpdateInput {
-  UserAddress: UserAddressUpdateManyWithoutAddressNestedInput
   address_line1: NullableStringFieldUpdateOperationsInput
   address_line2: NullableStringFieldUpdateOperationsInput
   city: NullableStringFieldUpdateOperationsInput
@@ -295,6 +294,7 @@ input AddressUpdateInput {
   region: NullableStringFieldUpdateOperationsInput
   street_number: NullableStringFieldUpdateOperationsInput
   unit_number: NullableStringFieldUpdateOperationsInput
+  userAddress: UserAddressUpdateManyWithoutAddressNestedInput
 }
 
 input AddressUpdateManyMutationInput {
@@ -341,7 +341,6 @@ input AddressUpdateWithWhereUniqueWithoutCountryInput {
 }
 
 input AddressUpdateWithoutCountryInput {
-  UserAddress: UserAddressUpdateManyWithoutAddressNestedInput
   address_line1: NullableStringFieldUpdateOperationsInput
   address_line2: NullableStringFieldUpdateOperationsInput
   city: NullableStringFieldUpdateOperationsInput
@@ -350,6 +349,7 @@ input AddressUpdateWithoutCountryInput {
   region: NullableStringFieldUpdateOperationsInput
   street_number: NullableStringFieldUpdateOperationsInput
   unit_number: NullableStringFieldUpdateOperationsInput
+  userAddress: UserAddressUpdateManyWithoutAddressNestedInput
 }
 
 input AddressUpdateWithoutUserAddressInput {
@@ -379,7 +379,6 @@ input AddressWhereInput {
   AND: [AddressWhereInput!]
   NOT: [AddressWhereInput!]
   OR: [AddressWhereInput!]
-  UserAddress: UserAddressListRelationFilter
   address_line1: StringNullableFilter
   address_line2: StringNullableFilter
   city: StringNullableFilter
@@ -390,6 +389,7 @@ input AddressWhereInput {
   region: StringNullableFilter
   street_number: StringNullableFilter
   unit_number: StringNullableFilter
+  userAddress: UserAddressListRelationFilter
 }
 
 input AddressWhereUniqueInput {
@@ -544,47 +544,69 @@ type AggregateVariationOption {
   _min: VariationOptionMinAggregate
 }
 
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input BoolWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedBoolFilter
+  _min: NestedBoolFilter
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
+}
+
 type Category {
-  Product(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
-  PromotionCategory(cursor: PromotionCategoryWhereUniqueInput, distinct: [PromotionCategoryScalarFieldEnum!], orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategory!]!
-  Variation(cursor: VariationWhereUniqueInput, distinct: [VariationScalarFieldEnum!], orderBy: [VariationOrderByWithRelationInput!], skip: Int, take: Int, where: VariationWhereInput): [Variation!]!
   _count: CategoryCount
   category_name: String
   id: String!
+  is_deleted: Boolean!
   parent_category_id: String!
+  product(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
+  promotionCategory(cursor: PromotionCategoryWhereUniqueInput, distinct: [PromotionCategoryScalarFieldEnum!], orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategory!]!
+  variation(cursor: VariationWhereUniqueInput, distinct: [VariationScalarFieldEnum!], orderBy: [VariationOrderByWithRelationInput!], skip: Int, take: Int, where: VariationWhereInput): [Variation!]!
 }
 
 type CategoryCount {
-  Product: Int!
-  PromotionCategory: Int!
-  Variation: Int!
+  product: Int!
+  promotionCategory: Int!
+  variation: Int!
 }
 
 type CategoryCountAggregate {
   _all: Int!
   category_name: Int!
   id: Int!
+  is_deleted: Int!
   parent_category_id: Int!
 }
 
 input CategoryCountOrderByAggregateInput {
   category_name: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   parent_category_id: SortOrder
 }
 
 input CategoryCreateInput {
-  Product: ProductCreateNestedManyWithoutCategoryInput
-  PromotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
-  Variation: VariationCreateNestedManyWithoutCategoryInput
   category_name: String
   id: String
+  is_deleted: Boolean
   parent_category_id: String!
+  product: ProductCreateNestedManyWithoutCategoryInput
+  promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
+  variation: VariationCreateNestedManyWithoutCategoryInput
 }
 
 input CategoryCreateManyInput {
   category_name: String
   id: String
+  is_deleted: Boolean
   parent_category_id: String!
 }
 
@@ -622,27 +644,30 @@ input CategoryCreateOrConnectWithoutVariationInput {
 }
 
 input CategoryCreateWithoutProductInput {
-  PromotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
-  Variation: VariationCreateNestedManyWithoutCategoryInput
   category_name: String
   id: String
+  is_deleted: Boolean
   parent_category_id: String!
+  promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
+  variation: VariationCreateNestedManyWithoutCategoryInput
 }
 
 input CategoryCreateWithoutPromotionCategoryInput {
-  Product: ProductCreateNestedManyWithoutCategoryInput
-  Variation: VariationCreateNestedManyWithoutCategoryInput
   category_name: String
   id: String
+  is_deleted: Boolean
   parent_category_id: String!
+  product: ProductCreateNestedManyWithoutCategoryInput
+  variation: VariationCreateNestedManyWithoutCategoryInput
 }
 
 input CategoryCreateWithoutVariationInput {
-  Product: ProductCreateNestedManyWithoutCategoryInput
-  PromotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
   category_name: String
   id: String
+  is_deleted: Boolean
   parent_category_id: String!
+  product: ProductCreateNestedManyWithoutCategoryInput
+  promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
 }
 
 type CategoryGroupBy {
@@ -651,30 +676,35 @@ type CategoryGroupBy {
   _min: CategoryMinAggregate
   category_name: String
   id: String!
+  is_deleted: Boolean!
   parent_category_id: String!
 }
 
 type CategoryMaxAggregate {
   category_name: String
   id: String
+  is_deleted: Boolean
   parent_category_id: String
 }
 
 input CategoryMaxOrderByAggregateInput {
   category_name: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   parent_category_id: SortOrder
 }
 
 type CategoryMinAggregate {
   category_name: String
   id: String
+  is_deleted: Boolean
   parent_category_id: String
 }
 
 input CategoryMinOrderByAggregateInput {
   category_name: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   parent_category_id: SortOrder
 }
 
@@ -684,16 +714,18 @@ input CategoryOrderByWithAggregationInput {
   _min: CategoryMinOrderByAggregateInput
   category_name: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   parent_category_id: SortOrder
 }
 
 input CategoryOrderByWithRelationInput {
-  Product: ProductOrderByRelationAggregateInput
-  PromotionCategory: PromotionCategoryOrderByRelationAggregateInput
-  Variation: VariationOrderByRelationAggregateInput
   category_name: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   parent_category_id: SortOrder
+  product: ProductOrderByRelationAggregateInput
+  promotionCategory: PromotionCategoryOrderByRelationAggregateInput
+  variation: VariationOrderByRelationAggregateInput
 }
 
 input CategoryRelationFilter {
@@ -704,6 +736,7 @@ input CategoryRelationFilter {
 enum CategoryScalarFieldEnum {
   category_name
   id
+  is_deleted
   parent_category_id
 }
 
@@ -713,21 +746,24 @@ input CategoryScalarWhereWithAggregatesInput {
   OR: [CategoryScalarWhereWithAggregatesInput!]
   category_name: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
+  is_deleted: BoolWithAggregatesFilter
   parent_category_id: StringWithAggregatesFilter
 }
 
 input CategoryUpdateInput {
-  Product: ProductUpdateManyWithoutCategoryNestedInput
-  PromotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
-  Variation: VariationUpdateManyWithoutCategoryNestedInput
   category_name: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
+  product: ProductUpdateManyWithoutCategoryNestedInput
+  promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
+  variation: VariationUpdateManyWithoutCategoryNestedInput
 }
 
 input CategoryUpdateManyMutationInput {
   category_name: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
 }
 
@@ -756,27 +792,30 @@ input CategoryUpdateOneRequiredWithoutVariationNestedInput {
 }
 
 input CategoryUpdateWithoutProductInput {
-  PromotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
-  Variation: VariationUpdateManyWithoutCategoryNestedInput
   category_name: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
+  promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
+  variation: VariationUpdateManyWithoutCategoryNestedInput
 }
 
 input CategoryUpdateWithoutPromotionCategoryInput {
-  Product: ProductUpdateManyWithoutCategoryNestedInput
-  Variation: VariationUpdateManyWithoutCategoryNestedInput
   category_name: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
+  product: ProductUpdateManyWithoutCategoryNestedInput
+  variation: VariationUpdateManyWithoutCategoryNestedInput
 }
 
 input CategoryUpdateWithoutVariationInput {
-  Product: ProductUpdateManyWithoutCategoryNestedInput
-  PromotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
   category_name: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
+  product: ProductUpdateManyWithoutCategoryNestedInput
+  promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
 }
 
 input CategoryUpsertWithoutProductInput {
@@ -798,12 +837,13 @@ input CategoryWhereInput {
   AND: [CategoryWhereInput!]
   NOT: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
-  Product: ProductListRelationFilter
-  PromotionCategory: PromotionCategoryListRelationFilter
-  Variation: VariationListRelationFilter
   category_name: StringNullableFilter
   id: StringFilter
+  is_deleted: BoolFilter
   parent_category_id: StringFilter
+  product: ProductListRelationFilter
+  promotionCategory: PromotionCategoryListRelationFilter
+  variation: VariationListRelationFilter
 }
 
 input CategoryWhereUniqueInput {
@@ -1137,6 +1177,19 @@ type Mutation {
   upsertOneUserReview(create: UserReviewCreateInput!, update: UserReviewUpdateInput!, where: UserReviewWhereUniqueInput!): UserReview!
   upsertOneVariation(create: VariationCreateInput!, update: VariationUpdateInput!, where: VariationWhereUniqueInput!): Variation!
   upsertOneVariationOption(create: VariationOptionCreateInput!, update: VariationOptionUpdateInput!, where: VariationOptionWhereUniqueInput!): VariationOption!
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedBoolWithAggregatesFilter {
+  _count: NestedIntFilter
+  _max: NestedBoolFilter
+  _min: NestedBoolFilter
+  equals: Boolean
+  not: NestedBoolWithAggregatesFilter
 }
 
 input NestedFloatNullableFilter {
@@ -1703,14 +1756,14 @@ input OrderStatusWhereUniqueInput {
 }
 
 type PaymentType {
-  UserPaymentMethod(cursor: UserPaymentMethodWhereUniqueInput, distinct: [UserPaymentMethodScalarFieldEnum!], orderBy: [UserPaymentMethodOrderByWithRelationInput!], skip: Int, take: Int, where: UserPaymentMethodWhereInput): [UserPaymentMethod!]!
   _count: PaymentTypeCount
   id: String!
+  userPaymentMethod(cursor: UserPaymentMethodWhereUniqueInput, distinct: [UserPaymentMethodScalarFieldEnum!], orderBy: [UserPaymentMethodOrderByWithRelationInput!], skip: Int, take: Int, where: UserPaymentMethodWhereInput): [UserPaymentMethod!]!
   value: String
 }
 
 type PaymentTypeCount {
-  UserPaymentMethod: Int!
+  userPaymentMethod: Int!
 }
 
 type PaymentTypeCountAggregate {
@@ -1725,8 +1778,8 @@ input PaymentTypeCountOrderByAggregateInput {
 }
 
 input PaymentTypeCreateInput {
-  UserPaymentMethod: UserPaymentMethodCreateNestedManyWithoutPaymentTypeInput
   id: String
+  userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutPaymentTypeInput
   value: String
 }
 
@@ -1788,8 +1841,8 @@ input PaymentTypeOrderByWithAggregationInput {
 }
 
 input PaymentTypeOrderByWithRelationInput {
-  UserPaymentMethod: UserPaymentMethodOrderByRelationAggregateInput
   id: SortOrder
+  userPaymentMethod: UserPaymentMethodOrderByRelationAggregateInput
   value: SortOrder
 }
 
@@ -1812,8 +1865,8 @@ input PaymentTypeScalarWhereWithAggregatesInput {
 }
 
 input PaymentTypeUpdateInput {
-  UserPaymentMethod: UserPaymentMethodUpdateManyWithoutPaymentTypeNestedInput
   id: StringFieldUpdateOperationsInput
+  userPaymentMethod: UserPaymentMethodUpdateManyWithoutPaymentTypeNestedInput
   value: NullableStringFieldUpdateOperationsInput
 }
 
@@ -1844,8 +1897,8 @@ input PaymentTypeWhereInput {
   AND: [PaymentTypeWhereInput!]
   NOT: [PaymentTypeWhereInput!]
   OR: [PaymentTypeWhereInput!]
-  UserPaymentMethod: UserPaymentMethodListRelationFilter
   id: StringFilter
+  userPaymentMethod: UserPaymentMethodListRelationFilter
   value: StringNullableFilter
 }
 
@@ -1854,13 +1907,14 @@ input PaymentTypeWhereUniqueInput {
 }
 
 type Product {
-  ProductItem(cursor: ProductItemWhereUniqueInput, distinct: [ProductItemScalarFieldEnum!], orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): [ProductItem!]!
   _count: ProductCount
   category: Category!
   category_id: String!
   description: String
   id: String!
+  is_deleted: Boolean!
   name: String
+  productItem(cursor: ProductItemWhereUniqueInput, distinct: [ProductItemScalarFieldEnum!], orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): [ProductItem!]!
   product_image: String
 }
 
@@ -2131,7 +2185,7 @@ input ProductConfigurationWhereUniqueInput {
 }
 
 type ProductCount {
-  ProductItem: Int!
+  productItem: Int!
 }
 
 type ProductCountAggregate {
@@ -2139,6 +2193,7 @@ type ProductCountAggregate {
   category_id: Int!
   description: Int!
   id: Int!
+  is_deleted: Int!
   name: Int!
   product_image: Int!
 }
@@ -2147,22 +2202,25 @@ input ProductCountOrderByAggregateInput {
   category_id: SortOrder
   description: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   name: SortOrder
   product_image: SortOrder
 }
 
 input ProductCreateInput {
-  ProductItem: ProductItemCreateNestedManyWithoutProductInput
   category: CategoryCreateNestedOneWithoutProductInput!
   description: String
   id: String
+  is_deleted: Boolean
   name: String
+  productItem: ProductItemCreateNestedManyWithoutProductInput
   product_image: String
 }
 
 input ProductCreateManyCategoryInput {
   description: String
   id: String
+  is_deleted: Boolean
   name: String
   product_image: String
 }
@@ -2176,6 +2234,7 @@ input ProductCreateManyInput {
   category_id: String!
   description: String
   id: String
+  is_deleted: Boolean
   name: String
   product_image: String
 }
@@ -2204,10 +2263,11 @@ input ProductCreateOrConnectWithoutProductItemInput {
 }
 
 input ProductCreateWithoutCategoryInput {
-  ProductItem: ProductItemCreateNestedManyWithoutProductInput
   description: String
   id: String
+  is_deleted: Boolean
   name: String
+  productItem: ProductItemCreateNestedManyWithoutProductInput
   product_image: String
 }
 
@@ -2215,6 +2275,7 @@ input ProductCreateWithoutProductItemInput {
   category: CategoryCreateNestedOneWithoutProductInput!
   description: String
   id: String
+  is_deleted: Boolean
   name: String
   product_image: String
 }
@@ -2226,23 +2287,25 @@ type ProductGroupBy {
   category_id: String!
   description: String
   id: String!
+  is_deleted: Boolean!
   name: String
   product_image: String
 }
 
 type ProductItem {
-  OrderLine(cursor: OrderLineWhereUniqueInput, distinct: [OrderLineScalarFieldEnum!], orderBy: [OrderLineOrderByWithRelationInput!], skip: Int, take: Int, where: OrderLineWhereInput): [OrderLine!]!
-  ProductConfiguration(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
-  ShoppingCartItem(cursor: ShoppingCartItemWhereUniqueInput, distinct: [ShoppingCartItemScalarFieldEnum!], orderBy: [ShoppingCartItemOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartItemWhereInput): [ShoppingCartItem!]!
-  UserReview(cursor: UserReviewWhereUniqueInput, distinct: [UserReviewScalarFieldEnum!], orderBy: [UserReviewOrderByWithRelationInput!], skip: Int, take: Int, where: UserReviewWhereInput): [UserReview!]!
   _count: ProductItemCount
   id: String!
+  is_deleted: Boolean!
+  orderLine(cursor: OrderLineWhereUniqueInput, distinct: [OrderLineScalarFieldEnum!], orderBy: [OrderLineOrderByWithRelationInput!], skip: Int, take: Int, where: OrderLineWhereInput): [OrderLine!]!
   price: Int
   product: Product!
+  productConfiguration(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
   product_id: String!
   product_image: String
   qty_in_stock: Int
+  shoppingCartItem(cursor: ShoppingCartItemWhereUniqueInput, distinct: [ShoppingCartItemScalarFieldEnum!], orderBy: [ShoppingCartItemOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartItemWhereInput): [ShoppingCartItem!]!
   sku: String
+  userReview(cursor: UserReviewWhereUniqueInput, distinct: [UserReviewScalarFieldEnum!], orderBy: [UserReviewOrderByWithRelationInput!], skip: Int, take: Int, where: UserReviewWhereInput): [UserReview!]!
 }
 
 type ProductItemAvgAggregate {
@@ -2256,15 +2319,16 @@ input ProductItemAvgOrderByAggregateInput {
 }
 
 type ProductItemCount {
-  OrderLine: Int!
-  ProductConfiguration: Int!
-  ShoppingCartItem: Int!
-  UserReview: Int!
+  orderLine: Int!
+  productConfiguration: Int!
+  shoppingCartItem: Int!
+  userReview: Int!
 }
 
 type ProductItemCountAggregate {
   _all: Int!
   id: Int!
+  is_deleted: Int!
   price: Int!
   product_id: Int!
   product_image: Int!
@@ -2274,6 +2338,7 @@ type ProductItemCountAggregate {
 
 input ProductItemCountOrderByAggregateInput {
   id: SortOrder
+  is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
   product_image: SortOrder
@@ -2282,20 +2347,22 @@ input ProductItemCountOrderByAggregateInput {
 }
 
 input ProductItemCreateInput {
-  OrderLine: OrderLineCreateNestedManyWithoutProductItemInput
-  ProductConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  ShoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
-  UserReview: UserReviewCreateNestedManyWithoutOrdered_productInput
   id: String
+  is_deleted: Boolean
+  orderLine: OrderLineCreateNestedManyWithoutProductItemInput
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
   product_image: String
   qty_in_stock: Int
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
+  userReview: UserReviewCreateNestedManyWithoutOrdered_productInput
 }
 
 input ProductItemCreateManyInput {
   id: String
+  is_deleted: Boolean
   price: Int
   product_id: String!
   product_image: String
@@ -2305,6 +2372,7 @@ input ProductItemCreateManyInput {
 
 input ProductItemCreateManyProductInput {
   id: String
+  is_deleted: Boolean
   price: Int
   product_image: String
   qty_in_stock: Int
@@ -2373,62 +2441,67 @@ input ProductItemCreateOrConnectWithoutUserReviewInput {
 }
 
 input ProductItemCreateWithoutOrderLineInput {
-  ProductConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  ShoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
-  UserReview: UserReviewCreateNestedManyWithoutOrdered_productInput
   id: String
+  is_deleted: Boolean
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
   product_image: String
   qty_in_stock: Int
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
+  userReview: UserReviewCreateNestedManyWithoutOrdered_productInput
 }
 
 input ProductItemCreateWithoutProductConfigurationInput {
-  OrderLine: OrderLineCreateNestedManyWithoutProductItemInput
-  ShoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
-  UserReview: UserReviewCreateNestedManyWithoutOrdered_productInput
   id: String
+  is_deleted: Boolean
+  orderLine: OrderLineCreateNestedManyWithoutProductItemInput
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
   product_image: String
   qty_in_stock: Int
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
+  userReview: UserReviewCreateNestedManyWithoutOrdered_productInput
 }
 
 input ProductItemCreateWithoutProductInput {
-  OrderLine: OrderLineCreateNestedManyWithoutProductItemInput
-  ProductConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  ShoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
-  UserReview: UserReviewCreateNestedManyWithoutOrdered_productInput
   id: String
+  is_deleted: Boolean
+  orderLine: OrderLineCreateNestedManyWithoutProductItemInput
   price: Int
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
   product_image: String
   qty_in_stock: Int
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
+  userReview: UserReviewCreateNestedManyWithoutOrdered_productInput
 }
 
 input ProductItemCreateWithoutShoppingCartItemInput {
-  OrderLine: OrderLineCreateNestedManyWithoutProductItemInput
-  ProductConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  UserReview: UserReviewCreateNestedManyWithoutOrdered_productInput
   id: String
+  is_deleted: Boolean
+  orderLine: OrderLineCreateNestedManyWithoutProductItemInput
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
   product_image: String
   qty_in_stock: Int
   sku: String
+  userReview: UserReviewCreateNestedManyWithoutOrdered_productInput
 }
 
 input ProductItemCreateWithoutUserReviewInput {
-  OrderLine: OrderLineCreateNestedManyWithoutProductItemInput
-  ProductConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  ShoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   id: String
+  is_deleted: Boolean
+  orderLine: OrderLineCreateNestedManyWithoutProductItemInput
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
   product_image: String
   qty_in_stock: Int
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
 }
 
@@ -2439,6 +2512,7 @@ type ProductItemGroupBy {
   _min: ProductItemMinAggregate
   _sum: ProductItemSumAggregate
   id: String!
+  is_deleted: Boolean!
   price: Int
   product_id: String!
   product_image: String
@@ -2454,6 +2528,7 @@ input ProductItemListRelationFilter {
 
 type ProductItemMaxAggregate {
   id: String
+  is_deleted: Boolean
   price: Int
   product_id: String
   product_image: String
@@ -2463,6 +2538,7 @@ type ProductItemMaxAggregate {
 
 input ProductItemMaxOrderByAggregateInput {
   id: SortOrder
+  is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
   product_image: SortOrder
@@ -2472,6 +2548,7 @@ input ProductItemMaxOrderByAggregateInput {
 
 type ProductItemMinAggregate {
   id: String
+  is_deleted: Boolean
   price: Int
   product_id: String
   product_image: String
@@ -2481,6 +2558,7 @@ type ProductItemMinAggregate {
 
 input ProductItemMinOrderByAggregateInput {
   id: SortOrder
+  is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
   product_image: SortOrder
@@ -2499,6 +2577,7 @@ input ProductItemOrderByWithAggregationInput {
   _min: ProductItemMinOrderByAggregateInput
   _sum: ProductItemSumOrderByAggregateInput
   id: SortOrder
+  is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
   product_image: SortOrder
@@ -2507,17 +2586,18 @@ input ProductItemOrderByWithAggregationInput {
 }
 
 input ProductItemOrderByWithRelationInput {
-  OrderLine: OrderLineOrderByRelationAggregateInput
-  ProductConfiguration: ProductConfigurationOrderByRelationAggregateInput
-  ShoppingCartItem: ShoppingCartItemOrderByRelationAggregateInput
-  UserReview: UserReviewOrderByRelationAggregateInput
   id: SortOrder
+  is_deleted: SortOrder
+  orderLine: OrderLineOrderByRelationAggregateInput
   price: SortOrder
   product: ProductOrderByWithRelationInput
+  productConfiguration: ProductConfigurationOrderByRelationAggregateInput
   product_id: SortOrder
   product_image: SortOrder
   qty_in_stock: SortOrder
+  shoppingCartItem: ShoppingCartItemOrderByRelationAggregateInput
   sku: SortOrder
+  userReview: UserReviewOrderByRelationAggregateInput
 }
 
 input ProductItemRelationFilter {
@@ -2527,6 +2607,7 @@ input ProductItemRelationFilter {
 
 enum ProductItemScalarFieldEnum {
   id
+  is_deleted
   price
   product_id
   product_image
@@ -2539,6 +2620,7 @@ input ProductItemScalarWhereInput {
   NOT: [ProductItemScalarWhereInput!]
   OR: [ProductItemScalarWhereInput!]
   id: StringFilter
+  is_deleted: BoolFilter
   price: IntNullableFilter
   product_id: StringFilter
   product_image: StringNullableFilter
@@ -2551,6 +2633,7 @@ input ProductItemScalarWhereWithAggregatesInput {
   NOT: [ProductItemScalarWhereWithAggregatesInput!]
   OR: [ProductItemScalarWhereWithAggregatesInput!]
   id: StringWithAggregatesFilter
+  is_deleted: BoolWithAggregatesFilter
   price: IntNullableWithAggregatesFilter
   product_id: StringWithAggregatesFilter
   product_image: StringNullableWithAggregatesFilter
@@ -2569,20 +2652,22 @@ input ProductItemSumOrderByAggregateInput {
 }
 
 input ProductItemUpdateInput {
-  OrderLine: OrderLineUpdateManyWithoutProductItemNestedInput
-  ProductConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  ShoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
-  UserReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
+  orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
+  userReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
 }
 
 input ProductItemUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
   product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
@@ -2646,62 +2731,67 @@ input ProductItemUpdateWithWhereUniqueWithoutProductInput {
 }
 
 input ProductItemUpdateWithoutOrderLineInput {
-  ProductConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  ShoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
-  UserReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
+  userReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
 }
 
 input ProductItemUpdateWithoutProductConfigurationInput {
-  OrderLine: OrderLineUpdateManyWithoutProductItemNestedInput
-  ShoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
-  UserReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
+  orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
+  userReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
 }
 
 input ProductItemUpdateWithoutProductInput {
-  OrderLine: OrderLineUpdateManyWithoutProductItemNestedInput
-  ProductConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  ShoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
-  UserReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
+  orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
   price: NullableIntFieldUpdateOperationsInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
+  userReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
 }
 
 input ProductItemUpdateWithoutShoppingCartItemInput {
-  OrderLine: OrderLineUpdateManyWithoutProductItemNestedInput
-  ProductConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  UserReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
+  orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   sku: NullableStringFieldUpdateOperationsInput
+  userReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
 }
 
 input ProductItemUpdateWithoutUserReviewInput {
-  OrderLine: OrderLineUpdateManyWithoutProductItemNestedInput
-  ProductConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  ShoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
+  orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
 }
 
@@ -2735,17 +2825,18 @@ input ProductItemWhereInput {
   AND: [ProductItemWhereInput!]
   NOT: [ProductItemWhereInput!]
   OR: [ProductItemWhereInput!]
-  OrderLine: OrderLineListRelationFilter
-  ProductConfiguration: ProductConfigurationListRelationFilter
-  ShoppingCartItem: ShoppingCartItemListRelationFilter
-  UserReview: UserReviewListRelationFilter
   id: StringFilter
+  is_deleted: BoolFilter
+  orderLine: OrderLineListRelationFilter
   price: IntNullableFilter
   product: ProductRelationFilter
+  productConfiguration: ProductConfigurationListRelationFilter
   product_id: StringFilter
   product_image: StringNullableFilter
   qty_in_stock: IntNullableFilter
+  shoppingCartItem: ShoppingCartItemListRelationFilter
   sku: StringNullableFilter
+  userReview: UserReviewListRelationFilter
 }
 
 input ProductItemWhereUniqueInput {
@@ -2762,6 +2853,7 @@ type ProductMaxAggregate {
   category_id: String
   description: String
   id: String
+  is_deleted: Boolean
   name: String
   product_image: String
 }
@@ -2770,6 +2862,7 @@ input ProductMaxOrderByAggregateInput {
   category_id: SortOrder
   description: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   name: SortOrder
   product_image: SortOrder
 }
@@ -2778,6 +2871,7 @@ type ProductMinAggregate {
   category_id: String
   description: String
   id: String
+  is_deleted: Boolean
   name: String
   product_image: String
 }
@@ -2786,6 +2880,7 @@ input ProductMinOrderByAggregateInput {
   category_id: SortOrder
   description: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   name: SortOrder
   product_image: SortOrder
 }
@@ -2801,17 +2896,19 @@ input ProductOrderByWithAggregationInput {
   category_id: SortOrder
   description: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   name: SortOrder
   product_image: SortOrder
 }
 
 input ProductOrderByWithRelationInput {
-  ProductItem: ProductItemOrderByRelationAggregateInput
   category: CategoryOrderByWithRelationInput
   category_id: SortOrder
   description: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   name: SortOrder
+  productItem: ProductItemOrderByRelationAggregateInput
   product_image: SortOrder
 }
 
@@ -2824,6 +2921,7 @@ enum ProductScalarFieldEnum {
   category_id
   description
   id
+  is_deleted
   name
   product_image
 }
@@ -2835,6 +2933,7 @@ input ProductScalarWhereInput {
   category_id: StringFilter
   description: StringNullableFilter
   id: StringFilter
+  is_deleted: BoolFilter
   name: StringNullableFilter
   product_image: StringNullableFilter
 }
@@ -2846,22 +2945,25 @@ input ProductScalarWhereWithAggregatesInput {
   category_id: StringWithAggregatesFilter
   description: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
+  is_deleted: BoolWithAggregatesFilter
   name: StringNullableWithAggregatesFilter
   product_image: StringNullableWithAggregatesFilter
 }
 
 input ProductUpdateInput {
-  ProductItem: ProductItemUpdateManyWithoutProductNestedInput
   category: CategoryUpdateOneRequiredWithoutProductNestedInput
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  productItem: ProductItemUpdateManyWithoutProductNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
 
 input ProductUpdateManyMutationInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
@@ -2899,10 +3001,11 @@ input ProductUpdateWithWhereUniqueWithoutCategoryInput {
 }
 
 input ProductUpdateWithoutCategoryInput {
-  ProductItem: ProductItemUpdateManyWithoutProductNestedInput
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  productItem: ProductItemUpdateManyWithoutProductNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
 
@@ -2910,6 +3013,7 @@ input ProductUpdateWithoutProductItemInput {
   category: CategoryUpdateOneRequiredWithoutProductNestedInput
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
@@ -2929,12 +3033,13 @@ input ProductWhereInput {
   AND: [ProductWhereInput!]
   NOT: [ProductWhereInput!]
   OR: [ProductWhereInput!]
-  ProductItem: ProductItemListRelationFilter
   category: CategoryRelationFilter
   category_id: StringFilter
   description: StringNullableFilter
   id: StringFilter
+  is_deleted: BoolFilter
   name: StringNullableFilter
+  productItem: ProductItemListRelationFilter
   product_image: StringNullableFilter
 }
 
@@ -2943,13 +3048,13 @@ input ProductWhereUniqueInput {
 }
 
 type Promotion {
-  PromotionCategory(cursor: PromotionCategoryWhereUniqueInput, distinct: [PromotionCategoryScalarFieldEnum!], orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategory!]!
   _count: PromotionCount
   description: String
   discount_rate: Int
   end_date: String
   id: String!
   name: String
+  promotionCategory(cursor: PromotionCategoryWhereUniqueInput, distinct: [PromotionCategoryScalarFieldEnum!], orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategory!]!
   start_date: String
 }
 
@@ -3228,7 +3333,7 @@ input PromotionCategoryWhereUniqueInput {
 }
 
 type PromotionCount {
-  PromotionCategory: Int!
+  promotionCategory: Int!
 }
 
 type PromotionCountAggregate {
@@ -3251,12 +3356,12 @@ input PromotionCountOrderByAggregateInput {
 }
 
 input PromotionCreateInput {
-  PromotionCategory: PromotionCategoryCreateNestedManyWithoutPromotionInput
   description: String
   discount_rate: Int
   end_date: String
   id: String
   name: String
+  promotionCategory: PromotionCategoryCreateNestedManyWithoutPromotionInput
   start_date: String
 }
 
@@ -3354,12 +3459,12 @@ input PromotionOrderByWithAggregationInput {
 }
 
 input PromotionOrderByWithRelationInput {
-  PromotionCategory: PromotionCategoryOrderByRelationAggregateInput
   description: SortOrder
   discount_rate: SortOrder
   end_date: SortOrder
   id: SortOrder
   name: SortOrder
+  promotionCategory: PromotionCategoryOrderByRelationAggregateInput
   start_date: SortOrder
 }
 
@@ -3398,12 +3503,12 @@ input PromotionSumOrderByAggregateInput {
 }
 
 input PromotionUpdateInput {
-  PromotionCategory: PromotionCategoryUpdateManyWithoutPromotionNestedInput
   description: NullableStringFieldUpdateOperationsInput
   discount_rate: NullableIntFieldUpdateOperationsInput
   end_date: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  promotionCategory: PromotionCategoryUpdateManyWithoutPromotionNestedInput
   start_date: NullableStringFieldUpdateOperationsInput
 }
 
@@ -3442,12 +3547,12 @@ input PromotionWhereInput {
   AND: [PromotionWhereInput!]
   NOT: [PromotionWhereInput!]
   OR: [PromotionWhereInput!]
-  PromotionCategory: PromotionCategoryListRelationFilter
   description: StringNullableFilter
   discount_rate: IntNullableFilter
   end_date: StringNullableFilter
   id: StringFilter
   name: StringNullableFilter
+  promotionCategory: PromotionCategoryListRelationFilter
   start_date: StringNullableFilter
 }
 
@@ -4226,15 +4331,15 @@ input ShopOrderWhereUniqueInput {
 }
 
 type ShoppingCart {
-  ShoppingCartItem(cursor: ShoppingCartItemWhereUniqueInput, distinct: [ShoppingCartItemScalarFieldEnum!], orderBy: [ShoppingCartItemOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartItemWhereInput): [ShoppingCartItem!]!
   _count: ShoppingCartCount
   id: String!
+  shoppingCartItem(cursor: ShoppingCartItemWhereUniqueInput, distinct: [ShoppingCartItemScalarFieldEnum!], orderBy: [ShoppingCartItemOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartItemWhereInput): [ShoppingCartItem!]!
   user: User!
   user_id: String!
 }
 
 type ShoppingCartCount {
-  ShoppingCartItem: Int!
+  shoppingCartItem: Int!
 }
 
 type ShoppingCartCountAggregate {
@@ -4249,8 +4354,8 @@ input ShoppingCartCountOrderByAggregateInput {
 }
 
 input ShoppingCartCreateInput {
-  ShoppingCartItem: ShoppingCartItemCreateNestedManyWithoutCartInput
   id: String
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutCartInput
   user: UserCreateNestedOneWithoutShoppingCartInput!
 }
 
@@ -4297,8 +4402,8 @@ input ShoppingCartCreateWithoutShoppingCartItemInput {
 }
 
 input ShoppingCartCreateWithoutUserInput {
-  ShoppingCartItem: ShoppingCartItemCreateNestedManyWithoutCartInput
   id: String
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutCartInput
 }
 
 type ShoppingCartGroupBy {
@@ -4658,8 +4763,8 @@ input ShoppingCartOrderByWithAggregationInput {
 }
 
 input ShoppingCartOrderByWithRelationInput {
-  ShoppingCartItem: ShoppingCartItemOrderByRelationAggregateInput
   id: SortOrder
+  shoppingCartItem: ShoppingCartItemOrderByRelationAggregateInput
   user: UserOrderByWithRelationInput
   user_id: SortOrder
 }
@@ -4691,8 +4796,8 @@ input ShoppingCartScalarWhereWithAggregatesInput {
 }
 
 input ShoppingCartUpdateInput {
-  ShoppingCartItem: ShoppingCartItemUpdateManyWithoutCartNestedInput
   id: StringFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutCartNestedInput
   user: UserUpdateOneRequiredWithoutShoppingCartNestedInput
 }
 
@@ -4738,8 +4843,8 @@ input ShoppingCartUpdateWithoutShoppingCartItemInput {
 }
 
 input ShoppingCartUpdateWithoutUserInput {
-  ShoppingCartItem: ShoppingCartItemUpdateManyWithoutCartNestedInput
   id: StringFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutCartNestedInput
 }
 
 input ShoppingCartUpsertWithWhereUniqueWithoutUserInput {
@@ -4757,8 +4862,8 @@ input ShoppingCartWhereInput {
   AND: [ShoppingCartWhereInput!]
   NOT: [ShoppingCartWhereInput!]
   OR: [ShoppingCartWhereInput!]
-  ShoppingCartItem: ShoppingCartItemListRelationFilter
   id: StringFilter
+  shoppingCartItem: ShoppingCartItemListRelationFilter
   user: UserRelationFilter
   user_id: StringFilter
 }
@@ -4839,16 +4944,17 @@ input StringWithAggregatesFilter {
 }
 
 type User {
-  ShopOrder(cursor: ShopOrderWhereUniqueInput, distinct: [ShopOrderScalarFieldEnum!], orderBy: [ShopOrderOrderByWithRelationInput!], skip: Int, take: Int, where: ShopOrderWhereInput): [ShopOrder!]!
-  ShoppingCart(cursor: ShoppingCartWhereUniqueInput, distinct: [ShoppingCartScalarFieldEnum!], orderBy: [ShoppingCartOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartWhereInput): [ShoppingCart!]!
-  UserAddress(cursor: UserAddressWhereUniqueInput, distinct: [UserAddressScalarFieldEnum!], orderBy: [UserAddressOrderByWithRelationInput!], skip: Int, take: Int, where: UserAddressWhereInput): [UserAddress!]!
-  UserPaymentMethod(cursor: UserPaymentMethodWhereUniqueInput, distinct: [UserPaymentMethodScalarFieldEnum!], orderBy: [UserPaymentMethodOrderByWithRelationInput!], skip: Int, take: Int, where: UserPaymentMethodWhereInput): [UserPaymentMethod!]!
-  UserReview(cursor: UserReviewWhereUniqueInput, distinct: [UserReviewScalarFieldEnum!], orderBy: [UserReviewOrderByWithRelationInput!], skip: Int, take: Int, where: UserReviewWhereInput): [UserReview!]!
   _count: UserCount
   email_address: String
   id: String!
+  is_deleted: Boolean!
   password: String
   phone_number: String
+  shopOrder(cursor: ShopOrderWhereUniqueInput, distinct: [ShopOrderScalarFieldEnum!], orderBy: [ShopOrderOrderByWithRelationInput!], skip: Int, take: Int, where: ShopOrderWhereInput): [ShopOrder!]!
+  shoppingCart(cursor: ShoppingCartWhereUniqueInput, distinct: [ShoppingCartScalarFieldEnum!], orderBy: [ShoppingCartOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartWhereInput): [ShoppingCart!]!
+  userAddress(cursor: UserAddressWhereUniqueInput, distinct: [UserAddressScalarFieldEnum!], orderBy: [UserAddressOrderByWithRelationInput!], skip: Int, take: Int, where: UserAddressWhereInput): [UserAddress!]!
+  userPaymentMethod(cursor: UserPaymentMethodWhereUniqueInput, distinct: [UserPaymentMethodScalarFieldEnum!], orderBy: [UserPaymentMethodOrderByWithRelationInput!], skip: Int, take: Int, where: UserPaymentMethodWhereInput): [UserPaymentMethod!]!
+  userReview(cursor: UserReviewWhereUniqueInput, distinct: [UserReviewScalarFieldEnum!], orderBy: [UserReviewOrderByWithRelationInput!], skip: Int, take: Int, where: UserReviewWhereInput): [UserReview!]!
 }
 
 type UserAddress {
@@ -5143,17 +5249,18 @@ input UserAddressWhereUniqueInput {
 }
 
 type UserCount {
-  ShopOrder: Int!
-  ShoppingCart: Int!
-  UserAddress: Int!
-  UserPaymentMethod: Int!
-  UserReview: Int!
+  shopOrder: Int!
+  shoppingCart: Int!
+  userAddress: Int!
+  userPaymentMethod: Int!
+  userReview: Int!
 }
 
 type UserCountAggregate {
   _all: Int!
   email_address: Int!
   id: Int!
+  is_deleted: Int!
   password: Int!
   phone_number: Int!
 }
@@ -5161,25 +5268,28 @@ type UserCountAggregate {
 input UserCountOrderByAggregateInput {
   email_address: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
 }
 
 input UserCreateInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutUserInput
-  ShoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
-  UserAddress: UserAddressCreateNestedManyWithoutUserInput
-  UserPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
-  UserReview: UserReviewCreateNestedManyWithoutUserInput
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
+  shopOrder: ShopOrderCreateNestedManyWithoutUserInput
+  shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
+  userAddress: UserAddressCreateNestedManyWithoutUserInput
+  userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
+  userReview: UserReviewCreateNestedManyWithoutUserInput
 }
 
 input UserCreateManyInput {
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
 }
@@ -5240,58 +5350,63 @@ input UserCreateOrConnectWithoutUserReviewInput {
 }
 
 input UserCreateWithoutShopOrderInput {
-  ShoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
-  UserAddress: UserAddressCreateNestedManyWithoutUserInput
-  UserPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
-  UserReview: UserReviewCreateNestedManyWithoutUserInput
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
+  shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
+  userAddress: UserAddressCreateNestedManyWithoutUserInput
+  userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
+  userReview: UserReviewCreateNestedManyWithoutUserInput
 }
 
 input UserCreateWithoutShoppingCartInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutUserInput
-  UserAddress: UserAddressCreateNestedManyWithoutUserInput
-  UserPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
-  UserReview: UserReviewCreateNestedManyWithoutUserInput
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
+  shopOrder: ShopOrderCreateNestedManyWithoutUserInput
+  userAddress: UserAddressCreateNestedManyWithoutUserInput
+  userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
+  userReview: UserReviewCreateNestedManyWithoutUserInput
 }
 
 input UserCreateWithoutUserAddressInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutUserInput
-  ShoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
-  UserPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
-  UserReview: UserReviewCreateNestedManyWithoutUserInput
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
+  shopOrder: ShopOrderCreateNestedManyWithoutUserInput
+  shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
+  userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
+  userReview: UserReviewCreateNestedManyWithoutUserInput
 }
 
 input UserCreateWithoutUserPaymentMethodInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutUserInput
-  ShoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
-  UserAddress: UserAddressCreateNestedManyWithoutUserInput
-  UserReview: UserReviewCreateNestedManyWithoutUserInput
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
+  shopOrder: ShopOrderCreateNestedManyWithoutUserInput
+  shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
+  userAddress: UserAddressCreateNestedManyWithoutUserInput
+  userReview: UserReviewCreateNestedManyWithoutUserInput
 }
 
 input UserCreateWithoutUserReviewInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutUserInput
-  ShoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
-  UserAddress: UserAddressCreateNestedManyWithoutUserInput
-  UserPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
+  shopOrder: ShopOrderCreateNestedManyWithoutUserInput
+  shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
+  userAddress: UserAddressCreateNestedManyWithoutUserInput
+  userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
 }
 
 type UserGroupBy {
@@ -5300,6 +5415,7 @@ type UserGroupBy {
   _min: UserMinAggregate
   email_address: String
   id: String!
+  is_deleted: Boolean!
   password: String
   phone_number: String
 }
@@ -5307,6 +5423,7 @@ type UserGroupBy {
 type UserMaxAggregate {
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
 }
@@ -5314,6 +5431,7 @@ type UserMaxAggregate {
 input UserMaxOrderByAggregateInput {
   email_address: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
 }
@@ -5321,6 +5439,7 @@ input UserMaxOrderByAggregateInput {
 type UserMinAggregate {
   email_address: String
   id: String
+  is_deleted: Boolean
   password: String
   phone_number: String
 }
@@ -5328,6 +5447,7 @@ type UserMinAggregate {
 input UserMinOrderByAggregateInput {
   email_address: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
 }
@@ -5338,24 +5458,25 @@ input UserOrderByWithAggregationInput {
   _min: UserMinOrderByAggregateInput
   email_address: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
 }
 
 input UserOrderByWithRelationInput {
-  ShopOrder: ShopOrderOrderByRelationAggregateInput
-  ShoppingCart: ShoppingCartOrderByRelationAggregateInput
-  UserAddress: UserAddressOrderByRelationAggregateInput
-  UserPaymentMethod: UserPaymentMethodOrderByRelationAggregateInput
-  UserReview: UserReviewOrderByRelationAggregateInput
   email_address: SortOrder
   id: SortOrder
+  is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
+  shopOrder: ShopOrderOrderByRelationAggregateInput
+  shoppingCart: ShoppingCartOrderByRelationAggregateInput
+  userAddress: UserAddressOrderByRelationAggregateInput
+  userPaymentMethod: UserPaymentMethodOrderByRelationAggregateInput
+  userReview: UserReviewOrderByRelationAggregateInput
 }
 
 type UserPaymentMethod {
-  ShopOrder(cursor: ShopOrderWhereUniqueInput, distinct: [ShopOrderScalarFieldEnum!], orderBy: [ShopOrderOrderByWithRelationInput!], skip: Int, take: Int, where: ShopOrderWhereInput): [ShopOrder!]!
   _count: UserPaymentMethodCount
   account_number: String
   id: String!
@@ -5363,6 +5484,7 @@ type UserPaymentMethod {
   paymentType: PaymentType!
   payment_type_id: String!
   provider: String
+  shopOrder(cursor: ShopOrderWhereUniqueInput, distinct: [ShopOrderScalarFieldEnum!], orderBy: [ShopOrderOrderByWithRelationInput!], skip: Int, take: Int, where: ShopOrderWhereInput): [ShopOrder!]!
   user: User!
   user_id: String!
 }
@@ -5376,7 +5498,7 @@ input UserPaymentMethodAvgOrderByAggregateInput {
 }
 
 type UserPaymentMethodCount {
-  ShopOrder: Int!
+  shopOrder: Int!
 }
 
 type UserPaymentMethodCountAggregate {
@@ -5399,12 +5521,12 @@ input UserPaymentMethodCountOrderByAggregateInput {
 }
 
 input UserPaymentMethodCreateInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
   account_number: String
   id: String
   is_default: Int
   paymentType: PaymentTypeCreateNestedOneWithoutUserPaymentMethodInput!
   provider: String
+  shopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
   user: UserCreateNestedOneWithoutUserPaymentMethodInput!
 }
 
@@ -5479,11 +5601,11 @@ input UserPaymentMethodCreateOrConnectWithoutUserInput {
 }
 
 input UserPaymentMethodCreateWithoutPaymentTypeInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
   account_number: String
   id: String
   is_default: Int
   provider: String
+  shopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
   user: UserCreateNestedOneWithoutUserPaymentMethodInput!
 }
 
@@ -5497,12 +5619,12 @@ input UserPaymentMethodCreateWithoutShopOrderInput {
 }
 
 input UserPaymentMethodCreateWithoutUserInput {
-  ShopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
   account_number: String
   id: String
   is_default: Int
   paymentType: PaymentTypeCreateNestedOneWithoutUserPaymentMethodInput!
   provider: String
+  shopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
 }
 
 type UserPaymentMethodGroupBy {
@@ -5580,13 +5702,13 @@ input UserPaymentMethodOrderByWithAggregationInput {
 }
 
 input UserPaymentMethodOrderByWithRelationInput {
-  ShopOrder: ShopOrderOrderByRelationAggregateInput
   account_number: SortOrder
   id: SortOrder
   is_default: SortOrder
   paymentType: PaymentTypeOrderByWithRelationInput
   payment_type_id: SortOrder
   provider: SortOrder
+  shopOrder: ShopOrderOrderByRelationAggregateInput
   user: UserOrderByWithRelationInput
   user_id: SortOrder
 }
@@ -5638,12 +5760,12 @@ input UserPaymentMethodSumOrderByAggregateInput {
 }
 
 input UserPaymentMethodUpdateInput {
-  ShopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_default: NullableIntFieldUpdateOperationsInput
   paymentType: PaymentTypeUpdateOneRequiredWithoutUserPaymentMethodNestedInput
   provider: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
   user: UserUpdateOneRequiredWithoutUserPaymentMethodNestedInput
 }
 
@@ -5711,11 +5833,11 @@ input UserPaymentMethodUpdateWithWhereUniqueWithoutUserInput {
 }
 
 input UserPaymentMethodUpdateWithoutPaymentTypeInput {
-  ShopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_default: NullableIntFieldUpdateOperationsInput
   provider: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
   user: UserUpdateOneRequiredWithoutUserPaymentMethodNestedInput
 }
 
@@ -5729,12 +5851,12 @@ input UserPaymentMethodUpdateWithoutShopOrderInput {
 }
 
 input UserPaymentMethodUpdateWithoutUserInput {
-  ShopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_default: NullableIntFieldUpdateOperationsInput
   paymentType: PaymentTypeUpdateOneRequiredWithoutUserPaymentMethodNestedInput
   provider: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
 }
 
 input UserPaymentMethodUpsertWithWhereUniqueWithoutPaymentTypeInput {
@@ -5758,13 +5880,13 @@ input UserPaymentMethodWhereInput {
   AND: [UserPaymentMethodWhereInput!]
   NOT: [UserPaymentMethodWhereInput!]
   OR: [UserPaymentMethodWhereInput!]
-  ShopOrder: ShopOrderListRelationFilter
   account_number: StringNullableFilter
   id: StringFilter
   is_default: IntNullableFilter
   paymentType: PaymentTypeRelationFilter
   payment_type_id: StringFilter
   provider: StringNullableFilter
+  shopOrder: ShopOrderListRelationFilter
   user: UserRelationFilter
   user_id: StringFilter
 }
@@ -6115,6 +6237,7 @@ input UserReviewWhereUniqueInput {
 enum UserScalarFieldEnum {
   email_address
   id
+  is_deleted
   password
   phone_number
 }
@@ -6125,25 +6248,28 @@ input UserScalarWhereWithAggregatesInput {
   OR: [UserScalarWhereWithAggregatesInput!]
   email_address: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
+  is_deleted: BoolWithAggregatesFilter
   password: StringNullableWithAggregatesFilter
   phone_number: StringNullableWithAggregatesFilter
 }
 
 input UserUpdateInput {
-  ShopOrder: ShopOrderUpdateManyWithoutUserNestedInput
-  ShoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
-  UserAddress: UserAddressUpdateManyWithoutUserNestedInput
-  UserPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
-  UserReview: UserReviewUpdateManyWithoutUserNestedInput
   email_address: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
+  shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
+  userAddress: UserAddressUpdateManyWithoutUserNestedInput
+  userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
+  userReview: UserReviewUpdateManyWithoutUserNestedInput
 }
 
 input UserUpdateManyMutationInput {
   email_address: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
 }
@@ -6189,58 +6315,63 @@ input UserUpdateOneRequiredWithoutUserReviewNestedInput {
 }
 
 input UserUpdateWithoutShopOrderInput {
-  ShoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
-  UserAddress: UserAddressUpdateManyWithoutUserNestedInput
-  UserPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
-  UserReview: UserReviewUpdateManyWithoutUserNestedInput
   email_address: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
+  userAddress: UserAddressUpdateManyWithoutUserNestedInput
+  userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
+  userReview: UserReviewUpdateManyWithoutUserNestedInput
 }
 
 input UserUpdateWithoutShoppingCartInput {
-  ShopOrder: ShopOrderUpdateManyWithoutUserNestedInput
-  UserAddress: UserAddressUpdateManyWithoutUserNestedInput
-  UserPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
-  UserReview: UserReviewUpdateManyWithoutUserNestedInput
   email_address: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
+  userAddress: UserAddressUpdateManyWithoutUserNestedInput
+  userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
+  userReview: UserReviewUpdateManyWithoutUserNestedInput
 }
 
 input UserUpdateWithoutUserAddressInput {
-  ShopOrder: ShopOrderUpdateManyWithoutUserNestedInput
-  ShoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
-  UserPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
-  UserReview: UserReviewUpdateManyWithoutUserNestedInput
   email_address: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
+  shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
+  userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
+  userReview: UserReviewUpdateManyWithoutUserNestedInput
 }
 
 input UserUpdateWithoutUserPaymentMethodInput {
-  ShopOrder: ShopOrderUpdateManyWithoutUserNestedInput
-  ShoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
-  UserAddress: UserAddressUpdateManyWithoutUserNestedInput
-  UserReview: UserReviewUpdateManyWithoutUserNestedInput
   email_address: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
+  shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
+  userAddress: UserAddressUpdateManyWithoutUserNestedInput
+  userReview: UserReviewUpdateManyWithoutUserNestedInput
 }
 
 input UserUpdateWithoutUserReviewInput {
-  ShopOrder: ShopOrderUpdateManyWithoutUserNestedInput
-  ShoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
-  UserAddress: UserAddressUpdateManyWithoutUserNestedInput
-  UserPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
   email_address: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
+  shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
+  userAddress: UserAddressUpdateManyWithoutUserNestedInput
+  userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
 }
 
 input UserUpsertWithoutShopOrderInput {
@@ -6272,15 +6403,16 @@ input UserWhereInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  ShopOrder: ShopOrderListRelationFilter
-  ShoppingCart: ShoppingCartListRelationFilter
-  UserAddress: UserAddressListRelationFilter
-  UserPaymentMethod: UserPaymentMethodListRelationFilter
-  UserReview: UserReviewListRelationFilter
   email_address: StringNullableFilter
   id: StringFilter
+  is_deleted: BoolFilter
   password: StringNullableFilter
   phone_number: StringNullableFilter
+  shopOrder: ShopOrderListRelationFilter
+  shoppingCart: ShoppingCartListRelationFilter
+  userAddress: UserAddressListRelationFilter
+  userPaymentMethod: UserPaymentMethodListRelationFilter
+  userReview: UserReviewListRelationFilter
 }
 
 input UserWhereUniqueInput {
@@ -6288,16 +6420,16 @@ input UserWhereUniqueInput {
 }
 
 type Variation {
-  VariationOption(cursor: VariationOptionWhereUniqueInput, distinct: [VariationOptionScalarFieldEnum!], orderBy: [VariationOptionOrderByWithRelationInput!], skip: Int, take: Int, where: VariationOptionWhereInput): [VariationOption!]!
   _count: VariationCount
   category: Category!
   category_id: String!
   id: String!
   name: String
+  variationOption(cursor: VariationOptionWhereUniqueInput, distinct: [VariationOptionScalarFieldEnum!], orderBy: [VariationOptionOrderByWithRelationInput!], skip: Int, take: Int, where: VariationOptionWhereInput): [VariationOption!]!
 }
 
 type VariationCount {
-  VariationOption: Int!
+  variationOption: Int!
 }
 
 type VariationCountAggregate {
@@ -6314,10 +6446,10 @@ input VariationCountOrderByAggregateInput {
 }
 
 input VariationCreateInput {
-  VariationOption: VariationOptionCreateNestedManyWithoutVariationInput
   category: CategoryCreateNestedOneWithoutVariationInput!
   id: String
   name: String
+  variationOption: VariationOptionCreateNestedManyWithoutVariationInput
 }
 
 input VariationCreateManyCategoryInput {
@@ -6360,9 +6492,9 @@ input VariationCreateOrConnectWithoutVariationOptionInput {
 }
 
 input VariationCreateWithoutCategoryInput {
-  VariationOption: VariationOptionCreateNestedManyWithoutVariationInput
   id: String
   name: String
+  variationOption: VariationOptionCreateNestedManyWithoutVariationInput
 }
 
 input VariationCreateWithoutVariationOptionInput {
@@ -6411,16 +6543,16 @@ input VariationMinOrderByAggregateInput {
 }
 
 type VariationOption {
-  ProductConfiguration(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
   _count: VariationOptionCount
   id: String!
+  productConfiguration(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
   value: String
   variation: Variation!
   variation_id: String!
 }
 
 type VariationOptionCount {
-  ProductConfiguration: Int!
+  productConfiguration: Int!
 }
 
 type VariationOptionCountAggregate {
@@ -6437,8 +6569,8 @@ input VariationOptionCountOrderByAggregateInput {
 }
 
 input VariationOptionCreateInput {
-  ProductConfiguration: ProductConfigurationCreateNestedManyWithoutVariationOptionInput
   id: String
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutVariationOptionInput
   value: String
   variation: VariationCreateNestedOneWithoutVariationOptionInput!
 }
@@ -6489,8 +6621,8 @@ input VariationOptionCreateWithoutProductConfigurationInput {
 }
 
 input VariationOptionCreateWithoutVariationInput {
-  ProductConfiguration: ProductConfigurationCreateNestedManyWithoutVariationOptionInput
   id: String
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutVariationOptionInput
   value: String
 }
 
@@ -6547,8 +6679,8 @@ input VariationOptionOrderByWithAggregationInput {
 }
 
 input VariationOptionOrderByWithRelationInput {
-  ProductConfiguration: ProductConfigurationOrderByRelationAggregateInput
   id: SortOrder
+  productConfiguration: ProductConfigurationOrderByRelationAggregateInput
   value: SortOrder
   variation: VariationOrderByWithRelationInput
   variation_id: SortOrder
@@ -6584,8 +6716,8 @@ input VariationOptionScalarWhereWithAggregatesInput {
 }
 
 input VariationOptionUpdateInput {
-  ProductConfiguration: ProductConfigurationUpdateManyWithoutVariationOptionNestedInput
   id: StringFieldUpdateOperationsInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutVariationOptionNestedInput
   value: NullableStringFieldUpdateOperationsInput
   variation: VariationUpdateOneRequiredWithoutVariationOptionNestedInput
 }
@@ -6634,8 +6766,8 @@ input VariationOptionUpdateWithoutProductConfigurationInput {
 }
 
 input VariationOptionUpdateWithoutVariationInput {
-  ProductConfiguration: ProductConfigurationUpdateManyWithoutVariationOptionNestedInput
   id: StringFieldUpdateOperationsInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutVariationOptionNestedInput
   value: NullableStringFieldUpdateOperationsInput
 }
 
@@ -6654,8 +6786,8 @@ input VariationOptionWhereInput {
   AND: [VariationOptionWhereInput!]
   NOT: [VariationOptionWhereInput!]
   OR: [VariationOptionWhereInput!]
-  ProductConfiguration: ProductConfigurationListRelationFilter
   id: StringFilter
+  productConfiguration: ProductConfigurationListRelationFilter
   value: StringNullableFilter
   variation: VariationRelationFilter
   variation_id: StringFilter
@@ -6679,11 +6811,11 @@ input VariationOrderByWithAggregationInput {
 }
 
 input VariationOrderByWithRelationInput {
-  VariationOption: VariationOptionOrderByRelationAggregateInput
   category: CategoryOrderByWithRelationInput
   category_id: SortOrder
   id: SortOrder
   name: SortOrder
+  variationOption: VariationOptionOrderByRelationAggregateInput
 }
 
 input VariationRelationFilter {
@@ -6716,10 +6848,10 @@ input VariationScalarWhereWithAggregatesInput {
 }
 
 input VariationUpdateInput {
-  VariationOption: VariationOptionUpdateManyWithoutVariationNestedInput
   category: CategoryUpdateOneRequiredWithoutVariationNestedInput
   id: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  variationOption: VariationOptionUpdateManyWithoutVariationNestedInput
 }
 
 input VariationUpdateManyMutationInput {
@@ -6760,9 +6892,9 @@ input VariationUpdateWithWhereUniqueWithoutCategoryInput {
 }
 
 input VariationUpdateWithoutCategoryInput {
-  VariationOption: VariationOptionUpdateManyWithoutVariationNestedInput
   id: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  variationOption: VariationOptionUpdateManyWithoutVariationNestedInput
 }
 
 input VariationUpdateWithoutVariationOptionInput {
@@ -6786,11 +6918,11 @@ input VariationWhereInput {
   AND: [VariationWhereInput!]
   NOT: [VariationWhereInput!]
   OR: [VariationWhereInput!]
-  VariationOption: VariationOptionListRelationFilter
   category: CategoryRelationFilter
   category_id: StringFilter
   id: StringFilter
   name: StringNullableFilter
+  variationOption: VariationOptionListRelationFilter
 }
 
 input VariationWhereUniqueInput {

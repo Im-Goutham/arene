@@ -43,5 +43,10 @@ export class ProductOrderByWithRelationInput {
   @TypeGraphQL.Field(_type => ProductItemOrderByRelationAggregateInput, {
     nullable: true
   })
-  ProductItem?: ProductItemOrderByRelationAggregateInput | undefined;
+  productItem?: ProductItemOrderByRelationAggregateInput | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  is_deleted?: "asc" | "desc" | undefined;
 }

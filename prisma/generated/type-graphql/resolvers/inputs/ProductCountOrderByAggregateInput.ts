@@ -32,4 +32,9 @@ export class ProductCountOrderByAggregateInput {
     nullable: true
   })
   product_image?: "asc" | "desc" | undefined;
+
+  @TypeGraphQL.Field(_type => SortOrder, {
+    nullable: true
+  })
+  is_deleted?: "asc" | "desc" | undefined;
 }

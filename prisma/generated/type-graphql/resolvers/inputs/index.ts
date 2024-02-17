@@ -30,6 +30,9 @@ export { AddressUpsertWithWhereUniqueWithoutCountryInput } from "./AddressUpsert
 export { AddressUpsertWithoutUserAddressInput } from "./AddressUpsertWithoutUserAddressInput";
 export { AddressWhereInput } from "./AddressWhereInput";
 export { AddressWhereUniqueInput } from "./AddressWhereUniqueInput";
+export { BoolFieldUpdateOperationsInput } from "./BoolFieldUpdateOperationsInput";
+export { BoolFilter } from "./BoolFilter";
+export { BoolWithAggregatesFilter } from "./BoolWithAggregatesFilter";
 export { CategoryCountOrderByAggregateInput } from "./CategoryCountOrderByAggregateInput";
 export { CategoryCreateInput } from "./CategoryCreateInput";
 export { CategoryCreateManyInput } from "./CategoryCreateManyInput";
@@ -82,6 +85,8 @@ export { CountryWhereInput } from "./CountryWhereInput";
 export { CountryWhereUniqueInput } from "./CountryWhereUniqueInput";
 export { IntNullableFilter } from "./IntNullableFilter";
 export { IntNullableWithAggregatesFilter } from "./IntNullableWithAggregatesFilter";
+export { NestedBoolFilter } from "./NestedBoolFilter";
+export { NestedBoolWithAggregatesFilter } from "./NestedBoolWithAggregatesFilter";
 export { NestedFloatNullableFilter } from "./NestedFloatNullableFilter";
 export { NestedIntFilter } from "./NestedIntFilter";
 export { NestedIntNullableFilter } from "./NestedIntNullableFilter";
