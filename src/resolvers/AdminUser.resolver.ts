@@ -9,16 +9,16 @@ const prisma = new PrismaClient();
 
 // User Resolver
 @Resolver()
-export class UserResolver {
+export class AdminUserResolver {
   // Query to get all site users
   @Query(() => [User])
-    async siteUsers(): Promise<User[]> {
-        return prisma.user.findMany({ where:{ is_deleted:false } });
+    async getAdminUsers(): Promise<User[]> {
+        return prisma.user.findMany();
     }
 
   // Query to get a specific site user by ID
   @Query(() => User, { nullable: true })
-  async siteUser(@Arg("id") id: string): Promise<User | null> {
+  async getAdminUserById(@Arg("id") id: string): Promise<User | null> {
       return prisma.user.findUnique({ where: { id } });
   }
 
@@ -39,7 +39,7 @@ export class UserResolver {
 
   // Mutation to delete a site user
   @Mutation(() => User, { nullable: true })
-  async deleteUser(@Arg("id") id: string): Promise<User | null> {
+  async adminDeleteUserById(@Arg("id") id: string): Promise<User | null> {
       return prisma.user.delete({ where: { id } });
   }
 }

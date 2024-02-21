@@ -130,4 +130,6 @@ dist
 .pnp.*
 
 /prisma/generated/*
+/prisma/snapshots/*
 prisma/generated/type-graphql
+prisma/snapshots/*

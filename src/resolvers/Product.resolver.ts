@@ -7,13 +7,13 @@ export class ProductResolver {
   // Query to fetch all products
   @Query(returns => [Product])
     async allProducts(@Ctx() { prisma }: PrismaContext): Promise<Product[]> {
-        return await prisma.product.findMany();
+        return await prisma.product.findMany({ where: { is_deleted:false } });
     }
 
   // Query to fetch a product by ID
   @Query(returns => Product, { nullable: true })
   async productById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<Product | null> {
-      return await prisma.product.findFirst({ where: { id } });
+      return await prisma.product.findFirst({ where: { id, is_deleted:false } });
   }
  
 }

@@ -563,9 +563,10 @@ input BoolWithAggregatesFilter {
 
 type Category {
   _count: CategoryCount
-  category_name: String
+  description: String
   id: String!
   is_deleted: Boolean!
+  name: String
   parent_category_id: String!
   product(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
   promotionCategory(cursor: PromotionCategoryWhereUniqueInput, distinct: [PromotionCategoryScalarFieldEnum!], orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategory!]!
@@ -580,23 +581,26 @@ type CategoryCount {
 
 type CategoryCountAggregate {
   _all: Int!
-  category_name: Int!
+  description: Int!
   id: Int!
   is_deleted: Int!
+  name: Int!
   parent_category_id: Int!
 }
 
 input CategoryCountOrderByAggregateInput {
-  category_name: SortOrder
+  description: SortOrder
   id: SortOrder
   is_deleted: SortOrder
+  name: SortOrder
   parent_category_id: SortOrder
 }
 
 input CategoryCreateInput {
-  category_name: String
+  description: String
   id: String
   is_deleted: Boolean
+  name: String
   parent_category_id: String!
   product: ProductCreateNestedManyWithoutCategoryInput
   promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
@@ -604,9 +608,10 @@ input CategoryCreateInput {
 }
 
 input CategoryCreateManyInput {
-  category_name: String
+  description: String
   id: String
   is_deleted: Boolean
+  name: String
   parent_category_id: String!
 }
 
@@ -644,27 +649,30 @@ input CategoryCreateOrConnectWithoutVariationInput {
 }
 
 input CategoryCreateWithoutProductInput {
-  category_name: String
+  description: String
   id: String
   is_deleted: Boolean
+  name: String
   parent_category_id: String!
   promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
   variation: VariationCreateNestedManyWithoutCategoryInput
 }
 
 input CategoryCreateWithoutPromotionCategoryInput {
-  category_name: String
+  description: String
   id: String
   is_deleted: Boolean
+  name: String
   parent_category_id: String!
   product: ProductCreateNestedManyWithoutCategoryInput
   variation: VariationCreateNestedManyWithoutCategoryInput
 }
 
 input CategoryCreateWithoutVariationInput {
-  category_name: String
+  description: String
   id: String
   is_deleted: Boolean
+  name: String
   parent_category_id: String!
   product: ProductCreateNestedManyWithoutCategoryInput
   promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
@@ -674,37 +682,42 @@ type CategoryGroupBy {
   _count: CategoryCountAggregate
   _max: CategoryMaxAggregate
   _min: CategoryMinAggregate
-  category_name: String
+  description: String
   id: String!
   is_deleted: Boolean!
+  name: String
   parent_category_id: String!
 }
 
 type CategoryMaxAggregate {
-  category_name: String
+  description: String
   id: String
   is_deleted: Boolean
+  name: String
   parent_category_id: String
 }
 
 input CategoryMaxOrderByAggregateInput {
-  category_name: SortOrder
+  description: SortOrder
   id: SortOrder
   is_deleted: SortOrder
+  name: SortOrder
   parent_category_id: SortOrder
 }
 
 type CategoryMinAggregate {
-  category_name: String
+  description: String
   id: String
   is_deleted: Boolean
+  name: String
   parent_category_id: String
 }
 
 input CategoryMinOrderByAggregateInput {
-  category_name: SortOrder
+  description: SortOrder
   id: SortOrder
   is_deleted: SortOrder
+  name: SortOrder
   parent_category_id: SortOrder
 }
 
@@ -712,16 +725,18 @@ input CategoryOrderByWithAggregationInput {
   _count: CategoryCountOrderByAggregateInput
   _max: CategoryMaxOrderByAggregateInput
   _min: CategoryMinOrderByAggregateInput
-  category_name: SortOrder
+  description: SortOrder
   id: SortOrder
   is_deleted: SortOrder
+  name: SortOrder
   parent_category_id: SortOrder
 }
 
 input CategoryOrderByWithRelationInput {
-  category_name: SortOrder
+  description: SortOrder
   id: SortOrder
   is_deleted: SortOrder
+  name: SortOrder
   parent_category_id: SortOrder
   product: ProductOrderByRelationAggregateInput
   promotionCategory: PromotionCategoryOrderByRelationAggregateInput
@@ -734,9 +749,10 @@ input CategoryRelationFilter {
 }
 
 enum CategoryScalarFieldEnum {
-  category_name
+  description
   id
   is_deleted
+  name
   parent_category_id
 }
 
@@ -744,16 +760,18 @@ input CategoryScalarWhereWithAggregatesInput {
   AND: [CategoryScalarWhereWithAggregatesInput!]
   NOT: [CategoryScalarWhereWithAggregatesInput!]
   OR: [CategoryScalarWhereWithAggregatesInput!]
-  category_name: StringNullableWithAggregatesFilter
+  description: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
   is_deleted: BoolWithAggregatesFilter
+  name: StringNullableWithAggregatesFilter
   parent_category_id: StringWithAggregatesFilter
 }
 
 input CategoryUpdateInput {
-  category_name: NullableStringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
   product: ProductUpdateManyWithoutCategoryNestedInput
   promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
@@ -761,9 +779,10 @@ input CategoryUpdateInput {
 }
 
 input CategoryUpdateManyMutationInput {
-  category_name: NullableStringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
 }
 
@@ -792,27 +811,30 @@ input CategoryUpdateOneRequiredWithoutVariationNestedInput {
 }
 
 input CategoryUpdateWithoutProductInput {
-  category_name: NullableStringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
   promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
   variation: VariationUpdateManyWithoutCategoryNestedInput
 }
 
 input CategoryUpdateWithoutPromotionCategoryInput {
-  category_name: NullableStringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
   product: ProductUpdateManyWithoutCategoryNestedInput
   variation: VariationUpdateManyWithoutCategoryNestedInput
 }
 
 input CategoryUpdateWithoutVariationInput {
-  category_name: NullableStringFieldUpdateOperationsInput
+  description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
+  name: NullableStringFieldUpdateOperationsInput
   parent_category_id: StringFieldUpdateOperationsInput
   product: ProductUpdateManyWithoutCategoryNestedInput
   promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
@@ -837,9 +859,10 @@ input CategoryWhereInput {
   AND: [CategoryWhereInput!]
   NOT: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
-  category_name: StringNullableFilter
+  description: StringNullableFilter
   id: StringFilter
   is_deleted: BoolFilter
+  name: StringNullableFilter
   parent_category_id: StringFilter
   product: ProductListRelationFilter
   promotionCategory: PromotionCategoryListRelationFilter
@@ -1029,6 +1052,7 @@ input IntNullableWithAggregatesFilter {
 }
 
 type Mutation {
+  adminDeleteUserById(id: String): User
   createManyAddress(data: [AddressCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyCategory(data: [CategoryCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyCountry(data: [CountryCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
@@ -3634,6 +3658,12 @@ type Query {
   findFirstVariationOptionOrThrow(cursor: VariationOptionWhereUniqueInput, distinct: [VariationOptionScalarFieldEnum!], orderBy: [VariationOptionOrderByWithRelationInput!], skip: Int, take: Int, where: VariationOptionWhereInput): VariationOption
   findFirstVariationOrThrow(cursor: VariationWhereUniqueInput, distinct: [VariationScalarFieldEnum!], orderBy: [VariationOrderByWithRelationInput!], skip: Int, take: Int, where: VariationWhereInput): Variation
   getAddress(where: AddressWhereUniqueInput!): Address
+  getAdminCategoryById(id: String): Category
+  getAdminProductById(id: String): Product
+  getAdminUserById(id: String): User
+  getAdminUsers: [User]
+  getAllAdminCategories: [Category]
+  getAllAdminProducts: [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
   getCountry(where: CountryWhereUniqueInput!): Country
   getOrderLine(where: OrderLineWhereUniqueInput!): OrderLine

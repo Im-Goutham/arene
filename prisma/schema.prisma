@@ -91,26 +91,24 @@ model Promotion {
 }
 
 model PromotionCategory {
-  id           String @id @default(cuid())
+  id           String    @id @default(cuid())
   category_id  String
   promotion_id String
-
-  category  Category  @relation(fields: [category_id], references: [id])
-  promotion Promotion @relation(fields: [promotion_id], references: [id])
+  category     Category  @relation(fields: [category_id], references: [id])
+  promotion    Promotion @relation(fields: [promotion_id], references: [id])
 
   @@map(name: "promotion_category")
 }
 
 model Product {
-  id            String  @id @default(cuid())
+  id            String        @id @default(cuid())
   category_id   String
   name          String?
   description   String?
   product_image String?
-
-  category    Category      @relation(fields: [category_id], references: [id])
-  productItem ProductItem[]
-  is_deleted  Boolean       @default(false)
+  category      Category      @relation(fields: [category_id], references: [id])
+  productItem   ProductItem[]
+  is_deleted    Boolean       @default(false)
 
   @@map(name: "product")
 }
