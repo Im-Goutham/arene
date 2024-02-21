@@ -3663,7 +3663,7 @@ type Query {
   getAdminUserById(id: String): User
   getAdminUsers: [User]
   getAllAdminCategories: [Category]
-  getAllAdminProducts: [Product]
+  getAllAdminProducts(categoryId: String): [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
   getCountry(where: CountryWhereUniqueInput!): Country
   getOrderLine(where: OrderLineWhereUniqueInput!): OrderLine
