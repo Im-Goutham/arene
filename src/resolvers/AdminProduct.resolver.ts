@@ -7,7 +7,7 @@ export class AdminProductResolver {
   // Query to fetch all products
   @Query(returns => [Product])
     async getAllAdminProducts(@Arg("categoryId") categoryId: string,@Ctx() { prisma }: PrismaContext): Promise<Product[]> {
-        console.log("called ---- ");
+       
         return await prisma.product.findMany({ where: { category_id: categoryId || undefined } });
     }
 
