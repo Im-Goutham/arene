@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import cors from "cors";
-import helmet from "helmet";
+import { crossOriginOpenerPolicy, crossOriginResourcePolicy, dnsPrefetchControl, expectCt, frameguard, hidePoweredBy, hsts, ieNoOpen, noSniff, originAgentCluster, permittedCrossDomainPolicies, referrerPolicy, xssFilter } from "helmet";
 import morgan from "morgan";
 import actuator from "express-actuator";
 import { graphqlHTTP } from "express-graphql";
@@ -12,7 +12,7 @@ import queryComplexity, {
     fieldExtensionsEstimator,
 } from "graphql-query-complexity";
 import { buildSchema } from "type-graphql";
-// import { resolvers } from "../prisma/generated/type-graphql";
+import { resolvers } from "../prisma/generated/type-graphql";
 import path from "path";
 import customResolvers from "./resolvers";
 
@@ -37,21 +37,21 @@ app.use(express.urlencoded({ extended: true }));
 
 // ! Helmet
 // app.use(helmet()); // not work with graphiql use alias instead
-// app.use(helmet.contentSecurityPolicy()); // not work with graphiql
-// app.use(helmet.crossOriginEmbedderPolicy()); // not work with graphiql
-app.use(helmet.crossOriginOpenerPolicy());
-app.use(helmet.crossOriginResourcePolicy());
-app.use(helmet.dnsPrefetchControl());
-app.use(helmet.expectCt());
-app.use(helmet.frameguard());
-app.use(helmet.hidePoweredBy());
-app.use(helmet.hsts());
-app.use(helmet.ieNoOpen());
-app.use(helmet.noSniff());
-app.use(helmet.originAgentCluster());
-app.use(helmet.permittedCrossDomainPolicies());
-app.use(helmet.referrerPolicy());
-app.use(helmet.xssFilter());
+// app.use(contentSecurityPolicy()); // not work with graphiql
+// app.use(crossOriginEmbedderPolicy()); // not work with graphiql
+app.use(crossOriginOpenerPolicy());
+app.use(crossOriginResourcePolicy());
+app.use(dnsPrefetchControl());
+app.use(expectCt());
+app.use(frameguard());
+app.use(hidePoweredBy());
+app.use(hsts());
+app.use(ieNoOpen());
+app.use(noSniff());
+app.use(originAgentCluster());
+app.use(permittedCrossDomainPolicies());
+app.use(referrerPolicy());
+app.use(xssFilter());
 
 // ! Cors
 app.use(cors({ origin: true }));
@@ -69,7 +69,7 @@ const appConfig = async (): Promise<Application> => {
         // resolvers, // only resolvers generate by type-graphql
         // resolvers: ["./node_modules/@generated/type-graphql", __dirname + "/resolvers/**/*.resolver.{ts,js}"],
         resolvers:[...customResolvers, 
-        //    ...resolvers
+            ...resolvers
         ],
         nullableByDefault: true,
         validate: false,
