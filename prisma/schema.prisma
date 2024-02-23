@@ -67,9 +67,9 @@ model UserAddress {
 
 model Category {
   id                 String              @id @default(cuid())
-  parent_category_id String
-  name               String?
-  description        String?
+  parent_category_id String?             @default("")
+  name               String
+  description        String?             @default("")
   promotionCategory  PromotionCategory[]
   product            Product[]
   variation          Variation[]
@@ -80,11 +80,11 @@ model Category {
 
 model Promotion {
   id                String              @id @default(cuid())
-  name              String?
-  description       String?
-  discount_rate     Int?
-  start_date        String?
-  end_date          String?
+  name              String
+  description       String?             @default("")
+  discount_rate     Int?                @default(0)
+  start_date        String?             @default("")
+  end_date          String?             @default("")
   promotionCategory PromotionCategory[]
 
   @@map(name: "promotion")
@@ -103,9 +103,9 @@ model PromotionCategory {
 model Product {
   id            String        @id @default(cuid())
   category_id   String
-  name          String?
-  description   String?
-  product_image String?
+  name          String
+  description   String?       @default("")
+  product_image String?       @default("")
   category      Category      @relation(fields: [category_id], references: [id])
   productItem   ProductItem[]
   is_deleted    Boolean       @default(false)
@@ -116,9 +116,9 @@ model Product {
 model ProductItem {
   id            String  @id @default(cuid())
   product_id    String
-  sku           String?
-  qty_in_stock  Int?
-  product_image String?
+  sku           String? @default("")
+  qty_in_stock  Int?    @default(0)
+  product_image String? @default("")
   price         Int?
 
   product              Product                @relation(fields: [product_id], references: [id])
@@ -132,9 +132,9 @@ model ProductItem {
 }
 
 model Variation {
-  id          String  @id @default(cuid())
+  id          String @id @default(cuid())
   category_id String
-  name        String?
+  name        String
 
   category        Category          @relation(fields: [category_id], references: [id])
   variationOption VariationOption[]
@@ -143,9 +143,9 @@ model Variation {
 }
 
 model VariationOption {
-  id           String  @id @default(cuid())
+  id           String @id @default(cuid())
   variation_id String
-  value        String?
+  value        String
 
   variation            Variation              @relation(fields: [variation_id], references: [id])
   productConfiguration ProductConfiguration[]
@@ -166,7 +166,7 @@ model ProductConfiguration {
 
 model PaymentType {
   id                String              @id @default(cuid())
-  value             String?
+  value             String
   userPaymentMethod UserPaymentMethod[]
 
   @@map(name: "payment_type")
@@ -176,9 +176,9 @@ model UserPaymentMethod {
   id              String  @id @default(cuid())
   user_id         String
   payment_type_id String
-  provider        String?
-  account_number  String?
-  is_default      Int?
+  provider        String? @default("")
+  account_number  String? @default("")
+  is_default      Boolean @default(false)
 
   paymentType PaymentType @relation(fields: [payment_type_id], references: [id])
   user        User        @relation(fields: [user_id], references: [id])
@@ -210,16 +210,16 @@ model ShoppingCartItem {
 }
 
 model ShippingMethod {
-  id    String  @id @default(cuid())
-  name  String?
-  price Int?
+  id    String @id @default(cuid())
+  name  String
+  price Int?   @default(0)
 
   @@map(name: "shipping_method")
 }
 
 model OrderStatus {
   id     String  @id @default(cuid())
-  status String?
+  status String? @default("")
 
   @@map(name: "order_status")
 }
@@ -227,10 +227,10 @@ model OrderStatus {
 model ShopOrder {
   id                String  @id @default(cuid())
   user_id           String
-  order_date        String?
+  order_date        String? @default("")
   payment_method_id String
-  shipping_address  String?
-  shipping_method   String?
+  shipping_address  String? @default("")
+  shipping_method   String? @default("")
   order_total       Int?
   order_status      Int?
 
@@ -258,8 +258,8 @@ model UserReview {
   id                 String  @id @default(cuid())
   user_id            String
   ordered_product_id String
-  rating_value       Int?
-  comment            String?
+  rating_value       Int?    @default(5)
+  comment            String? @default("")
 
   ordered_product ProductItem @relation(fields: [ordered_product_id], references: [id])
   user            User        @relation(fields: [user_id], references: [id])

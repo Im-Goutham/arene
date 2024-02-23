@@ -25,7 +25,8 @@
     "paths": {
       "@/*": ["./*"],
     },
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false
   },
   "include": [
     ".eslintrc.js",

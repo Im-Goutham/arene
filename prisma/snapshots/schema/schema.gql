@@ -517,11 +517,9 @@ type AggregateUserAddress {
 }
 
 type AggregateUserPaymentMethod {
-  _avg: UserPaymentMethodAvgAggregate
   _count: UserPaymentMethodCountAggregate
   _max: UserPaymentMethodMaxAggregate
   _min: UserPaymentMethodMinAggregate
-  _sum: UserPaymentMethodSumAggregate
 }
 
 type AggregateUserReview {
@@ -566,8 +564,8 @@ type Category {
   description: String
   id: String!
   is_deleted: Boolean!
-  name: String
-  parent_category_id: String!
+  name: String!
+  parent_category_id: String
   product(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
   promotionCategory(cursor: PromotionCategoryWhereUniqueInput, distinct: [PromotionCategoryScalarFieldEnum!], orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategory!]!
   variation(cursor: VariationWhereUniqueInput, distinct: [VariationScalarFieldEnum!], orderBy: [VariationOrderByWithRelationInput!], skip: Int, take: Int, where: VariationWhereInput): [Variation!]!
@@ -600,8 +598,8 @@ input CategoryCreateInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
-  parent_category_id: String!
+  name: String!
+  parent_category_id: String
   product: ProductCreateNestedManyWithoutCategoryInput
   promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
   variation: VariationCreateNestedManyWithoutCategoryInput
@@ -611,8 +609,8 @@ input CategoryCreateManyInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
-  parent_category_id: String!
+  name: String!
+  parent_category_id: String
 }
 
 input CategoryCreateNestedOneWithoutProductInput {
@@ -652,8 +650,8 @@ input CategoryCreateWithoutProductInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
-  parent_category_id: String!
+  name: String!
+  parent_category_id: String
   promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
   variation: VariationCreateNestedManyWithoutCategoryInput
 }
@@ -662,8 +660,8 @@ input CategoryCreateWithoutPromotionCategoryInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
-  parent_category_id: String!
+  name: String!
+  parent_category_id: String
   product: ProductCreateNestedManyWithoutCategoryInput
   variation: VariationCreateNestedManyWithoutCategoryInput
 }
@@ -672,8 +670,8 @@ input CategoryCreateWithoutVariationInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
-  parent_category_id: String!
+  name: String!
+  parent_category_id: String
   product: ProductCreateNestedManyWithoutCategoryInput
   promotionCategory: PromotionCategoryCreateNestedManyWithoutCategoryInput
 }
@@ -685,8 +683,8 @@ type CategoryGroupBy {
   description: String
   id: String!
   is_deleted: Boolean!
-  name: String
-  parent_category_id: String!
+  name: String!
+  parent_category_id: String
 }
 
 type CategoryMaxAggregate {
@@ -763,16 +761,16 @@ input CategoryScalarWhereWithAggregatesInput {
   description: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
   is_deleted: BoolWithAggregatesFilter
-  name: StringNullableWithAggregatesFilter
-  parent_category_id: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  parent_category_id: StringNullableWithAggregatesFilter
 }
 
 input CategoryUpdateInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
-  parent_category_id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  parent_category_id: NullableStringFieldUpdateOperationsInput
   product: ProductUpdateManyWithoutCategoryNestedInput
   promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
   variation: VariationUpdateManyWithoutCategoryNestedInput
@@ -782,8 +780,8 @@ input CategoryUpdateManyMutationInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
-  parent_category_id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  parent_category_id: NullableStringFieldUpdateOperationsInput
 }
 
 input CategoryUpdateOneRequiredWithoutProductNestedInput {
@@ -814,8 +812,8 @@ input CategoryUpdateWithoutProductInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
-  parent_category_id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  parent_category_id: NullableStringFieldUpdateOperationsInput
   promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
   variation: VariationUpdateManyWithoutCategoryNestedInput
 }
@@ -824,8 +822,8 @@ input CategoryUpdateWithoutPromotionCategoryInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
-  parent_category_id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  parent_category_id: NullableStringFieldUpdateOperationsInput
   product: ProductUpdateManyWithoutCategoryNestedInput
   variation: VariationUpdateManyWithoutCategoryNestedInput
 }
@@ -834,8 +832,8 @@ input CategoryUpdateWithoutVariationInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
-  parent_category_id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  parent_category_id: NullableStringFieldUpdateOperationsInput
   product: ProductUpdateManyWithoutCategoryNestedInput
   promotionCategory: PromotionCategoryUpdateManyWithoutCategoryNestedInput
 }
@@ -862,8 +860,8 @@ input CategoryWhereInput {
   description: StringNullableFilter
   id: StringFilter
   is_deleted: BoolFilter
-  name: StringNullableFilter
-  parent_category_id: StringFilter
+  name: StringFilter
+  parent_category_id: StringNullableFilter
   product: ProductListRelationFilter
   promotionCategory: PromotionCategoryListRelationFilter
   variation: VariationListRelationFilter
@@ -1024,6 +1022,20 @@ input CountryWhereUniqueInput {
   id: String
 }
 
+input CreateCategoryInput {
+  description: String
+  name: String
+  parent_category_id: String
+}
+
+input CreateProductInput {
+  categoryId: String
+  description: String
+  is_deleted: Boolean
+  name: String
+  productImage: String
+}
+
 input IntNullableFilter {
   equals: Int
   gt: Int
@@ -1053,6 +1065,7 @@ input IntNullableWithAggregatesFilter {
 
 type Mutation {
   adminDeleteUserById(id: String): User
+  createCategory(data: CreateCategoryInput): Category
   createManyAddress(data: [AddressCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyCategory(data: [CategoryCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyCountry(data: [CountryCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
@@ -1095,6 +1108,7 @@ type Mutation {
   createOneUserReview(data: UserReviewCreateInput!): UserReview!
   createOneVariation(data: VariationCreateInput!): Variation!
   createOneVariationOption(data: VariationOptionCreateInput!): VariationOption!
+  createProduct(data: CreateProductInput): Product
   deleteManyAddress(where: AddressWhereInput): AffectedRowsOutput!
   deleteManyCategory(where: CategoryWhereInput): AffectedRowsOutput!
   deleteManyCountry(where: CountryWhereInput): AffectedRowsOutput!
@@ -1138,6 +1152,7 @@ type Mutation {
   deleteOneVariation(where: VariationWhereUniqueInput!): Variation
   deleteOneVariationOption(where: VariationOptionWhereUniqueInput!): VariationOption
   deleteUser(id: String): User
+  updateCategory(data: UpdateCategoryInput, id: String): Category
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): AffectedRowsOutput!
   updateManyCategory(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): AffectedRowsOutput!
   updateManyCountry(data: CountryUpdateManyMutationInput!, where: CountryWhereInput): AffectedRowsOutput!
@@ -1180,6 +1195,7 @@ type Mutation {
   updateOneUserReview(data: UserReviewUpdateInput!, where: UserReviewWhereUniqueInput!): UserReview
   updateOneVariation(data: VariationUpdateInput!, where: VariationWhereUniqueInput!): Variation
   updateOneVariationOption(data: VariationOptionUpdateInput!, where: VariationOptionWhereUniqueInput!): VariationOption
+  updateProduct(data: UpdateProductInput, id: String): Product
   upsertOneAddress(create: AddressCreateInput!, update: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address!
   upsertOneCategory(create: CategoryCreateInput!, update: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
   upsertOneCountry(create: CountryCreateInput!, update: CountryUpdateInput!, where: CountryWhereUniqueInput!): Country!
@@ -1783,7 +1799,7 @@ type PaymentType {
   _count: PaymentTypeCount
   id: String!
   userPaymentMethod(cursor: UserPaymentMethodWhereUniqueInput, distinct: [UserPaymentMethodScalarFieldEnum!], orderBy: [UserPaymentMethodOrderByWithRelationInput!], skip: Int, take: Int, where: UserPaymentMethodWhereInput): [UserPaymentMethod!]!
-  value: String
+  value: String!
 }
 
 type PaymentTypeCount {
@@ -1804,12 +1820,12 @@ input PaymentTypeCountOrderByAggregateInput {
 input PaymentTypeCreateInput {
   id: String
   userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutPaymentTypeInput
-  value: String
+  value: String!
 }
 
 input PaymentTypeCreateManyInput {
   id: String
-  value: String
+  value: String!
 }
 
 input PaymentTypeCreateNestedOneWithoutUserPaymentMethodInput {
@@ -1825,7 +1841,7 @@ input PaymentTypeCreateOrConnectWithoutUserPaymentMethodInput {
 
 input PaymentTypeCreateWithoutUserPaymentMethodInput {
   id: String
-  value: String
+  value: String!
 }
 
 type PaymentTypeGroupBy {
@@ -1833,7 +1849,7 @@ type PaymentTypeGroupBy {
   _max: PaymentTypeMaxAggregate
   _min: PaymentTypeMinAggregate
   id: String!
-  value: String
+  value: String!
 }
 
 type PaymentTypeMaxAggregate {
@@ -1885,18 +1901,18 @@ input PaymentTypeScalarWhereWithAggregatesInput {
   NOT: [PaymentTypeScalarWhereWithAggregatesInput!]
   OR: [PaymentTypeScalarWhereWithAggregatesInput!]
   id: StringWithAggregatesFilter
-  value: StringNullableWithAggregatesFilter
+  value: StringWithAggregatesFilter
 }
 
 input PaymentTypeUpdateInput {
   id: StringFieldUpdateOperationsInput
   userPaymentMethod: UserPaymentMethodUpdateManyWithoutPaymentTypeNestedInput
-  value: NullableStringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
 }
 
 input PaymentTypeUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
-  value: NullableStringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
 }
 
 input PaymentTypeUpdateOneRequiredWithoutUserPaymentMethodNestedInput {
@@ -1909,7 +1925,7 @@ input PaymentTypeUpdateOneRequiredWithoutUserPaymentMethodNestedInput {
 
 input PaymentTypeUpdateWithoutUserPaymentMethodInput {
   id: StringFieldUpdateOperationsInput
-  value: NullableStringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
 }
 
 input PaymentTypeUpsertWithoutUserPaymentMethodInput {
@@ -1923,7 +1939,7 @@ input PaymentTypeWhereInput {
   OR: [PaymentTypeWhereInput!]
   id: StringFilter
   userPaymentMethod: UserPaymentMethodListRelationFilter
-  value: StringNullableFilter
+  value: StringFilter
 }
 
 input PaymentTypeWhereUniqueInput {
@@ -1937,7 +1953,7 @@ type Product {
   description: String
   id: String!
   is_deleted: Boolean!
-  name: String
+  name: String!
   productItem(cursor: ProductItemWhereUniqueInput, distinct: [ProductItemScalarFieldEnum!], orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): [ProductItem!]!
   product_image: String
 }
@@ -2236,7 +2252,7 @@ input ProductCreateInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
+  name: String!
   productItem: ProductItemCreateNestedManyWithoutProductInput
   product_image: String
 }
@@ -2245,7 +2261,7 @@ input ProductCreateManyCategoryInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
+  name: String!
   product_image: String
 }
 
@@ -2259,7 +2275,7 @@ input ProductCreateManyInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
+  name: String!
   product_image: String
 }
 
@@ -2290,7 +2306,7 @@ input ProductCreateWithoutCategoryInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
+  name: String!
   productItem: ProductItemCreateNestedManyWithoutProductInput
   product_image: String
 }
@@ -2300,7 +2316,7 @@ input ProductCreateWithoutProductItemInput {
   description: String
   id: String
   is_deleted: Boolean
-  name: String
+  name: String!
   product_image: String
 }
 
@@ -2312,7 +2328,7 @@ type ProductGroupBy {
   description: String
   id: String!
   is_deleted: Boolean!
-  name: String
+  name: String!
   product_image: String
 }
 
@@ -2958,7 +2974,7 @@ input ProductScalarWhereInput {
   description: StringNullableFilter
   id: StringFilter
   is_deleted: BoolFilter
-  name: StringNullableFilter
+  name: StringFilter
   product_image: StringNullableFilter
 }
 
@@ -2970,7 +2986,7 @@ input ProductScalarWhereWithAggregatesInput {
   description: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
   is_deleted: BoolWithAggregatesFilter
-  name: StringNullableWithAggregatesFilter
+  name: StringWithAggregatesFilter
   product_image: StringNullableWithAggregatesFilter
 }
 
@@ -2979,7 +2995,7 @@ input ProductUpdateInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   productItem: ProductItemUpdateManyWithoutProductNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
@@ -2988,7 +3004,7 @@ input ProductUpdateManyMutationInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
 
@@ -3028,7 +3044,7 @@ input ProductUpdateWithoutCategoryInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   productItem: ProductItemUpdateManyWithoutProductNestedInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
@@ -3038,7 +3054,7 @@ input ProductUpdateWithoutProductItemInput {
   description: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   product_image: NullableStringFieldUpdateOperationsInput
 }
 
@@ -3062,7 +3078,7 @@ input ProductWhereInput {
   description: StringNullableFilter
   id: StringFilter
   is_deleted: BoolFilter
-  name: StringNullableFilter
+  name: StringFilter
   productItem: ProductItemListRelationFilter
   product_image: StringNullableFilter
 }
@@ -3077,7 +3093,7 @@ type Promotion {
   discount_rate: Int
   end_date: String
   id: String!
-  name: String
+  name: String!
   promotionCategory(cursor: PromotionCategoryWhereUniqueInput, distinct: [PromotionCategoryScalarFieldEnum!], orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategory!]!
   start_date: String
 }
@@ -3384,7 +3400,7 @@ input PromotionCreateInput {
   discount_rate: Int
   end_date: String
   id: String
-  name: String
+  name: String!
   promotionCategory: PromotionCategoryCreateNestedManyWithoutPromotionInput
   start_date: String
 }
@@ -3394,7 +3410,7 @@ input PromotionCreateManyInput {
   discount_rate: Int
   end_date: String
   id: String
-  name: String
+  name: String!
   start_date: String
 }
 
@@ -3414,7 +3430,7 @@ input PromotionCreateWithoutPromotionCategoryInput {
   discount_rate: Int
   end_date: String
   id: String
-  name: String
+  name: String!
   start_date: String
 }
 
@@ -3428,7 +3444,7 @@ type PromotionGroupBy {
   discount_rate: Int
   end_date: String
   id: String!
-  name: String
+  name: String!
   start_date: String
 }
 
@@ -3514,7 +3530,7 @@ input PromotionScalarWhereWithAggregatesInput {
   discount_rate: IntNullableWithAggregatesFilter
   end_date: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
-  name: StringNullableWithAggregatesFilter
+  name: StringWithAggregatesFilter
   start_date: StringNullableWithAggregatesFilter
 }
 
@@ -3531,7 +3547,7 @@ input PromotionUpdateInput {
   discount_rate: NullableIntFieldUpdateOperationsInput
   end_date: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   promotionCategory: PromotionCategoryUpdateManyWithoutPromotionNestedInput
   start_date: NullableStringFieldUpdateOperationsInput
 }
@@ -3541,7 +3557,7 @@ input PromotionUpdateManyMutationInput {
   discount_rate: NullableIntFieldUpdateOperationsInput
   end_date: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   start_date: NullableStringFieldUpdateOperationsInput
 }
 
@@ -3558,7 +3574,7 @@ input PromotionUpdateWithoutPromotionCategoryInput {
   discount_rate: NullableIntFieldUpdateOperationsInput
   end_date: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   start_date: NullableStringFieldUpdateOperationsInput
 }
 
@@ -3575,7 +3591,7 @@ input PromotionWhereInput {
   discount_rate: IntNullableFilter
   end_date: StringNullableFilter
   id: StringFilter
-  name: StringNullableFilter
+  name: StringFilter
   promotionCategory: PromotionCategoryListRelationFilter
   start_date: StringNullableFilter
 }
@@ -3748,7 +3764,7 @@ type Query {
 
 type ShippingMethod {
   id: String!
-  name: String
+  name: String!
   price: Int
 }
 
@@ -3775,13 +3791,13 @@ input ShippingMethodCountOrderByAggregateInput {
 
 input ShippingMethodCreateInput {
   id: String
-  name: String
+  name: String!
   price: Int
 }
 
 input ShippingMethodCreateManyInput {
   id: String
-  name: String
+  name: String!
   price: Int
 }
 
@@ -3792,7 +3808,7 @@ type ShippingMethodGroupBy {
   _min: ShippingMethodMinAggregate
   _sum: ShippingMethodSumAggregate
   id: String!
-  name: String
+  name: String!
   price: Int
 }
 
@@ -3848,7 +3864,7 @@ input ShippingMethodScalarWhereWithAggregatesInput {
   NOT: [ShippingMethodScalarWhereWithAggregatesInput!]
   OR: [ShippingMethodScalarWhereWithAggregatesInput!]
   id: StringWithAggregatesFilter
-  name: StringNullableWithAggregatesFilter
+  name: StringWithAggregatesFilter
   price: IntNullableWithAggregatesFilter
 }
 
@@ -3862,13 +3878,13 @@ input ShippingMethodSumOrderByAggregateInput {
 
 input ShippingMethodUpdateInput {
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
 }
 
 input ShippingMethodUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
 }
 
@@ -3877,7 +3893,7 @@ input ShippingMethodWhereInput {
   NOT: [ShippingMethodWhereInput!]
   OR: [ShippingMethodWhereInput!]
   id: StringFilter
-  name: StringNullableFilter
+  name: StringFilter
   price: IntNullableFilter
 }
 
@@ -4973,6 +4989,21 @@ input StringWithAggregatesFilter {
   startsWith: String
 }
 
+input UpdateCategoryInput {
+  description: String
+  name: String
+  parent_category_id: String
+}
+
+input UpdateProductInput {
+  categoryId: String
+  description: String
+  id: String
+  is_deleted: Boolean
+  name: String
+  productImage: String
+}
+
 type User {
   _count: UserCount
   email_address: String
@@ -5510,21 +5541,13 @@ type UserPaymentMethod {
   _count: UserPaymentMethodCount
   account_number: String
   id: String!
-  is_default: Int
+  is_default: Boolean!
   paymentType: PaymentType!
   payment_type_id: String!
   provider: String
   shopOrder(cursor: ShopOrderWhereUniqueInput, distinct: [ShopOrderScalarFieldEnum!], orderBy: [ShopOrderOrderByWithRelationInput!], skip: Int, take: Int, where: ShopOrderWhereInput): [ShopOrder!]!
   user: User!
   user_id: String!
-}
-
-type UserPaymentMethodAvgAggregate {
-  is_default: Float
-}
-
-input UserPaymentMethodAvgOrderByAggregateInput {
-  is_default: SortOrder
 }
 
 type UserPaymentMethodCount {
@@ -5553,7 +5576,7 @@ input UserPaymentMethodCountOrderByAggregateInput {
 input UserPaymentMethodCreateInput {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   paymentType: PaymentTypeCreateNestedOneWithoutUserPaymentMethodInput!
   provider: String
   shopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
@@ -5563,7 +5586,7 @@ input UserPaymentMethodCreateInput {
 input UserPaymentMethodCreateManyInput {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   payment_type_id: String!
   provider: String
   user_id: String!
@@ -5572,7 +5595,7 @@ input UserPaymentMethodCreateManyInput {
 input UserPaymentMethodCreateManyPaymentTypeInput {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   provider: String
   user_id: String!
 }
@@ -5585,7 +5608,7 @@ input UserPaymentMethodCreateManyPaymentTypeInputEnvelope {
 input UserPaymentMethodCreateManyUserInput {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   payment_type_id: String!
   provider: String
 }
@@ -5633,7 +5656,7 @@ input UserPaymentMethodCreateOrConnectWithoutUserInput {
 input UserPaymentMethodCreateWithoutPaymentTypeInput {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   provider: String
   shopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
   user: UserCreateNestedOneWithoutUserPaymentMethodInput!
@@ -5642,7 +5665,7 @@ input UserPaymentMethodCreateWithoutPaymentTypeInput {
 input UserPaymentMethodCreateWithoutShopOrderInput {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   paymentType: PaymentTypeCreateNestedOneWithoutUserPaymentMethodInput!
   provider: String
   user: UserCreateNestedOneWithoutUserPaymentMethodInput!
@@ -5651,21 +5674,19 @@ input UserPaymentMethodCreateWithoutShopOrderInput {
 input UserPaymentMethodCreateWithoutUserInput {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   paymentType: PaymentTypeCreateNestedOneWithoutUserPaymentMethodInput!
   provider: String
   shopOrder: ShopOrderCreateNestedManyWithoutPayment_methodInput
 }
 
 type UserPaymentMethodGroupBy {
-  _avg: UserPaymentMethodAvgAggregate
   _count: UserPaymentMethodCountAggregate
   _max: UserPaymentMethodMaxAggregate
   _min: UserPaymentMethodMinAggregate
-  _sum: UserPaymentMethodSumAggregate
   account_number: String
   id: String!
-  is_default: Int
+  is_default: Boolean!
   payment_type_id: String!
   provider: String
   user_id: String!
@@ -5680,7 +5701,7 @@ input UserPaymentMethodListRelationFilter {
 type UserPaymentMethodMaxAggregate {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   payment_type_id: String
   provider: String
   user_id: String
@@ -5698,7 +5719,7 @@ input UserPaymentMethodMaxOrderByAggregateInput {
 type UserPaymentMethodMinAggregate {
   account_number: String
   id: String
-  is_default: Int
+  is_default: Boolean
   payment_type_id: String
   provider: String
   user_id: String
@@ -5718,11 +5739,9 @@ input UserPaymentMethodOrderByRelationAggregateInput {
 }
 
 input UserPaymentMethodOrderByWithAggregationInput {
-  _avg: UserPaymentMethodAvgOrderByAggregateInput
   _count: UserPaymentMethodCountOrderByAggregateInput
   _max: UserPaymentMethodMaxOrderByAggregateInput
   _min: UserPaymentMethodMinOrderByAggregateInput
-  _sum: UserPaymentMethodSumOrderByAggregateInput
   account_number: SortOrder
   id: SortOrder
   is_default: SortOrder
@@ -5763,7 +5782,7 @@ input UserPaymentMethodScalarWhereInput {
   OR: [UserPaymentMethodScalarWhereInput!]
   account_number: StringNullableFilter
   id: StringFilter
-  is_default: IntNullableFilter
+  is_default: BoolFilter
   payment_type_id: StringFilter
   provider: StringNullableFilter
   user_id: StringFilter
@@ -5775,24 +5794,16 @@ input UserPaymentMethodScalarWhereWithAggregatesInput {
   OR: [UserPaymentMethodScalarWhereWithAggregatesInput!]
   account_number: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
-  is_default: IntNullableWithAggregatesFilter
+  is_default: BoolWithAggregatesFilter
   payment_type_id: StringWithAggregatesFilter
   provider: StringNullableWithAggregatesFilter
   user_id: StringWithAggregatesFilter
 }
 
-type UserPaymentMethodSumAggregate {
-  is_default: Int
-}
-
-input UserPaymentMethodSumOrderByAggregateInput {
-  is_default: SortOrder
-}
-
 input UserPaymentMethodUpdateInput {
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  is_default: NullableIntFieldUpdateOperationsInput
+  is_default: BoolFieldUpdateOperationsInput
   paymentType: PaymentTypeUpdateOneRequiredWithoutUserPaymentMethodNestedInput
   provider: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
@@ -5802,7 +5813,7 @@ input UserPaymentMethodUpdateInput {
 input UserPaymentMethodUpdateManyMutationInput {
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  is_default: NullableIntFieldUpdateOperationsInput
+  is_default: BoolFieldUpdateOperationsInput
   provider: NullableStringFieldUpdateOperationsInput
 }
 
@@ -5865,7 +5876,7 @@ input UserPaymentMethodUpdateWithWhereUniqueWithoutUserInput {
 input UserPaymentMethodUpdateWithoutPaymentTypeInput {
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  is_default: NullableIntFieldUpdateOperationsInput
+  is_default: BoolFieldUpdateOperationsInput
   provider: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
   user: UserUpdateOneRequiredWithoutUserPaymentMethodNestedInput
@@ -5874,7 +5885,7 @@ input UserPaymentMethodUpdateWithoutPaymentTypeInput {
 input UserPaymentMethodUpdateWithoutShopOrderInput {
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  is_default: NullableIntFieldUpdateOperationsInput
+  is_default: BoolFieldUpdateOperationsInput
   paymentType: PaymentTypeUpdateOneRequiredWithoutUserPaymentMethodNestedInput
   provider: NullableStringFieldUpdateOperationsInput
   user: UserUpdateOneRequiredWithoutUserPaymentMethodNestedInput
@@ -5883,7 +5894,7 @@ input UserPaymentMethodUpdateWithoutShopOrderInput {
 input UserPaymentMethodUpdateWithoutUserInput {
   account_number: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
-  is_default: NullableIntFieldUpdateOperationsInput
+  is_default: BoolFieldUpdateOperationsInput
   paymentType: PaymentTypeUpdateOneRequiredWithoutUserPaymentMethodNestedInput
   provider: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutPayment_methodNestedInput
@@ -5912,7 +5923,7 @@ input UserPaymentMethodWhereInput {
   OR: [UserPaymentMethodWhereInput!]
   account_number: StringNullableFilter
   id: StringFilter
-  is_default: IntNullableFilter
+  is_default: BoolFilter
   paymentType: PaymentTypeRelationFilter
   payment_type_id: StringFilter
   provider: StringNullableFilter
@@ -6454,7 +6465,7 @@ type Variation {
   category: Category!
   category_id: String!
   id: String!
-  name: String
+  name: String!
   variationOption(cursor: VariationOptionWhereUniqueInput, distinct: [VariationOptionScalarFieldEnum!], orderBy: [VariationOptionOrderByWithRelationInput!], skip: Int, take: Int, where: VariationOptionWhereInput): [VariationOption!]!
 }
 
@@ -6478,13 +6489,13 @@ input VariationCountOrderByAggregateInput {
 input VariationCreateInput {
   category: CategoryCreateNestedOneWithoutVariationInput!
   id: String
-  name: String
+  name: String!
   variationOption: VariationOptionCreateNestedManyWithoutVariationInput
 }
 
 input VariationCreateManyCategoryInput {
   id: String
-  name: String
+  name: String!
 }
 
 input VariationCreateManyCategoryInputEnvelope {
@@ -6495,7 +6506,7 @@ input VariationCreateManyCategoryInputEnvelope {
 input VariationCreateManyInput {
   category_id: String!
   id: String
-  name: String
+  name: String!
 }
 
 input VariationCreateNestedManyWithoutCategoryInput {
@@ -6523,14 +6534,14 @@ input VariationCreateOrConnectWithoutVariationOptionInput {
 
 input VariationCreateWithoutCategoryInput {
   id: String
-  name: String
+  name: String!
   variationOption: VariationOptionCreateNestedManyWithoutVariationInput
 }
 
 input VariationCreateWithoutVariationOptionInput {
   category: CategoryCreateNestedOneWithoutVariationInput!
   id: String
-  name: String
+  name: String!
 }
 
 type VariationGroupBy {
@@ -6539,7 +6550,7 @@ type VariationGroupBy {
   _min: VariationMinAggregate
   category_id: String!
   id: String!
-  name: String
+  name: String!
 }
 
 input VariationListRelationFilter {
@@ -6576,7 +6587,7 @@ type VariationOption {
   _count: VariationOptionCount
   id: String!
   productConfiguration(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
-  value: String
+  value: String!
   variation: Variation!
   variation_id: String!
 }
@@ -6601,19 +6612,19 @@ input VariationOptionCountOrderByAggregateInput {
 input VariationOptionCreateInput {
   id: String
   productConfiguration: ProductConfigurationCreateNestedManyWithoutVariationOptionInput
-  value: String
+  value: String!
   variation: VariationCreateNestedOneWithoutVariationOptionInput!
 }
 
 input VariationOptionCreateManyInput {
   id: String
-  value: String
+  value: String!
   variation_id: String!
 }
 
 input VariationOptionCreateManyVariationInput {
   id: String
-  value: String
+  value: String!
 }
 
 input VariationOptionCreateManyVariationInputEnvelope {
@@ -6646,14 +6657,14 @@ input VariationOptionCreateOrConnectWithoutVariationInput {
 
 input VariationOptionCreateWithoutProductConfigurationInput {
   id: String
-  value: String
+  value: String!
   variation: VariationCreateNestedOneWithoutVariationOptionInput!
 }
 
 input VariationOptionCreateWithoutVariationInput {
   id: String
   productConfiguration: ProductConfigurationCreateNestedManyWithoutVariationOptionInput
-  value: String
+  value: String!
 }
 
 type VariationOptionGroupBy {
@@ -6661,7 +6672,7 @@ type VariationOptionGroupBy {
   _max: VariationOptionMaxAggregate
   _min: VariationOptionMinAggregate
   id: String!
-  value: String
+  value: String!
   variation_id: String!
 }
 
@@ -6732,7 +6743,7 @@ input VariationOptionScalarWhereInput {
   NOT: [VariationOptionScalarWhereInput!]
   OR: [VariationOptionScalarWhereInput!]
   id: StringFilter
-  value: StringNullableFilter
+  value: StringFilter
   variation_id: StringFilter
 }
 
@@ -6741,20 +6752,20 @@ input VariationOptionScalarWhereWithAggregatesInput {
   NOT: [VariationOptionScalarWhereWithAggregatesInput!]
   OR: [VariationOptionScalarWhereWithAggregatesInput!]
   id: StringWithAggregatesFilter
-  value: StringNullableWithAggregatesFilter
+  value: StringWithAggregatesFilter
   variation_id: StringWithAggregatesFilter
 }
 
 input VariationOptionUpdateInput {
   id: StringFieldUpdateOperationsInput
   productConfiguration: ProductConfigurationUpdateManyWithoutVariationOptionNestedInput
-  value: NullableStringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
   variation: VariationUpdateOneRequiredWithoutVariationOptionNestedInput
 }
 
 input VariationOptionUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
-  value: NullableStringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
 }
 
 input VariationOptionUpdateManyWithWhereWithoutVariationInput {
@@ -6791,14 +6802,14 @@ input VariationOptionUpdateWithWhereUniqueWithoutVariationInput {
 
 input VariationOptionUpdateWithoutProductConfigurationInput {
   id: StringFieldUpdateOperationsInput
-  value: NullableStringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
   variation: VariationUpdateOneRequiredWithoutVariationOptionNestedInput
 }
 
 input VariationOptionUpdateWithoutVariationInput {
   id: StringFieldUpdateOperationsInput
   productConfiguration: ProductConfigurationUpdateManyWithoutVariationOptionNestedInput
-  value: NullableStringFieldUpdateOperationsInput
+  value: StringFieldUpdateOperationsInput
 }
 
 input VariationOptionUpsertWithWhereUniqueWithoutVariationInput {
@@ -6818,7 +6829,7 @@ input VariationOptionWhereInput {
   OR: [VariationOptionWhereInput!]
   id: StringFilter
   productConfiguration: ProductConfigurationListRelationFilter
-  value: StringNullableFilter
+  value: StringFilter
   variation: VariationRelationFilter
   variation_id: StringFilter
 }
@@ -6865,7 +6876,7 @@ input VariationScalarWhereInput {
   OR: [VariationScalarWhereInput!]
   category_id: StringFilter
   id: StringFilter
-  name: StringNullableFilter
+  name: StringFilter
 }
 
 input VariationScalarWhereWithAggregatesInput {
@@ -6874,19 +6885,19 @@ input VariationScalarWhereWithAggregatesInput {
   OR: [VariationScalarWhereWithAggregatesInput!]
   category_id: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
-  name: StringNullableWithAggregatesFilter
+  name: StringWithAggregatesFilter
 }
 
 input VariationUpdateInput {
   category: CategoryUpdateOneRequiredWithoutVariationNestedInput
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   variationOption: VariationOptionUpdateManyWithoutVariationNestedInput
 }
 
 input VariationUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
 }
 
 input VariationUpdateManyWithWhereWithoutCategoryInput {
@@ -6923,14 +6934,14 @@ input VariationUpdateWithWhereUniqueWithoutCategoryInput {
 
 input VariationUpdateWithoutCategoryInput {
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
   variationOption: VariationOptionUpdateManyWithoutVariationNestedInput
 }
 
 input VariationUpdateWithoutVariationOptionInput {
   category: CategoryUpdateOneRequiredWithoutVariationNestedInput
   id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
 }
 
 input VariationUpsertWithWhereUniqueWithoutCategoryInput {
@@ -6951,7 +6962,7 @@ input VariationWhereInput {
   category: CategoryRelationFilter
   category_id: StringFilter
   id: StringFilter
-  name: StringNullableFilter
+  name: StringFilter
   variationOption: VariationOptionListRelationFilter
 }
 
