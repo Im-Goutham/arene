@@ -1029,11 +1029,11 @@ input CreateCategoryInput {
 }
 
 input CreateProductInput {
-  categoryId: String
+  category_id: ID
   description: String
   is_deleted: Boolean
   name: String
-  productImage: String
+  product_image: String
 }
 
 input IntNullableFilter {
@@ -3679,7 +3679,7 @@ type Query {
   getAdminUserById(id: String): User
   getAdminUsers: [User]
   getAllAdminCategories: [Category]
-  getAllAdminProducts(categoryId: String): [Product]
+  getAllAdminProducts(category_id: String): [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
   getCountry(where: CountryWhereUniqueInput!): Country
   getOrderLine(where: OrderLineWhereUniqueInput!): OrderLine
@@ -4996,12 +4996,11 @@ input UpdateCategoryInput {
 }
 
 input UpdateProductInput {
-  categoryId: String
+  category_id: ID
   description: String
-  id: String
   is_deleted: Boolean
   name: String
-  productImage: String
+  product_image: String
 }
 
 type User {

@@ -22,7 +22,7 @@ class CreateCategoryInput {
 @InputType()
 export class UpdateCategoryInput {
   @Field({ nullable: true })
-      name?: string;
+      name: string;
 
   @Field({ nullable: true })
       description?: string;

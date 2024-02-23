@@ -1,4 +1,4 @@
-import { Arg, Ctx, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Field, ID, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Product } from "../../prisma/generated/type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 import { Length, MaxLength } from "class-validator";
@@ -15,10 +15,10 @@ class CreateProductInput {
       description?: string;
 
   @Field({ nullable: true })
-      productImage?: string;
+      product_image?: string;
      
-  @Field()
-      categoryId: string; 
+  @Field(type => ID)
+      category_id: string; 
 
   @Field()
       is_deleted: boolean;
@@ -29,9 +29,6 @@ class CreateProductInput {
 @InputType()
 export class UpdateProductInput {
     @Field()
-        id: string;
-
-    @Field()
     @MaxLength(30)
         name: string;
   
@@ -40,10 +37,11 @@ export class UpdateProductInput {
         description?: string;
   
     @Field({ nullable: true })
-        productImage?: string;
-       
-    @Field()
-        categoryId: string; 
+        product_image?: string;
+      
+        
+    @Field(type => ID)
+        category_id: string; 
   
     @Field()
         is_deleted: boolean;
@@ -54,8 +52,8 @@ export class UpdateProductInput {
 export class AdminProductResolver {
   // Query to fetch all products
   @Query(returns => [Product])
-    async getAllAdminProducts(@Arg("categoryId") categoryId: string,@Ctx() { prisma }: PrismaContext): Promise<Product[]> {
-        return await prisma.product.findMany({ where: { category_id: categoryId || undefined }
+    async getAllAdminProducts(@Arg("category_id") category_id: string,@Ctx() { prisma }: PrismaContext): Promise<Product[]> {
+        return await prisma.product.findMany({ where: { category_id: category_id || undefined }
         });
     }
 
@@ -74,10 +72,14 @@ export class AdminProductResolver {
       try {
           const createdProduct = await prisma.product.create({
               data: {
+                  //   category: { connect: { id: data.category_id } }, // Connect to category
                   ...data, // Spread the input data
-                  category: { connect: { id: data.categoryId } }, // Connect to category
+                  productItem: {
+                      connect: []
+                  }
               },
           });
+          console.log("createdProduct ---- ", createdProduct);
           return createdProduct;
       } catch (error) {
      
@@ -98,7 +100,7 @@ export class AdminProductResolver {
                where: { id },
                data: {
                    ...data, // Spread the input data
-                   category: { connect: { id: data.categoryId } }, // Connect or update category
+                   //  category: { connect: { id: data.category_id } }, // Connect or update category
                },
            });
            return updatedProduct;
