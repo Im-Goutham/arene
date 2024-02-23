@@ -67,7 +67,7 @@ export class AdminProductResolver {
 
   // Mutation to create a new product
    @Mutation(returns => Product)
-  async createProduct(
+  async createAdminProduct(
       @Arg("data") data: CreateProductInput, // Use the input type
       @Ctx() { prisma }: PrismaContext
   ): Promise<Product | null > {
@@ -88,7 +88,7 @@ export class AdminProductResolver {
   
     // Mutation to update an existing product
     @Mutation(returns => Product, { nullable: true })
-   async updateProduct(
+   async updateAdminProduct(
       @Arg("id") id: string,
       @Arg("data") data: UpdateProductInput, // Use the input type
       @Ctx() { prisma }: PrismaContext

@@ -49,7 +49,7 @@ export class AdminCategoryResolver {
 
   // Mutation to create a new category
   @Mutation(returns => Category)
-  async createCategory(
+  async createAdminCategory(
     @Arg("data") data: CreateCategoryInput, // Use the input type
     @Ctx() { prisma }: PrismaContext
   ): Promise<Category| null> {
@@ -68,7 +68,7 @@ export class AdminCategoryResolver {
 
   // Mutation to update an existing category
   @Mutation(returns => Category, { nullable: true })
-  async updateCategory(
+  async updateAdminCategory(
     @Arg("id") id: string,
     @Arg("data") data: UpdateCategoryInput, // Use the input type
     @Ctx() { prisma }: PrismaContext
