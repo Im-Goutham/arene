@@ -43,10 +43,39 @@ export class UpdateCategoryInput {
 export class AdminCategoryResolver {
   // Query to fetch all product categories
   @Query(returns => [Category])
-    async getAllAdminCategories(@Ctx() { prisma }: PrismaContext): Promise<Category[]> {
-        return await prisma.category.findMany();
+    async getAllAdminCategories(
+    @Ctx() { prisma }: PrismaContext,
+    @Arg("take") take?: number, // Optional take for results
+    @Arg("skip") skip?: number, // Optional offset for pagination
+    @Arg("category_type_id") category_type_id?: string,
+    @Arg("is_deleted") is_deleted?: boolean,
+    ): Promise<Category[]> {
+        const baseQuery:any = { };
+  
+        if (take) {
+            baseQuery.take = take;
+        }
+  
+        if (skip) {
+            baseQuery.skip = skip;
+           
+        }
+  
+        if (category_type_id || is_deleted) {
+            // const { category_type_id, is_deleted } = filters;
+            baseQuery.where = {};
+            if (category_type_id) {
+                baseQuery.where = { ... baseQuery.where,category_type_id };
+            }
+  
+            if (typeof is_deleted === "boolean") {
+                baseQuery.where({ ...baseQuery.where, is_deleted });
+            }
+        }
+  
+        return await prisma.category.findMany(baseQuery);
     }
-
+  
   // Query to fetch a product category by ID
   @Query(returns => Category, { nullable: true })
   async getAdminCategoryById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<Category | null> {

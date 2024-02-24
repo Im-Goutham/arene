@@ -82,12 +82,10 @@ export class AdminProductResolver {
                   }
               },
           });
-          console.log("createdProduct ---- ", createdProduct);
           return createdProduct;
       } catch (error) {
-     
           console.log("There is an error ", error);
-          return null;
+          throw error;
       }
   }
   
@@ -99,7 +97,7 @@ export class AdminProductResolver {
       @Ctx() { prisma }: PrismaContext
    ): Promise<Product | null> {
        try {
-           console.log("data in update ---- ", data);
+
            const updatedProduct = await prisma.product.update({
                where: { id },
                data: {
@@ -109,7 +107,7 @@ export class AdminProductResolver {
            return updatedProduct;
        } catch (error) {
            console.log("There is an error ", error);
-           return null;
+           throw error;
        }
    }
   

@@ -4058,7 +4058,7 @@ type Query {
   getAdminProductById(id: String): Product
   getAdminUserById(id: String): User
   getAdminUsers: [User]
-  getAllAdminCategories: [Category]
+  getAllAdminCategories(category_type_id: String, is_deleted: Boolean, skip: Float, take: Float): [Category]
   getAllAdminCategoryTypes: [Category]
   getAllAdminProducts(category_id: String): [Product]
   getAllCategories: [Category]
