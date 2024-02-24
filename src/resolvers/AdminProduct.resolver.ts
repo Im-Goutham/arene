@@ -42,6 +42,9 @@ export class UpdateProductInput {
         
     @Field(type => ID)
         category_id: string; 
+        
+    @Field()
+        is_trending: boolean;
   
     @Field()
         is_deleted: boolean;
@@ -96,11 +99,11 @@ export class AdminProductResolver {
       @Ctx() { prisma }: PrismaContext
    ): Promise<Product | null> {
        try {
+           console.log("data in update ---- ", data);
            const updatedProduct = await prisma.product.update({
                where: { id },
                data: {
-                   ...data, // Spread the input data
-                   //  category: { connect: { id: data.category_id } }, // Connect or update category
+                   ...data,
                },
            });
            return updatedProduct;

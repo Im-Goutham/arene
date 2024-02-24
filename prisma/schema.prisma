@@ -70,12 +70,23 @@ model Category {
   parent_category_id String?             @default("")
   name               String
   description        String?             @default("")
+  category_type_id   String
+  categoryType       CategoryType        @relation(fields: [category_type_id], references: [id])
   promotionCategory  PromotionCategory[]
   product            Product[]
   variation          Variation[]
   is_deleted         Boolean             @default(false)
 
   @@map(name: "category")
+}
+
+model CategoryType {
+  id         String     @id @default(cuid())
+  name       String     @unique()
+  is_deleted Boolean    @default(false)
+  category   Category[]
+
+  @@map(name: "category_type")
 }
 
 model Promotion {
@@ -106,21 +117,22 @@ model Product {
   name          String
   description   String?       @default("")
   product_image String?       @default("")
+  price         Int?          @default(0)
   category      Category      @relation(fields: [category_id], references: [id])
   productItem   ProductItem[]
+  is_trending   Boolean       @default(false)
   is_deleted    Boolean       @default(false)
 
   @@map(name: "product")
 }
 
 model ProductItem {
-  id            String  @id @default(cuid())
-  product_id    String
-  sku           String? @default("")
-  qty_in_stock  Int?    @default(0)
-  product_image String? @default("")
-  price         Int?
-
+  id                   String                 @id @default(cuid())
+  product_id           String
+  sku                  String?                @default("")
+  qty_in_stock         Int?                   @default(0)
+  product_image        String?                @default("")
+  price                Int?                   @default(0)
   product              Product                @relation(fields: [product_id], references: [id])
   productConfiguration ProductConfiguration[]
   shoppingCartItem     ShoppingCartItem[]

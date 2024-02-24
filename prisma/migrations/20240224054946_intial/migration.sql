@@ -27,6 +27,7 @@ CREATE TABLE `user` (
     `email_address` VARCHAR(191) NULL,
     `phone_number` VARCHAR(191) NULL,
     `password` VARCHAR(191) NULL,
+    `is_deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -43,8 +44,20 @@ CREATE TABLE `user_address` (
 -- CreateTable
 CREATE TABLE `category` (
     `id` VARCHAR(191) NOT NULL,
-    `parent_category_id` VARCHAR(191) NOT NULL,
-    `category_name` VARCHAR(191) NULL,
+    `parent_category_id` VARCHAR(191) NULL DEFAULT '',
+    `name` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NULL DEFAULT '',
+    `category_type_id` VARCHAR(191) NOT NULL,
+    `is_deleted` BOOLEAN NOT NULL DEFAULT false,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `category_type` (
+    `id` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `is_deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -52,11 +65,11 @@ CREATE TABLE `category` (
 -- CreateTable
 CREATE TABLE `promotion` (
     `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NULL,
-    `description` VARCHAR(191) NULL,
-    `discount_rate` INTEGER NULL,
-    `start_date` VARCHAR(191) NULL,
-    `end_date` VARCHAR(191) NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NULL DEFAULT '',
+    `discount_rate` INTEGER NULL DEFAULT 0,
+    `start_date` VARCHAR(191) NULL DEFAULT '',
+    `end_date` VARCHAR(191) NULL DEFAULT '',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -74,9 +87,10 @@ CREATE TABLE `promotion_category` (
 CREATE TABLE `product` (
     `id` VARCHAR(191) NOT NULL,
     `category_id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NULL,
-    `description` VARCHAR(191) NULL,
-    `product_image` VARCHAR(191) NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NULL DEFAULT '',
+    `product_image` VARCHAR(191) NULL DEFAULT '',
+    `is_deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -85,10 +99,11 @@ CREATE TABLE `product` (
 CREATE TABLE `product_item` (
     `id` VARCHAR(191) NOT NULL,
     `product_id` VARCHAR(191) NOT NULL,
-    `sku` VARCHAR(191) NULL,
-    `qty_in_stock` INTEGER NULL,
-    `product_image` VARCHAR(191) NULL,
+    `sku` VARCHAR(191) NULL DEFAULT '',
+    `qty_in_stock` INTEGER NULL DEFAULT 0,
+    `product_image` VARCHAR(191) NULL DEFAULT '',
     `price` INTEGER NULL,
+    `is_deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -97,7 +112,7 @@ CREATE TABLE `product_item` (
 CREATE TABLE `variation` (
     `id` VARCHAR(191) NOT NULL,
     `category_id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NULL,
+    `name` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -106,7 +121,7 @@ CREATE TABLE `variation` (
 CREATE TABLE `variation_option` (
     `id` VARCHAR(191) NOT NULL,
     `variation_id` VARCHAR(191) NOT NULL,
-    `value` VARCHAR(191) NULL,
+    `value` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -123,7 +138,7 @@ CREATE TABLE `product_configuration` (
 -- CreateTable
 CREATE TABLE `payment_type` (
     `id` VARCHAR(191) NOT NULL,
-    `value` VARCHAR(191) NULL,
+    `value` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -133,9 +148,9 @@ CREATE TABLE `user_payment_method` (
     `id` VARCHAR(191) NOT NULL,
     `user_id` VARCHAR(191) NOT NULL,
     `payment_type_id` VARCHAR(191) NOT NULL,
-    `provider` VARCHAR(191) NULL,
-    `account_number` VARCHAR(191) NULL,
-    `is_default` INTEGER NULL,
+    `provider` VARCHAR(191) NULL DEFAULT '',
+    `account_number` VARCHAR(191) NULL DEFAULT '',
+    `is_default` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -161,8 +176,8 @@ CREATE TABLE `shopping_cart_item` (
 -- CreateTable
 CREATE TABLE `shipping_method` (
     `id` VARCHAR(191) NOT NULL,
-    `name` VARCHAR(191) NULL,
-    `price` INTEGER NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `price` INTEGER NULL DEFAULT 0,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -170,7 +185,7 @@ CREATE TABLE `shipping_method` (
 -- CreateTable
 CREATE TABLE `order_status` (
     `id` VARCHAR(191) NOT NULL,
-    `status` VARCHAR(191) NULL,
+    `status` VARCHAR(191) NULL DEFAULT '',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -179,10 +194,10 @@ CREATE TABLE `order_status` (
 CREATE TABLE `shop_order` (
     `id` VARCHAR(191) NOT NULL,
     `user_id` VARCHAR(191) NOT NULL,
-    `order_date` VARCHAR(191) NULL,
+    `order_date` VARCHAR(191) NULL DEFAULT '',
     `payment_method_id` VARCHAR(191) NOT NULL,
-    `shipping_address` VARCHAR(191) NULL,
-    `shipping_method` VARCHAR(191) NULL,
+    `shipping_address` VARCHAR(191) NULL DEFAULT '',
+    `shipping_method` VARCHAR(191) NULL DEFAULT '',
     `order_total` INTEGER NULL,
     `order_status` INTEGER NULL,
 
@@ -205,8 +220,8 @@ CREATE TABLE `user_review` (
     `id` VARCHAR(191) NOT NULL,
     `user_id` VARCHAR(191) NOT NULL,
     `ordered_product_id` VARCHAR(191) NOT NULL,
-    `rating_value` INTEGER NULL,
-    `comment` VARCHAR(191) NULL,
+    `rating_value` INTEGER NULL DEFAULT 5,
+    `comment` VARCHAR(191) NULL DEFAULT '',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -219,6 +234,9 @@ ALTER TABLE `user_address` ADD CONSTRAINT `user_address_user_id_fkey` FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE `user_address` ADD CONSTRAINT `user_address_address_id_fkey` FOREIGN KEY (`address_id`) REFERENCES `address`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `category` ADD CONSTRAINT `category_category_type_id_fkey` FOREIGN KEY (`category_type_id`) REFERENCES `category_type`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `promotion_category` ADD CONSTRAINT `promotion_category_category_id_fkey` FOREIGN KEY (`category_id`) REFERENCES `category`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

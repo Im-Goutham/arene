@@ -1,7 +1,8 @@
 import { Arg, Ctx, Query, Resolver , Mutation, Field , InputType } from "type-graphql";
-import { Category, Product } from "../../prisma/generated/type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 import { Length, MaxLength } from "class-validator";
+import { Category } from "../../prisma/generated/type-graphql";
+import { CategoryType } from "@prisma/client";
 
 
 @InputType()
@@ -16,6 +17,9 @@ class CreateCategoryInput {
 
   @Field({ nullable: true })
       parent_category_id?: string; 
+
+  @Field(type => String)
+      category_type_id: string; 
 }
 
 
@@ -29,6 +33,9 @@ export class UpdateCategoryInput {
 
   @Field({ nullable: true })
       parent_category_id?: string;
+
+  @Field(type => String)
+      category_type_id: string; 
 }
 
 
@@ -56,13 +63,21 @@ export class AdminCategoryResolver {
       try {
           const createdCategory = await prisma.category.create({
               data: {
-                  ...data, // Spread the input data 
+                  name: data.name,
+                  parent_category_id: data.parent_category_id,
+                  description: data.description,
+                  categoryType:{
+                      connect:{
+                          id: data.category_type_id
+                      }
+                  },
+            
               },
           });
           return createdCategory;
       } catch (error) {
           console.log("There is an error ", error);
-          return null;
+          throw error;
       }
   }
 
@@ -83,8 +98,14 @@ export class AdminCategoryResolver {
           return updatedCategory;
       } catch (error) {
           console.log("There is an error ", error);
-          return null;
+          throw error;
       }
+  }
+
+
+  @Query(returns => [Category])
+  async getAllAdminCategoryTypes(@Ctx() { prisma }: PrismaContext): Promise<CategoryType[]> {
+      return await prisma.categoryType.findMany();
   }
 }
 

@@ -3,10 +3,10 @@ import "reflect-metadata";
 import serverConfig from "./utils/config-validate";
 import app from "./app";
 
-import config from "config";
-const dbConf = config.get("db");
-const mail = config.get("mail");
-console.log("dbConf",dbConf,mail);
+// import config from "config";
+// const dbConf = config.get("db");
+// const mail = config.get("mail");
+
 
 const TAG = "server ====> ";
 
