@@ -4002,7 +4002,6 @@ type Query {
   aggregateUserReview(cursor: UserReviewWhereUniqueInput, orderBy: [UserReviewOrderByWithRelationInput!], skip: Int, take: Int, where: UserReviewWhereInput): AggregateUserReview!
   aggregateVariation(cursor: VariationWhereUniqueInput, orderBy: [VariationOrderByWithRelationInput!], skip: Int, take: Int, where: VariationWhereInput): AggregateVariation!
   aggregateVariationOption(cursor: VariationOptionWhereUniqueInput, orderBy: [VariationOptionOrderByWithRelationInput!], skip: Int, take: Int, where: VariationOptionWhereInput): AggregateVariationOption!
-  allProducts: [Product]
   categories(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
   category(where: CategoryWhereUniqueInput!): Category
   categoryType(where: CategoryTypeWhereUniqueInput!): CategoryType
@@ -4060,8 +4059,9 @@ type Query {
   getAdminUsers: [User]
   getAllAdminCategories(category_type_id: String, is_deleted: Boolean, skip: Float, take: Float): [Category]
   getAllAdminCategoryTypes: [Category]
-  getAllAdminProducts(category_id: String): [Product]
+  getAllAdminProducts(category_id: String, is_deleted: Boolean, is_trending: Boolean, skip: Float, take: Float): [Product]
   getAllCategories: [Category]
+  getAllProducts(category_id: String, is_trending: Boolean, skip: Float, take: Float): [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
   getCategoryById(id: String): Category
   getCategoryType(where: CategoryTypeWhereUniqueInput!): CategoryType

@@ -50,7 +50,7 @@ export class AdminCategoryResolver {
     @Arg("category_type_id") category_type_id?: string,
     @Arg("is_deleted") is_deleted?: boolean,
     ): Promise<Category[]> {
-        const baseQuery:any = { };
+        const baseQuery:any = { where:{} };
   
         if (take) {
             baseQuery.take = take;
@@ -60,18 +60,14 @@ export class AdminCategoryResolver {
             baseQuery.skip = skip;
            
         }
-  
-        if (category_type_id || is_deleted) {
-            // const { category_type_id, is_deleted } = filters;
-            baseQuery.where = {};
-            if (category_type_id) {
-                baseQuery.where = { ... baseQuery.where,category_type_id };
-            }
-  
-            if (typeof is_deleted === "boolean") {
-                baseQuery.where({ ...baseQuery.where, is_deleted });
-            }
+   
+        if (category_type_id) {
+            baseQuery.where = { ... baseQuery.where,category_type_id };
         }
+  
+        if (typeof is_deleted === "boolean") {
+            baseQuery.where = { ...baseQuery.where, is_deleted };
+        }   
   
         return await prisma.category.findMany(baseQuery);
     }
