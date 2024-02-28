@@ -4061,7 +4061,7 @@ type Query {
   getAllAdminCategoryTypes: [Category]
   getAllAdminProducts(category_id: String, is_deleted: Boolean, is_trending: Boolean, skip: Float, take: Float): [Product]
   getAllCategories: [Category]
-  getAllProducts(category_id: String, is_trending: Boolean, skip: Float, take: Float): [Product]
+  getAllProducts(category_id: String, category_type: String, is_trending: Boolean, skip: Float, take: Float): [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
   getCategoryById(id: String): Category
   getCategoryType(where: CategoryTypeWhereUniqueInput!): CategoryType
@@ -4070,6 +4070,7 @@ type Query {
   getOrderStatus(where: OrderStatusWhereUniqueInput!): OrderStatus
   getPaymentType(where: PaymentTypeWhereUniqueInput!): PaymentType
   getProduct(where: ProductWhereUniqueInput!): Product
+  getProductById(id: String): Product
   getProductConfiguration(where: ProductConfigurationWhereUniqueInput!): ProductConfiguration
   getProductItem(where: ProductItemWhereUniqueInput!): ProductItem
   getPromotion(where: PromotionWhereUniqueInput!): Promotion
@@ -4113,7 +4114,6 @@ type Query {
   paymentType(where: PaymentTypeWhereUniqueInput!): PaymentType
   paymentTypes(cursor: PaymentTypeWhereUniqueInput, distinct: [PaymentTypeScalarFieldEnum!], orderBy: [PaymentTypeOrderByWithRelationInput!], skip: Int, take: Int, where: PaymentTypeWhereInput): [PaymentType!]!
   product(where: ProductWhereUniqueInput!): Product
-  productById(id: String): Product
   productConfiguration(where: ProductConfigurationWhereUniqueInput!): ProductConfiguration
   productConfigurations(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
   productItem(where: ProductItemWhereUniqueInput!): ProductItem

@@ -9,6 +9,7 @@ export class ProductResolver {
     async getAllProducts(
     @Ctx() { prisma }: PrismaContext,
     @Arg("category_id") category_id: string,
+    @Arg("category_type") category_type?: string,
     @Arg("take") take?: number, // Optional take for results
     @Arg("skip") skip?: number, // Optional offset for pagination
     @Arg("is_trending") is_trending?: boolean,
@@ -24,7 +25,6 @@ export class ProductResolver {
            
         }
      
-
         if (category_id) {
             baseQuery.where = { ... baseQuery.where,category_id };
         }
@@ -32,13 +32,19 @@ export class ProductResolver {
         if (typeof is_trending === "boolean") {
             baseQuery.where = { ...baseQuery.where, is_trending };
         }
+
+        if(category_type){
+            baseQuery.where = { ... baseQuery.where, category:{ categoryType:{
+                name: category_type
+            } } };
+        }
   
         return await prisma.product.findMany(baseQuery);
     }
 
   // Query to fetch a product by ID
   @Query(returns => Product, { nullable: true })
-    async productById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<Product | null> {
+    async getProductById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<Product | null> {
         return await prisma.product.findFirst({ where: { id, is_deleted:false } });
     }
  
