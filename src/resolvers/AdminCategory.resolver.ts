@@ -1,4 +1,4 @@
-import { Arg, Ctx, Query, Resolver , Mutation, Field , InputType } from "type-graphql";
+import { Arg, Ctx, Query, Resolver , Mutation, Field , InputType, ObjectType } from "type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 import { Length, MaxLength } from "class-validator";
 import { Category } from "../../prisma/generated/type-graphql";
@@ -18,10 +18,27 @@ class CreateCategoryInput {
   @Field({ nullable: true })
       parent_category_id?: string; 
 
-  @Field(type => String)
+  @Field()
       category_type_id: string; 
+
+  @Field(() => [VariationInput]) // Specify array of VariationInput type
+      Variations: VariationInput[];
 }
 
+@InputType() // Define VariationInput as a separate InputType
+class VariationInput {
+  @Field()
+      name: string;
+
+  @Field(() => [VariationOptionInput]) // Specify array of VariationOptionInput type
+      options: VariationOptionInput[];
+}
+
+@InputType() // Define VariationOptionInput as a separate InputType
+class VariationOptionInput {
+  @Field()
+      value: string;
+}
 
 @InputType()
 export class UpdateCategoryInput {
@@ -86,6 +103,16 @@ export class AdminCategoryResolver {
     @Ctx() { prisma }: PrismaContext
   ): Promise<Category| null> {
       try {
+          const variations = [
+              {
+                  name: "var 1",
+                  options: ["option1","option2"]
+              },
+              {
+                  name: "var 2",
+                  options: ["option3","option4"]
+              }
+          ];
           const createdCategory = await prisma.category.create({
               data: {
                   name: data.name,
@@ -96,9 +123,28 @@ export class AdminCategoryResolver {
                           id: data.category_type_id
                       }
                   },
-            
               },
           });
+
+          variations.map(async ({ name, options })=>{
+              await prisma.variation.create({
+                  data:{
+                      category:{ 
+                          connect: {
+                              id:  createdCategory?.id
+                          }
+                      },
+                      name: name,
+                      variationOption: {
+                          createMany: {
+                              data:options.map((value)=>{ return { value };}) 
+                          }
+                      }
+                  }
+              });
+          });
+
+       
           return createdCategory;
       } catch (error) {
           console.log("There is an error ", error);

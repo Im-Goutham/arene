@@ -458,6 +458,12 @@ type AggregateProductConfiguration {
   _min: ProductConfigurationMinAggregate
 }
 
+type AggregateProductImage {
+  _count: ProductImageCountAggregate
+  _max: ProductImageMaxAggregate
+  _min: ProductImageMinAggregate
+}
+
 type AggregateProductItem {
   _avg: ProductItemAvgAggregate
   _count: ProductItemCountAggregate
@@ -1326,6 +1332,7 @@ input CountryWhereUniqueInput {
 }
 
 input CreateCategoryInput {
+  Variations: [VariationInput]
   category_type_id: String
   description: String
   name: String
@@ -1380,6 +1387,7 @@ type Mutation {
   createManyPaymentType(data: [PaymentTypeCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyProduct(data: [ProductCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyProductConfiguration(data: [ProductConfigurationCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyProductImage(data: [ProductImageCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyProductItem(data: [ProductItemCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyPromotion(data: [PromotionCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyPromotionCategory(data: [PromotionCategoryCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
@@ -1402,6 +1410,7 @@ type Mutation {
   createOnePaymentType(data: PaymentTypeCreateInput!): PaymentType!
   createOneProduct(data: ProductCreateInput!): Product!
   createOneProductConfiguration(data: ProductConfigurationCreateInput!): ProductConfiguration!
+  createOneProductImage(data: ProductImageCreateInput!): ProductImage!
   createOneProductItem(data: ProductItemCreateInput!): ProductItem!
   createOnePromotion(data: PromotionCreateInput!): Promotion!
   createOnePromotionCategory(data: PromotionCategoryCreateInput!): PromotionCategory!
@@ -1424,6 +1433,7 @@ type Mutation {
   deleteManyPaymentType(where: PaymentTypeWhereInput): AffectedRowsOutput!
   deleteManyProduct(where: ProductWhereInput): AffectedRowsOutput!
   deleteManyProductConfiguration(where: ProductConfigurationWhereInput): AffectedRowsOutput!
+  deleteManyProductImage(where: ProductImageWhereInput): AffectedRowsOutput!
   deleteManyProductItem(where: ProductItemWhereInput): AffectedRowsOutput!
   deleteManyPromotion(where: PromotionWhereInput): AffectedRowsOutput!
   deleteManyPromotionCategory(where: PromotionCategoryWhereInput): AffectedRowsOutput!
@@ -1446,6 +1456,7 @@ type Mutation {
   deleteOnePaymentType(where: PaymentTypeWhereUniqueInput!): PaymentType
   deleteOneProduct(where: ProductWhereUniqueInput!): Product
   deleteOneProductConfiguration(where: ProductConfigurationWhereUniqueInput!): ProductConfiguration
+  deleteOneProductImage(where: ProductImageWhereUniqueInput!): ProductImage
   deleteOneProductItem(where: ProductItemWhereUniqueInput!): ProductItem
   deleteOnePromotion(where: PromotionWhereUniqueInput!): Promotion
   deleteOnePromotionCategory(where: PromotionCategoryWhereUniqueInput!): PromotionCategory
@@ -1471,6 +1482,7 @@ type Mutation {
   updateManyPaymentType(data: PaymentTypeUpdateManyMutationInput!, where: PaymentTypeWhereInput): AffectedRowsOutput!
   updateManyProduct(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): AffectedRowsOutput!
   updateManyProductConfiguration(data: ProductConfigurationUpdateManyMutationInput!, where: ProductConfigurationWhereInput): AffectedRowsOutput!
+  updateManyProductImage(data: ProductImageUpdateManyMutationInput!, where: ProductImageWhereInput): AffectedRowsOutput!
   updateManyProductItem(data: ProductItemUpdateManyMutationInput!, where: ProductItemWhereInput): AffectedRowsOutput!
   updateManyPromotion(data: PromotionUpdateManyMutationInput!, where: PromotionWhereInput): AffectedRowsOutput!
   updateManyPromotionCategory(data: PromotionCategoryUpdateManyMutationInput!, where: PromotionCategoryWhereInput): AffectedRowsOutput!
@@ -1493,6 +1505,7 @@ type Mutation {
   updateOnePaymentType(data: PaymentTypeUpdateInput!, where: PaymentTypeWhereUniqueInput!): PaymentType
   updateOneProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
   updateOneProductConfiguration(data: ProductConfigurationUpdateInput!, where: ProductConfigurationWhereUniqueInput!): ProductConfiguration
+  updateOneProductImage(data: ProductImageUpdateInput!, where: ProductImageWhereUniqueInput!): ProductImage
   updateOneProductItem(data: ProductItemUpdateInput!, where: ProductItemWhereUniqueInput!): ProductItem
   updateOnePromotion(data: PromotionUpdateInput!, where: PromotionWhereUniqueInput!): Promotion
   updateOnePromotionCategory(data: PromotionCategoryUpdateInput!, where: PromotionCategoryWhereUniqueInput!): PromotionCategory
@@ -1515,6 +1528,7 @@ type Mutation {
   upsertOnePaymentType(create: PaymentTypeCreateInput!, update: PaymentTypeUpdateInput!, where: PaymentTypeWhereUniqueInput!): PaymentType!
   upsertOneProduct(create: ProductCreateInput!, update: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product!
   upsertOneProductConfiguration(create: ProductConfigurationCreateInput!, update: ProductConfigurationUpdateInput!, where: ProductConfigurationWhereUniqueInput!): ProductConfiguration!
+  upsertOneProductImage(create: ProductImageCreateInput!, update: ProductImageUpdateInput!, where: ProductImageWhereUniqueInput!): ProductImage!
   upsertOneProductItem(create: ProductItemCreateInput!, update: ProductItemUpdateInput!, where: ProductItemWhereUniqueInput!): ProductItem!
   upsertOnePromotion(create: PromotionCreateInput!, update: PromotionUpdateInput!, where: PromotionWhereUniqueInput!): Promotion!
   upsertOnePromotionCategory(create: PromotionCategoryCreateInput!, update: PromotionCategoryUpdateInput!, where: PromotionCategoryWhereUniqueInput!): PromotionCategory!
@@ -2268,7 +2282,7 @@ type Product {
   name: String!
   price: Int
   productItem(cursor: ProductItemWhereUniqueInput, distinct: [ProductItemScalarFieldEnum!], orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): [ProductItem!]!
-  product_image: String
+  product_images(cursor: ProductImageWhereUniqueInput, distinct: [ProductImageScalarFieldEnum!], orderBy: [ProductImageOrderByWithRelationInput!], skip: Int, take: Int, where: ProductImageWhereInput): [ProductImage!]!
 }
 
 type ProductAvgAggregate {
@@ -2547,6 +2561,7 @@ input ProductConfigurationWhereUniqueInput {
 
 type ProductCount {
   productItem: Int!
+  product_images: Int!
 }
 
 type ProductCountAggregate {
@@ -2558,7 +2573,6 @@ type ProductCountAggregate {
   is_trending: Int!
   name: Int!
   price: Int!
-  product_image: Int!
 }
 
 input ProductCountOrderByAggregateInput {
@@ -2569,7 +2583,6 @@ input ProductCountOrderByAggregateInput {
   is_trending: SortOrder
   name: SortOrder
   price: SortOrder
-  product_image: SortOrder
 }
 
 input ProductCreateInput {
@@ -2581,7 +2594,7 @@ input ProductCreateInput {
   name: String!
   price: Int
   productItem: ProductItemCreateNestedManyWithoutProductInput
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductInput
 }
 
 input ProductCreateManyCategoryInput {
@@ -2591,7 +2604,6 @@ input ProductCreateManyCategoryInput {
   is_trending: Boolean
   name: String!
   price: Int
-  product_image: String
 }
 
 input ProductCreateManyCategoryInputEnvelope {
@@ -2607,7 +2619,6 @@ input ProductCreateManyInput {
   is_trending: Boolean
   name: String!
   price: Int
-  product_image: String
 }
 
 input ProductCreateNestedManyWithoutCategoryInput {
@@ -2623,6 +2634,12 @@ input ProductCreateNestedOneWithoutProductItemInput {
   create: ProductCreateWithoutProductItemInput
 }
 
+input ProductCreateNestedOneWithoutProduct_imagesInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProduct_imagesInput
+  create: ProductCreateWithoutProduct_imagesInput
+}
+
 input ProductCreateOrConnectWithoutCategoryInput {
   create: ProductCreateWithoutCategoryInput!
   where: ProductWhereUniqueInput!
@@ -2630,6 +2647,11 @@ input ProductCreateOrConnectWithoutCategoryInput {
 
 input ProductCreateOrConnectWithoutProductItemInput {
   create: ProductCreateWithoutProductItemInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateOrConnectWithoutProduct_imagesInput {
+  create: ProductCreateWithoutProduct_imagesInput!
   where: ProductWhereUniqueInput!
 }
 
@@ -2641,7 +2663,7 @@ input ProductCreateWithoutCategoryInput {
   name: String!
   price: Int
   productItem: ProductItemCreateNestedManyWithoutProductInput
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductInput
 }
 
 input ProductCreateWithoutProductItemInput {
@@ -2652,7 +2674,18 @@ input ProductCreateWithoutProductItemInput {
   is_trending: Boolean
   name: String!
   price: Int
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductInput
+}
+
+input ProductCreateWithoutProduct_imagesInput {
+  category: CategoryCreateNestedOneWithoutProductInput!
+  description: String
+  id: String
+  is_deleted: Boolean
+  is_trending: Boolean
+  name: String!
+  price: Int
+  productItem: ProductItemCreateNestedManyWithoutProductInput
 }
 
 type ProductGroupBy {
@@ -2668,7 +2701,296 @@ type ProductGroupBy {
   is_trending: Boolean!
   name: String!
   price: Int
-  product_image: String
+}
+
+type ProductImage {
+  id: String!
+  image: String!
+  product: Product
+  productId: String
+  productItem: ProductItem
+  productItemId: String
+}
+
+type ProductImageCountAggregate {
+  _all: Int!
+  id: Int!
+  image: Int!
+  productId: Int!
+  productItemId: Int!
+}
+
+input ProductImageCountOrderByAggregateInput {
+  id: SortOrder
+  image: SortOrder
+  productId: SortOrder
+  productItemId: SortOrder
+}
+
+input ProductImageCreateInput {
+  id: String
+  image: String!
+  product: ProductCreateNestedOneWithoutProduct_imagesInput
+  productItem: ProductItemCreateNestedOneWithoutProduct_imagesInput
+}
+
+input ProductImageCreateManyInput {
+  id: String
+  image: String!
+  productId: String
+  productItemId: String
+}
+
+input ProductImageCreateManyProductInput {
+  id: String
+  image: String!
+  productItemId: String
+}
+
+input ProductImageCreateManyProductInputEnvelope {
+  data: [ProductImageCreateManyProductInput!]!
+  skipDuplicates: Boolean
+}
+
+input ProductImageCreateManyProductItemInput {
+  id: String
+  image: String!
+  productId: String
+}
+
+input ProductImageCreateManyProductItemInputEnvelope {
+  data: [ProductImageCreateManyProductItemInput!]!
+  skipDuplicates: Boolean
+}
+
+input ProductImageCreateNestedManyWithoutProductInput {
+  connect: [ProductImageWhereUniqueInput!]
+  connectOrCreate: [ProductImageCreateOrConnectWithoutProductInput!]
+  create: [ProductImageCreateWithoutProductInput!]
+  createMany: ProductImageCreateManyProductInputEnvelope
+}
+
+input ProductImageCreateNestedManyWithoutProductItemInput {
+  connect: [ProductImageWhereUniqueInput!]
+  connectOrCreate: [ProductImageCreateOrConnectWithoutProductItemInput!]
+  create: [ProductImageCreateWithoutProductItemInput!]
+  createMany: ProductImageCreateManyProductItemInputEnvelope
+}
+
+input ProductImageCreateOrConnectWithoutProductInput {
+  create: ProductImageCreateWithoutProductInput!
+  where: ProductImageWhereUniqueInput!
+}
+
+input ProductImageCreateOrConnectWithoutProductItemInput {
+  create: ProductImageCreateWithoutProductItemInput!
+  where: ProductImageWhereUniqueInput!
+}
+
+input ProductImageCreateWithoutProductInput {
+  id: String
+  image: String!
+  productItem: ProductItemCreateNestedOneWithoutProduct_imagesInput
+}
+
+input ProductImageCreateWithoutProductItemInput {
+  id: String
+  image: String!
+  product: ProductCreateNestedOneWithoutProduct_imagesInput
+}
+
+type ProductImageGroupBy {
+  _count: ProductImageCountAggregate
+  _max: ProductImageMaxAggregate
+  _min: ProductImageMinAggregate
+  id: String!
+  image: String!
+  productId: String
+  productItemId: String
+}
+
+input ProductImageListRelationFilter {
+  every: ProductImageWhereInput
+  none: ProductImageWhereInput
+  some: ProductImageWhereInput
+}
+
+type ProductImageMaxAggregate {
+  id: String
+  image: String
+  productId: String
+  productItemId: String
+}
+
+input ProductImageMaxOrderByAggregateInput {
+  id: SortOrder
+  image: SortOrder
+  productId: SortOrder
+  productItemId: SortOrder
+}
+
+type ProductImageMinAggregate {
+  id: String
+  image: String
+  productId: String
+  productItemId: String
+}
+
+input ProductImageMinOrderByAggregateInput {
+  id: SortOrder
+  image: SortOrder
+  productId: SortOrder
+  productItemId: SortOrder
+}
+
+input ProductImageOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductImageOrderByWithAggregationInput {
+  _count: ProductImageCountOrderByAggregateInput
+  _max: ProductImageMaxOrderByAggregateInput
+  _min: ProductImageMinOrderByAggregateInput
+  id: SortOrder
+  image: SortOrder
+  productId: SortOrder
+  productItemId: SortOrder
+}
+
+input ProductImageOrderByWithRelationInput {
+  id: SortOrder
+  image: SortOrder
+  product: ProductOrderByWithRelationInput
+  productId: SortOrder
+  productItem: ProductItemOrderByWithRelationInput
+  productItemId: SortOrder
+}
+
+enum ProductImageScalarFieldEnum {
+  id
+  image
+  productId
+  productItemId
+}
+
+input ProductImageScalarWhereInput {
+  AND: [ProductImageScalarWhereInput!]
+  NOT: [ProductImageScalarWhereInput!]
+  OR: [ProductImageScalarWhereInput!]
+  id: StringFilter
+  image: StringFilter
+  productId: StringNullableFilter
+  productItemId: StringNullableFilter
+}
+
+input ProductImageScalarWhereWithAggregatesInput {
+  AND: [ProductImageScalarWhereWithAggregatesInput!]
+  NOT: [ProductImageScalarWhereWithAggregatesInput!]
+  OR: [ProductImageScalarWhereWithAggregatesInput!]
+  id: StringWithAggregatesFilter
+  image: StringWithAggregatesFilter
+  productId: StringNullableWithAggregatesFilter
+  productItemId: StringNullableWithAggregatesFilter
+}
+
+input ProductImageUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  product: ProductUpdateOneWithoutProduct_imagesNestedInput
+  productItem: ProductItemUpdateOneWithoutProduct_imagesNestedInput
+}
+
+input ProductImageUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+}
+
+input ProductImageUpdateManyWithWhereWithoutProductInput {
+  data: ProductImageUpdateManyMutationInput!
+  where: ProductImageScalarWhereInput!
+}
+
+input ProductImageUpdateManyWithWhereWithoutProductItemInput {
+  data: ProductImageUpdateManyMutationInput!
+  where: ProductImageScalarWhereInput!
+}
+
+input ProductImageUpdateManyWithoutProductItemNestedInput {
+  connect: [ProductImageWhereUniqueInput!]
+  connectOrCreate: [ProductImageCreateOrConnectWithoutProductItemInput!]
+  create: [ProductImageCreateWithoutProductItemInput!]
+  createMany: ProductImageCreateManyProductItemInputEnvelope
+  delete: [ProductImageWhereUniqueInput!]
+  deleteMany: [ProductImageScalarWhereInput!]
+  disconnect: [ProductImageWhereUniqueInput!]
+  set: [ProductImageWhereUniqueInput!]
+  update: [ProductImageUpdateWithWhereUniqueWithoutProductItemInput!]
+  updateMany: [ProductImageUpdateManyWithWhereWithoutProductItemInput!]
+  upsert: [ProductImageUpsertWithWhereUniqueWithoutProductItemInput!]
+}
+
+input ProductImageUpdateManyWithoutProductNestedInput {
+  connect: [ProductImageWhereUniqueInput!]
+  connectOrCreate: [ProductImageCreateOrConnectWithoutProductInput!]
+  create: [ProductImageCreateWithoutProductInput!]
+  createMany: ProductImageCreateManyProductInputEnvelope
+  delete: [ProductImageWhereUniqueInput!]
+  deleteMany: [ProductImageScalarWhereInput!]
+  disconnect: [ProductImageWhereUniqueInput!]
+  set: [ProductImageWhereUniqueInput!]
+  update: [ProductImageUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [ProductImageUpdateManyWithWhereWithoutProductInput!]
+  upsert: [ProductImageUpsertWithWhereUniqueWithoutProductInput!]
+}
+
+input ProductImageUpdateWithWhereUniqueWithoutProductInput {
+  data: ProductImageUpdateWithoutProductInput!
+  where: ProductImageWhereUniqueInput!
+}
+
+input ProductImageUpdateWithWhereUniqueWithoutProductItemInput {
+  data: ProductImageUpdateWithoutProductItemInput!
+  where: ProductImageWhereUniqueInput!
+}
+
+input ProductImageUpdateWithoutProductInput {
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  productItem: ProductItemUpdateOneWithoutProduct_imagesNestedInput
+}
+
+input ProductImageUpdateWithoutProductItemInput {
+  id: StringFieldUpdateOperationsInput
+  image: StringFieldUpdateOperationsInput
+  product: ProductUpdateOneWithoutProduct_imagesNestedInput
+}
+
+input ProductImageUpsertWithWhereUniqueWithoutProductInput {
+  create: ProductImageCreateWithoutProductInput!
+  update: ProductImageUpdateWithoutProductInput!
+  where: ProductImageWhereUniqueInput!
+}
+
+input ProductImageUpsertWithWhereUniqueWithoutProductItemInput {
+  create: ProductImageCreateWithoutProductItemInput!
+  update: ProductImageUpdateWithoutProductItemInput!
+  where: ProductImageWhereUniqueInput!
+}
+
+input ProductImageWhereInput {
+  AND: [ProductImageWhereInput!]
+  NOT: [ProductImageWhereInput!]
+  OR: [ProductImageWhereInput!]
+  id: StringFilter
+  image: StringFilter
+  product: ProductRelationFilter
+  productId: StringNullableFilter
+  productItem: ProductItemRelationFilter
+  productItemId: StringNullableFilter
+}
+
+input ProductImageWhereUniqueInput {
+  id: String
 }
 
 type ProductItem {
@@ -2680,7 +3002,7 @@ type ProductItem {
   product: Product!
   productConfiguration(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
   product_id: String!
-  product_image: String
+  product_images(cursor: ProductImageWhereUniqueInput, distinct: [ProductImageScalarFieldEnum!], orderBy: [ProductImageOrderByWithRelationInput!], skip: Int, take: Int, where: ProductImageWhereInput): [ProductImage!]!
   qty_in_stock: Int
   shoppingCartItem(cursor: ShoppingCartItemWhereUniqueInput, distinct: [ShoppingCartItemScalarFieldEnum!], orderBy: [ShoppingCartItemOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartItemWhereInput): [ShoppingCartItem!]!
   sku: String
@@ -2700,6 +3022,7 @@ input ProductItemAvgOrderByAggregateInput {
 type ProductItemCount {
   orderLine: Int!
   productConfiguration: Int!
+  product_images: Int!
   shoppingCartItem: Int!
   userReview: Int!
 }
@@ -2710,7 +3033,6 @@ type ProductItemCountAggregate {
   is_deleted: Int!
   price: Int!
   product_id: Int!
-  product_image: Int!
   qty_in_stock: Int!
   sku: Int!
 }
@@ -2720,7 +3042,6 @@ input ProductItemCountOrderByAggregateInput {
   is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
-  product_image: SortOrder
   qty_in_stock: SortOrder
   sku: SortOrder
 }
@@ -2732,7 +3053,7 @@ input ProductItemCreateInput {
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
   productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductItemInput
   qty_in_stock: Int
   shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
@@ -2744,7 +3065,6 @@ input ProductItemCreateManyInput {
   is_deleted: Boolean
   price: Int
   product_id: String!
-  product_image: String
   qty_in_stock: Int
   sku: String
 }
@@ -2753,7 +3073,6 @@ input ProductItemCreateManyProductInput {
   id: String
   is_deleted: Boolean
   price: Int
-  product_image: String
   qty_in_stock: Int
   sku: String
 }
@@ -2780,6 +3099,12 @@ input ProductItemCreateNestedOneWithoutProductConfigurationInput {
   connect: ProductItemWhereUniqueInput
   connectOrCreate: ProductItemCreateOrConnectWithoutProductConfigurationInput
   create: ProductItemCreateWithoutProductConfigurationInput
+}
+
+input ProductItemCreateNestedOneWithoutProduct_imagesInput {
+  connect: ProductItemWhereUniqueInput
+  connectOrCreate: ProductItemCreateOrConnectWithoutProduct_imagesInput
+  create: ProductItemCreateWithoutProduct_imagesInput
 }
 
 input ProductItemCreateNestedOneWithoutShoppingCartItemInput {
@@ -2809,6 +3134,11 @@ input ProductItemCreateOrConnectWithoutProductInput {
   where: ProductItemWhereUniqueInput!
 }
 
+input ProductItemCreateOrConnectWithoutProduct_imagesInput {
+  create: ProductItemCreateWithoutProduct_imagesInput!
+  where: ProductItemWhereUniqueInput!
+}
+
 input ProductItemCreateOrConnectWithoutShoppingCartItemInput {
   create: ProductItemCreateWithoutShoppingCartItemInput!
   where: ProductItemWhereUniqueInput!
@@ -2825,7 +3155,7 @@ input ProductItemCreateWithoutOrderLineInput {
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
   productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductItemInput
   qty_in_stock: Int
   shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
@@ -2838,7 +3168,7 @@ input ProductItemCreateWithoutProductConfigurationInput {
   orderLine: OrderLineCreateNestedManyWithoutProductItemInput
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductItemInput
   qty_in_stock: Int
   shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
@@ -2851,7 +3181,20 @@ input ProductItemCreateWithoutProductInput {
   orderLine: OrderLineCreateNestedManyWithoutProductItemInput
   price: Int
   productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductItemInput
+  qty_in_stock: Int
+  shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
+  sku: String
+  userReview: UserReviewCreateNestedManyWithoutOrdered_productInput
+}
+
+input ProductItemCreateWithoutProduct_imagesInput {
+  id: String
+  is_deleted: Boolean
+  orderLine: OrderLineCreateNestedManyWithoutProductItemInput
+  price: Int
+  product: ProductCreateNestedOneWithoutProductItemInput!
+  productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
   qty_in_stock: Int
   shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
@@ -2865,7 +3208,7 @@ input ProductItemCreateWithoutShoppingCartItemInput {
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
   productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductItemInput
   qty_in_stock: Int
   sku: String
   userReview: UserReviewCreateNestedManyWithoutOrdered_productInput
@@ -2878,7 +3221,7 @@ input ProductItemCreateWithoutUserReviewInput {
   price: Int
   product: ProductCreateNestedOneWithoutProductItemInput!
   productConfiguration: ProductConfigurationCreateNestedManyWithoutProductItemInput
-  product_image: String
+  product_images: ProductImageCreateNestedManyWithoutProductItemInput
   qty_in_stock: Int
   shoppingCartItem: ShoppingCartItemCreateNestedManyWithoutProductItemInput
   sku: String
@@ -2894,7 +3237,6 @@ type ProductItemGroupBy {
   is_deleted: Boolean!
   price: Int
   product_id: String!
-  product_image: String
   qty_in_stock: Int
   sku: String
 }
@@ -2910,7 +3252,6 @@ type ProductItemMaxAggregate {
   is_deleted: Boolean
   price: Int
   product_id: String
-  product_image: String
   qty_in_stock: Int
   sku: String
 }
@@ -2920,7 +3261,6 @@ input ProductItemMaxOrderByAggregateInput {
   is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
-  product_image: SortOrder
   qty_in_stock: SortOrder
   sku: SortOrder
 }
@@ -2930,7 +3270,6 @@ type ProductItemMinAggregate {
   is_deleted: Boolean
   price: Int
   product_id: String
-  product_image: String
   qty_in_stock: Int
   sku: String
 }
@@ -2940,7 +3279,6 @@ input ProductItemMinOrderByAggregateInput {
   is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
-  product_image: SortOrder
   qty_in_stock: SortOrder
   sku: SortOrder
 }
@@ -2959,7 +3297,6 @@ input ProductItemOrderByWithAggregationInput {
   is_deleted: SortOrder
   price: SortOrder
   product_id: SortOrder
-  product_image: SortOrder
   qty_in_stock: SortOrder
   sku: SortOrder
 }
@@ -2972,7 +3309,7 @@ input ProductItemOrderByWithRelationInput {
   product: ProductOrderByWithRelationInput
   productConfiguration: ProductConfigurationOrderByRelationAggregateInput
   product_id: SortOrder
-  product_image: SortOrder
+  product_images: ProductImageOrderByRelationAggregateInput
   qty_in_stock: SortOrder
   shoppingCartItem: ShoppingCartItemOrderByRelationAggregateInput
   sku: SortOrder
@@ -2989,7 +3326,6 @@ enum ProductItemScalarFieldEnum {
   is_deleted
   price
   product_id
-  product_image
   qty_in_stock
   sku
 }
@@ -3002,7 +3338,6 @@ input ProductItemScalarWhereInput {
   is_deleted: BoolFilter
   price: IntNullableFilter
   product_id: StringFilter
-  product_image: StringNullableFilter
   qty_in_stock: IntNullableFilter
   sku: StringNullableFilter
 }
@@ -3015,7 +3350,6 @@ input ProductItemScalarWhereWithAggregatesInput {
   is_deleted: BoolWithAggregatesFilter
   price: IntNullableWithAggregatesFilter
   product_id: StringWithAggregatesFilter
-  product_image: StringNullableWithAggregatesFilter
   qty_in_stock: IntNullableWithAggregatesFilter
   sku: StringNullableWithAggregatesFilter
 }
@@ -3037,7 +3371,7 @@ input ProductItemUpdateInput {
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
   productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductItemNestedInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
@@ -3048,7 +3382,6 @@ input ProductItemUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
-  product_image: NullableStringFieldUpdateOperationsInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   sku: NullableStringFieldUpdateOperationsInput
 }
@@ -3104,6 +3437,16 @@ input ProductItemUpdateOneRequiredWithoutUserReviewNestedInput {
   upsert: ProductItemUpsertWithoutUserReviewInput
 }
 
+input ProductItemUpdateOneWithoutProduct_imagesNestedInput {
+  connect: ProductItemWhereUniqueInput
+  connectOrCreate: ProductItemCreateOrConnectWithoutProduct_imagesInput
+  create: ProductItemCreateWithoutProduct_imagesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ProductItemUpdateWithoutProduct_imagesInput
+  upsert: ProductItemUpsertWithoutProduct_imagesInput
+}
+
 input ProductItemUpdateWithWhereUniqueWithoutProductInput {
   data: ProductItemUpdateWithoutProductInput!
   where: ProductItemWhereUniqueInput!
@@ -3115,7 +3458,7 @@ input ProductItemUpdateWithoutOrderLineInput {
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
   productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductItemNestedInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
@@ -3128,7 +3471,7 @@ input ProductItemUpdateWithoutProductConfigurationInput {
   orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductItemNestedInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
@@ -3141,7 +3484,20 @@ input ProductItemUpdateWithoutProductInput {
   orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
   price: NullableIntFieldUpdateOperationsInput
   productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductItemNestedInput
+  qty_in_stock: NullableIntFieldUpdateOperationsInput
+  shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
+  sku: NullableStringFieldUpdateOperationsInput
+  userReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
+}
+
+input ProductItemUpdateWithoutProduct_imagesInput {
+  id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
+  orderLine: OrderLineUpdateManyWithoutProductItemNestedInput
+  price: NullableIntFieldUpdateOperationsInput
+  product: ProductUpdateOneRequiredWithoutProductItemNestedInput
+  productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
@@ -3155,7 +3511,7 @@ input ProductItemUpdateWithoutShoppingCartItemInput {
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
   productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductItemNestedInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   sku: NullableStringFieldUpdateOperationsInput
   userReview: UserReviewUpdateManyWithoutOrdered_productNestedInput
@@ -3168,7 +3524,7 @@ input ProductItemUpdateWithoutUserReviewInput {
   price: NullableIntFieldUpdateOperationsInput
   product: ProductUpdateOneRequiredWithoutProductItemNestedInput
   productConfiguration: ProductConfigurationUpdateManyWithoutProductItemNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductItemNestedInput
   qty_in_stock: NullableIntFieldUpdateOperationsInput
   shoppingCartItem: ShoppingCartItemUpdateManyWithoutProductItemNestedInput
   sku: NullableStringFieldUpdateOperationsInput
@@ -3188,6 +3544,11 @@ input ProductItemUpsertWithoutOrderLineInput {
 input ProductItemUpsertWithoutProductConfigurationInput {
   create: ProductItemCreateWithoutProductConfigurationInput!
   update: ProductItemUpdateWithoutProductConfigurationInput!
+}
+
+input ProductItemUpsertWithoutProduct_imagesInput {
+  create: ProductItemCreateWithoutProduct_imagesInput!
+  update: ProductItemUpdateWithoutProduct_imagesInput!
 }
 
 input ProductItemUpsertWithoutShoppingCartItemInput {
@@ -3211,7 +3572,7 @@ input ProductItemWhereInput {
   product: ProductRelationFilter
   productConfiguration: ProductConfigurationListRelationFilter
   product_id: StringFilter
-  product_image: StringNullableFilter
+  product_images: ProductImageListRelationFilter
   qty_in_stock: IntNullableFilter
   shoppingCartItem: ShoppingCartItemListRelationFilter
   sku: StringNullableFilter
@@ -3236,7 +3597,6 @@ type ProductMaxAggregate {
   is_trending: Boolean
   name: String
   price: Int
-  product_image: String
 }
 
 input ProductMaxOrderByAggregateInput {
@@ -3247,7 +3607,6 @@ input ProductMaxOrderByAggregateInput {
   is_trending: SortOrder
   name: SortOrder
   price: SortOrder
-  product_image: SortOrder
 }
 
 type ProductMinAggregate {
@@ -3258,7 +3617,6 @@ type ProductMinAggregate {
   is_trending: Boolean
   name: String
   price: Int
-  product_image: String
 }
 
 input ProductMinOrderByAggregateInput {
@@ -3269,7 +3627,6 @@ input ProductMinOrderByAggregateInput {
   is_trending: SortOrder
   name: SortOrder
   price: SortOrder
-  product_image: SortOrder
 }
 
 input ProductOrderByRelationAggregateInput {
@@ -3289,7 +3646,6 @@ input ProductOrderByWithAggregationInput {
   is_trending: SortOrder
   name: SortOrder
   price: SortOrder
-  product_image: SortOrder
 }
 
 input ProductOrderByWithRelationInput {
@@ -3302,7 +3658,7 @@ input ProductOrderByWithRelationInput {
   name: SortOrder
   price: SortOrder
   productItem: ProductItemOrderByRelationAggregateInput
-  product_image: SortOrder
+  product_images: ProductImageOrderByRelationAggregateInput
 }
 
 input ProductRelationFilter {
@@ -3318,7 +3674,6 @@ enum ProductScalarFieldEnum {
   is_trending
   name
   price
-  product_image
 }
 
 input ProductScalarWhereInput {
@@ -3332,7 +3687,6 @@ input ProductScalarWhereInput {
   is_trending: BoolFilter
   name: StringFilter
   price: IntNullableFilter
-  product_image: StringNullableFilter
 }
 
 input ProductScalarWhereWithAggregatesInput {
@@ -3346,7 +3700,6 @@ input ProductScalarWhereWithAggregatesInput {
   is_trending: BoolWithAggregatesFilter
   name: StringWithAggregatesFilter
   price: IntNullableWithAggregatesFilter
-  product_image: StringNullableWithAggregatesFilter
 }
 
 type ProductSumAggregate {
@@ -3366,7 +3719,7 @@ input ProductUpdateInput {
   name: StringFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
   productItem: ProductItemUpdateManyWithoutProductNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductNestedInput
 }
 
 input ProductUpdateManyMutationInput {
@@ -3376,7 +3729,6 @@ input ProductUpdateManyMutationInput {
   is_trending: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
-  product_image: NullableStringFieldUpdateOperationsInput
 }
 
 input ProductUpdateManyWithWhereWithoutCategoryInput {
@@ -3406,6 +3758,16 @@ input ProductUpdateOneRequiredWithoutProductItemNestedInput {
   upsert: ProductUpsertWithoutProductItemInput
 }
 
+input ProductUpdateOneWithoutProduct_imagesNestedInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProduct_imagesInput
+  create: ProductCreateWithoutProduct_imagesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: ProductUpdateWithoutProduct_imagesInput
+  upsert: ProductUpsertWithoutProduct_imagesInput
+}
+
 input ProductUpdateWithWhereUniqueWithoutCategoryInput {
   data: ProductUpdateWithoutCategoryInput!
   where: ProductWhereUniqueInput!
@@ -3419,7 +3781,7 @@ input ProductUpdateWithoutCategoryInput {
   name: StringFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
   productItem: ProductItemUpdateManyWithoutProductNestedInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductNestedInput
 }
 
 input ProductUpdateWithoutProductItemInput {
@@ -3430,7 +3792,18 @@ input ProductUpdateWithoutProductItemInput {
   is_trending: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
   price: NullableIntFieldUpdateOperationsInput
-  product_image: NullableStringFieldUpdateOperationsInput
+  product_images: ProductImageUpdateManyWithoutProductNestedInput
+}
+
+input ProductUpdateWithoutProduct_imagesInput {
+  category: CategoryUpdateOneRequiredWithoutProductNestedInput
+  description: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  is_deleted: BoolFieldUpdateOperationsInput
+  is_trending: BoolFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  price: NullableIntFieldUpdateOperationsInput
+  productItem: ProductItemUpdateManyWithoutProductNestedInput
 }
 
 input ProductUpsertWithWhereUniqueWithoutCategoryInput {
@@ -3442,6 +3815,11 @@ input ProductUpsertWithWhereUniqueWithoutCategoryInput {
 input ProductUpsertWithoutProductItemInput {
   create: ProductCreateWithoutProductItemInput!
   update: ProductUpdateWithoutProductItemInput!
+}
+
+input ProductUpsertWithoutProduct_imagesInput {
+  create: ProductCreateWithoutProduct_imagesInput!
+  update: ProductUpdateWithoutProduct_imagesInput!
 }
 
 input ProductWhereInput {
@@ -3457,7 +3835,7 @@ input ProductWhereInput {
   name: StringFilter
   price: IntNullableFilter
   productItem: ProductItemListRelationFilter
-  product_image: StringNullableFilter
+  product_images: ProductImageListRelationFilter
 }
 
 input ProductWhereUniqueInput {
@@ -3989,6 +4367,7 @@ type Query {
   aggregatePaymentType(cursor: PaymentTypeWhereUniqueInput, orderBy: [PaymentTypeOrderByWithRelationInput!], skip: Int, take: Int, where: PaymentTypeWhereInput): AggregatePaymentType!
   aggregateProduct(cursor: ProductWhereUniqueInput, orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): AggregateProduct!
   aggregateProductConfiguration(cursor: ProductConfigurationWhereUniqueInput, orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): AggregateProductConfiguration!
+  aggregateProductImage(cursor: ProductImageWhereUniqueInput, orderBy: [ProductImageOrderByWithRelationInput!], skip: Int, take: Int, where: ProductImageWhereInput): AggregateProductImage!
   aggregateProductItem(cursor: ProductItemWhereUniqueInput, orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): AggregateProductItem!
   aggregatePromotion(cursor: PromotionWhereUniqueInput, orderBy: [PromotionOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionWhereInput): AggregatePromotion!
   aggregatePromotionCategory(cursor: PromotionCategoryWhereUniqueInput, orderBy: [PromotionCategoryOrderByWithRelationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): AggregatePromotionCategory!
@@ -4025,6 +4404,8 @@ type Query {
   findFirstProduct(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): Product
   findFirstProductConfiguration(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): ProductConfiguration
   findFirstProductConfigurationOrThrow(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): ProductConfiguration
+  findFirstProductImage(cursor: ProductImageWhereUniqueInput, distinct: [ProductImageScalarFieldEnum!], orderBy: [ProductImageOrderByWithRelationInput!], skip: Int, take: Int, where: ProductImageWhereInput): ProductImage
+  findFirstProductImageOrThrow(cursor: ProductImageWhereUniqueInput, distinct: [ProductImageScalarFieldEnum!], orderBy: [ProductImageOrderByWithRelationInput!], skip: Int, take: Int, where: ProductImageWhereInput): ProductImage
   findFirstProductItem(cursor: ProductItemWhereUniqueInput, distinct: [ProductItemScalarFieldEnum!], orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): ProductItem
   findFirstProductItemOrThrow(cursor: ProductItemWhereUniqueInput, distinct: [ProductItemScalarFieldEnum!], orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): ProductItem
   findFirstProductOrThrow(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): Product
@@ -4072,6 +4453,7 @@ type Query {
   getProduct(where: ProductWhereUniqueInput!): Product
   getProductById(id: String): Product
   getProductConfiguration(where: ProductConfigurationWhereUniqueInput!): ProductConfiguration
+  getProductImage(where: ProductImageWhereUniqueInput!): ProductImage
   getProductItem(where: ProductItemWhereUniqueInput!): ProductItem
   getPromotion(where: PromotionWhereUniqueInput!): Promotion
   getPromotionCategory(where: PromotionCategoryWhereUniqueInput!): PromotionCategory
@@ -4094,6 +4476,7 @@ type Query {
   groupByPaymentType(by: [PaymentTypeScalarFieldEnum!]!, having: PaymentTypeScalarWhereWithAggregatesInput, orderBy: [PaymentTypeOrderByWithAggregationInput!], skip: Int, take: Int, where: PaymentTypeWhereInput): [PaymentTypeGroupBy!]!
   groupByProduct(by: [ProductScalarFieldEnum!]!, having: ProductScalarWhereWithAggregatesInput, orderBy: [ProductOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductWhereInput): [ProductGroupBy!]!
   groupByProductConfiguration(by: [ProductConfigurationScalarFieldEnum!]!, having: ProductConfigurationScalarWhereWithAggregatesInput, orderBy: [ProductConfigurationOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfigurationGroupBy!]!
+  groupByProductImage(by: [ProductImageScalarFieldEnum!]!, having: ProductImageScalarWhereWithAggregatesInput, orderBy: [ProductImageOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductImageWhereInput): [ProductImageGroupBy!]!
   groupByProductItem(by: [ProductItemScalarFieldEnum!]!, having: ProductItemScalarWhereWithAggregatesInput, orderBy: [ProductItemOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductItemWhereInput): [ProductItemGroupBy!]!
   groupByPromotion(by: [PromotionScalarFieldEnum!]!, having: PromotionScalarWhereWithAggregatesInput, orderBy: [PromotionOrderByWithAggregationInput!], skip: Int, take: Int, where: PromotionWhereInput): [PromotionGroupBy!]!
   groupByPromotionCategory(by: [PromotionCategoryScalarFieldEnum!]!, having: PromotionCategoryScalarWhereWithAggregatesInput, orderBy: [PromotionCategoryOrderByWithAggregationInput!], skip: Int, take: Int, where: PromotionCategoryWhereInput): [PromotionCategoryGroupBy!]!
@@ -4116,6 +4499,8 @@ type Query {
   product(where: ProductWhereUniqueInput!): Product
   productConfiguration(where: ProductConfigurationWhereUniqueInput!): ProductConfiguration
   productConfigurations(cursor: ProductConfigurationWhereUniqueInput, distinct: [ProductConfigurationScalarFieldEnum!], orderBy: [ProductConfigurationOrderByWithRelationInput!], skip: Int, take: Int, where: ProductConfigurationWhereInput): [ProductConfiguration!]!
+  productImage(where: ProductImageWhereUniqueInput!): ProductImage
+  productImages(cursor: ProductImageWhereUniqueInput, distinct: [ProductImageScalarFieldEnum!], orderBy: [ProductImageOrderByWithRelationInput!], skip: Int, take: Int, where: ProductImageWhereInput): [ProductImage!]!
   productItem(where: ProductItemWhereUniqueInput!): ProductItem
   productItems(cursor: ProductItemWhereUniqueInput, distinct: [ProductItemScalarFieldEnum!], orderBy: [ProductItemOrderByWithRelationInput!], skip: Int, take: Int, where: ProductItemWhereInput): [ProductItem!]!
   products(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
@@ -6939,6 +7324,11 @@ type VariationGroupBy {
   name: String!
 }
 
+input VariationInput {
+  name: String
+  options: [VariationOptionInput]
+}
+
 input VariationListRelationFilter {
   every: VariationWhereInput
   none: VariationWhereInput
@@ -7060,6 +7450,10 @@ type VariationOptionGroupBy {
   id: String!
   value: String!
   variation_id: String!
+}
+
+input VariationOptionInput {
+  value: String
 }
 
 input VariationOptionListRelationFilter {
