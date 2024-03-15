@@ -21,23 +21,6 @@ class CreateCategoryInput {
   @Field()
       category_type_id: string; 
 
-  @Field(() => [VariationInput]) // Specify array of VariationInput type
-      Variations: VariationInput[];
-}
-
-@InputType() // Define VariationInput as a separate InputType
-class VariationInput {
-  @Field()
-      name: string;
-
-  @Field(() => [VariationOptionInput]) // Specify array of VariationOptionInput type
-      options: VariationOptionInput[];
-}
-
-@InputType() // Define VariationOptionInput as a separate InputType
-class VariationOptionInput {
-  @Field()
-      value: string;
 }
 
 @InputType()
@@ -103,16 +86,6 @@ export class AdminCategoryResolver {
     @Ctx() { prisma }: PrismaContext
   ): Promise<Category| null> {
       try {
-          const variations = [
-              {
-                  name: "var 1",
-                  options: ["option1","option2"]
-              },
-              {
-                  name: "var 2",
-                  options: ["option3","option4"]
-              }
-          ];
           const createdCategory = await prisma.category.create({
               data: {
                   name: data.name,
@@ -126,25 +99,6 @@ export class AdminCategoryResolver {
               },
           });
 
-          variations.map(async ({ name, options })=>{
-              await prisma.variation.create({
-                  data:{
-                      category:{ 
-                          connect: {
-                              id:  createdCategory?.id
-                          }
-                      },
-                      name: name,
-                      variationOption: {
-                          createMany: {
-                              data:options.map((value)=>{ return { value };}) 
-                          }
-                      }
-                  }
-              });
-          });
-
-       
           return createdCategory;
       } catch (error) {
           console.log("There is an error ", error);

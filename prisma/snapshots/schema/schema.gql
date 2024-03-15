@@ -1332,7 +1332,6 @@ input CountryWhereUniqueInput {
 }
 
 input CreateCategoryInput {
-  Variations: [VariationInput]
   category_type_id: String
   description: String
   name: String
@@ -7324,11 +7323,6 @@ type VariationGroupBy {
   name: String!
 }
 
-input VariationInput {
-  name: String
-  options: [VariationOptionInput]
-}
-
 input VariationListRelationFilter {
   every: VariationWhereInput
   none: VariationWhereInput
@@ -7450,10 +7444,6 @@ type VariationOptionGroupBy {
   id: String!
   value: String!
   variation_id: String!
-}
-
-input VariationOptionInput {
-  value: String
 }
 
 input VariationOptionListRelationFilter {
