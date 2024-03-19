@@ -92,7 +92,7 @@ const appConfig = async (): Promise<Application> => {
            */
                 queryComplexity({
                     // The maximum allowed query complexity, queries above this threshold will be rejected
-                    maximumComplexity: 20,
+                    maximumComplexity: 40,
                     // The query variables. This is needed because the variables are not available
                     // in the visitor of the graphql-js library
                     variables: params?.variables || undefined,

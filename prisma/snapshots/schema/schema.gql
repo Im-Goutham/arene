@@ -1344,6 +1344,7 @@ input CreateProductInput {
   is_deleted: Boolean
   name: String
   product_image: String
+  product_items: [ProductItemInput]
 }
 
 input IntNullableFilter {
@@ -2388,6 +2389,11 @@ type ProductConfigurationGroupBy {
   variation_option_id: String!
 }
 
+input ProductConfigurationInput {
+  product_item_id: String
+  variation_option_id: String
+}
+
 input ProductConfigurationListRelationFilter {
   every: ProductConfigurationWhereInput
   none: ProductConfigurationWhereInput
@@ -3237,6 +3243,13 @@ type ProductItemGroupBy {
   price: Int
   product_id: String!
   qty_in_stock: Int
+  sku: String
+}
+
+input ProductItemInput {
+  price: Float
+  product_configurations: [ProductConfigurationInput]
+  qty_in_stock: Float
   sku: String
 }
 
@@ -4440,6 +4453,7 @@ type Query {
   getAllAdminCategories(category_type_id: String, is_deleted: Boolean, skip: Float, take: Float): [Category]
   getAllAdminCategoryTypes: [Category]
   getAllAdminProducts(category_id: String, is_deleted: Boolean, is_trending: Boolean, skip: Float, take: Float): [Product]
+  getAllAdminVariationOptions: [VariationOption]
   getAllCategories: [Category]
   getAllProducts(category_id: String, category_type: String, is_trending: Boolean, skip: Float, take: Float): [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
@@ -5772,6 +5786,7 @@ input UpdateProductInput {
   is_trending: Boolean
   name: String
   product_image: String
+  product_items: [ProductItemInput]
 }
 
 type User {
