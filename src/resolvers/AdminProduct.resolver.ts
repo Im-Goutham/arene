@@ -16,14 +16,15 @@ class CreateProductInput {
 
   @Field({ nullable: true })
       product_image?: string;
-
       
   @Field(() => [ProductItemInput]) // Specify array of ProductInput type
-      product_items: ProductItemInput[];
-    
+      productItem: ProductItemInput[];
      
   @Field(type => ID)
       category_id: string; 
+        
+  @Field()
+      is_trending: boolean;
 
   @Field()
       is_deleted: boolean;
@@ -33,6 +34,7 @@ class CreateProductInput {
 
 @InputType()
 export class UpdateProductInput {
+    
     @Field()
     @MaxLength(30)
         name: string;
@@ -49,7 +51,7 @@ export class UpdateProductInput {
         category_id: string; 
 
     @Field(() => [ProductItemInput]) // Specify array of ProductInput type
-        product_items: ProductItemInput[];
+        productItem: ProductItemInput[];
         
         
     @Field()
@@ -73,15 +75,27 @@ class ProductItemInput {
     @Field()
         price:number;
 
+    @Field(() => [ProductImageInput]) 
+        product_images: ProductImageInput[];
+        
     @Field(() => [ProductConfigurationInput]) // Specify array of ProductInput type
-        product_configurations: ProductConfigurationInput[];
+        productConfiguration: ProductConfigurationInput[];
     
 }
 
 @InputType() // Define VariationInput as a separate InputType
 class ProductConfigurationInput {
     @Field()
+        id?: string;
+
+    @Field()
         variation_option_id: string;
+}
+
+@InputType() // Define VariationInput as a separate InputType
+class ProductImageInput {
+    @Field()
+        image: string;
 }
 
 // @InputType() // Define VariationOptionInput as a separate InputType
@@ -144,7 +158,7 @@ export class AdminProductResolver {
       @Ctx() { prisma }: PrismaContext
   ): Promise<Product | null > {
       try {
-          const { product_items, ...productData } = data;
+          const { productItem, ...productData } = data;
           const createdProduct = await prisma.product.create({
               data: {
                   //   category: { connect: { id: data.category_id } }, // Connect to category
@@ -152,8 +166,8 @@ export class AdminProductResolver {
               },
           });
 
-          product_items.map(async (d)=>{ 
-              const { product_configurations, ...itemData } =d;
+          productItem.map(async (d)=>{ 
+              const { productConfiguration,product_images, ...itemData } =d;
               const createdProductItem = await prisma.productItem.create({
                   data: { product: { connect: {
                       id:   createdProduct?.id,
@@ -161,15 +175,14 @@ export class AdminProductResolver {
                   } ,...itemData }
               });
          
-              await Promise.allSettled(product_configurations.map(async (config) => {
+              await Promise.allSettled(productConfiguration.map(async (config) => {
                   return prisma.productConfiguration.create({ data:{ variationOption:{
                       connect:{ id: config.variation_option_id }
                   }, productItem:{
                       connect:{ id: createdProductItem.id }
                   } } });
               }));
-
-             
+  
           });
         
           return createdProduct;
@@ -187,7 +200,7 @@ export class AdminProductResolver {
       @Ctx() { prisma }: PrismaContext
    ): Promise<Product | null> {
        try {
-           const { product_items, ...productData } = data;
+           const { productItem, ...productData } = data;
            const updatedProduct = await prisma.product.update({
                where: { id },
                data: {
@@ -195,9 +208,8 @@ export class AdminProductResolver {
                },
            });
 
-
-           product_items.map(async (d)=>{ 
-               const { product_configurations,id: product_item_id, ...itemData } =d;
+           productItem.map(async (d)=>{ 
+               const { productConfiguration,id: product_item_id,product_images, ...itemData } =d;
                const createdProductItem = await prisma.productItem.upsert({
                    where: {
                        id: product_item_id,
@@ -213,13 +225,11 @@ export class AdminProductResolver {
                            }
                        }
                    },
-
-
                });
 
                await prisma.productConfiguration.deleteMany({ where:{ product_item_id: product_item_id } });
        
-               await Promise.allSettled(product_configurations.map(async (config) => {
+               await Promise.allSettled(productConfiguration.map(async (config) => {
                    return prisma.productConfiguration.create({ data:{ variationOption:{
                        connect:{ id: config.variation_option_id }
                    }, productItem:{

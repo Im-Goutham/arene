@@ -1,8 +1,7 @@
 import { Arg, Ctx, Query, Resolver , Mutation, Field , InputType, ObjectType } from "type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 import { Length, MaxLength } from "class-validator";
-import { Category } from "../../prisma/generated/type-graphql";
-import { CategoryType } from "@prisma/client";
+import { Category,CategoryType, VariationOption } from "../../prisma/generated/type-graphql";
 
 
 @InputType()
@@ -50,7 +49,11 @@ export class AdminCategoryResolver {
     @Arg("category_type_id") category_type_id?: string,
     @Arg("is_deleted") is_deleted?: boolean,
     ): Promise<Category[]> {
-        const baseQuery:any = { where:{} };
+        const baseQuery:any = { where:{}, include: {
+            _count: {
+                select: { product: true },
+            },
+        }, };
   
         if (take) {
             baseQuery.take = take;
@@ -131,6 +134,13 @@ export class AdminCategoryResolver {
   @Query(returns => [Category])
   async getAllAdminCategoryTypes(@Ctx() { prisma }: PrismaContext): Promise<CategoryType[]> {
       return await prisma.categoryType.findMany();
+  }
+
+  @Query(returns => [VariationOption])
+  async getAllAdminCategoryVariationOptions(@Ctx() { prisma }: PrismaContext, @Arg("category_id") category_id: string): Promise<VariationOption[]> {
+      return await prisma.variationOption.findMany({ where:{ variation:{
+          category_id
+      } } });
   }
 }
 

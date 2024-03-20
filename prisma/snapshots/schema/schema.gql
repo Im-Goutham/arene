@@ -1342,9 +1342,10 @@ input CreateProductInput {
   category_id: ID
   description: String
   is_deleted: Boolean
+  is_trending: Boolean
   name: String
+  productItem: [ProductItemInput]
   product_image: String
-  product_items: [ProductItemInput]
 }
 
 input IntNullableFilter {
@@ -2390,7 +2391,7 @@ type ProductConfigurationGroupBy {
 }
 
 input ProductConfigurationInput {
-  product_item_id: String
+  id: String
   variation_option_id: String
 }
 
@@ -2812,6 +2813,10 @@ type ProductImageGroupBy {
   image: String!
   productId: String
   productItemId: String
+}
+
+input ProductImageInput {
+  image: String
 }
 
 input ProductImageListRelationFilter {
@@ -3247,8 +3252,10 @@ type ProductItemGroupBy {
 }
 
 input ProductItemInput {
+  id: String
   price: Float
-  product_configurations: [ProductConfigurationInput]
+  productConfiguration: [ProductConfigurationInput]
+  product_images: [ProductImageInput]
   qty_in_stock: Float
   sku: String
 }
@@ -4452,8 +4459,8 @@ type Query {
   getAdminUsers: [User]
   getAllAdminCategories(category_type_id: String, is_deleted: Boolean, skip: Float, take: Float): [Category]
   getAllAdminCategoryTypes: [Category]
+  getAllAdminCategoryVariationOptions(category_id: String): [VariationOption]
   getAllAdminProducts(category_id: String, is_deleted: Boolean, is_trending: Boolean, skip: Float, take: Float): [Product]
-  getAllAdminVariationOptions: [VariationOption]
   getAllCategories: [Category]
   getAllProducts(category_id: String, category_type: String, is_trending: Boolean, skip: Float, take: Float): [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
@@ -5785,8 +5792,8 @@ input UpdateProductInput {
   is_deleted: Boolean
   is_trending: Boolean
   name: String
+  productItem: [ProductItemInput]
   product_image: String
-  product_items: [ProductItemInput]
 }
 
 type User {
