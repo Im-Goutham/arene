@@ -4462,7 +4462,8 @@ type Query {
   getAllAdminCategoryVariationOptions(category_id: String): [VariationOption]
   getAllAdminProducts(category_id: String, is_deleted: Boolean, is_trending: Boolean, skip: Float, take: Float): [Product]
   getAllCategories: [Category]
-  getAllProducts(category_id: String, category_type: String, is_trending: Boolean, skip: Float, take: Float): [Product]
+  getAllCategoryVariations(category_id: String, category_type: String): [Variation]
+  getAllProducts(category_id: String, category_type: String, is_trending: Boolean, skip: Float, take: Float, variation_option_id: [String!]): [Product]
   getCategory(where: CategoryWhereUniqueInput!): Category
   getCategoryById(id: String): Category
   getCategoryType(where: CategoryTypeWhereUniqueInput!): CategoryType

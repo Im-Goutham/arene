@@ -70,10 +70,10 @@ class ProductItemInput {
         sku: string;
 
     @Field()
-        qty_in_stock: number;
+        price: number;
 
     @Field()
-        price:number;
+        qty_in_stock: number;
 
     @Field(() => [ProductImageInput]) 
         product_images: ProductImageInput[];
