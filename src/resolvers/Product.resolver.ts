@@ -30,7 +30,7 @@ export class ProductResolver {
     @Query(returns => [Product])
     async getAllProducts(
     @Ctx() { prisma }: PrismaContext,
-    @Args() { category_id, category_type,take, skip, is_trending, variation_option_id }: GetProductsArgs
+    @Args() { category_id, category_type,take, skip, is_trending, variation_option_id = [] }: GetProductsArgs
     ): Promise<Product[]> {
         const baseQuery:any = { where:{ is_deleted:false } };
   
@@ -57,7 +57,7 @@ export class ProductResolver {
             } } };
         }
 
-        if(variation_option_id){
+        if(variation_option_id?.length>0){
             baseQuery.where = { ... baseQuery.where, 
                 productItem:{
                     some:{
