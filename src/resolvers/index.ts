@@ -10,6 +10,7 @@ import { UserResolver } from "./User.resolver";
 import { CategoryResolver } from "./Category.resolver";
 import { ProductResolver } from "./Product.resolver";
 import { AdminCommonResolver } from "./AdminCommon.resolver";
+import { AuthResolver } from "./AuthResolver.resolver";
 
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -20,5 +21,8 @@ const resolvers: NonEmptyArray<Function> = [
     AdminProductResolver,
     AdminCommonResolver,
     // User
-    UserResolver, CategoryResolver, ProductResolver];
+    AuthResolver,
+    UserResolver,
+    CategoryResolver,
+    ProductResolver];
 export default resolvers;

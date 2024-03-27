@@ -1375,6 +1375,11 @@ input IntNullableWithAggregatesFilter {
   notIn: [Int!]
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   adminDeleteUserById(id: String): User
   createAdminCategory(data: CreateCategoryInput): Category
@@ -1472,6 +1477,8 @@ type Mutation {
   deleteOneVariation(where: VariationWhereUniqueInput!): Variation
   deleteOneVariationOption(where: VariationOptionWhereUniqueInput!): VariationOption
   deleteUser(id: String): User
+  login(data: LoginInput): String
+  signup(data: SignUpInput): User
   updateAdminCategory(data: UpdateCategoryInput, id: String): Category
   updateAdminProduct(data: UpdateProductInput, id: String): Product
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): AffectedRowsOutput!
@@ -5709,6 +5716,13 @@ input ShoppingCartWhereUniqueInput {
   id: String
 }
 
+input SignUpInput {
+  email: String!
+  password: String!
+  phone_number: String!
+  user_name: String!
+}
+
 enum SortOrder {
   asc
   desc
@@ -5799,16 +5813,18 @@ input UpdateProductInput {
 
 type User {
   _count: UserCount
-  email_address: String
+  email: String
   id: String!
   is_deleted: Boolean!
   password: String
   phone_number: String
+  role: String
   shopOrder(cursor: ShopOrderWhereUniqueInput, distinct: [ShopOrderScalarFieldEnum!], orderBy: [ShopOrderOrderByWithRelationInput!], skip: Int, take: Int, where: ShopOrderWhereInput): [ShopOrder!]!
   shoppingCart(cursor: ShoppingCartWhereUniqueInput, distinct: [ShoppingCartScalarFieldEnum!], orderBy: [ShoppingCartOrderByWithRelationInput!], skip: Int, take: Int, where: ShoppingCartWhereInput): [ShoppingCart!]!
   userAddress(cursor: UserAddressWhereUniqueInput, distinct: [UserAddressScalarFieldEnum!], orderBy: [UserAddressOrderByWithRelationInput!], skip: Int, take: Int, where: UserAddressWhereInput): [UserAddress!]!
   userPaymentMethod(cursor: UserPaymentMethodWhereUniqueInput, distinct: [UserPaymentMethodScalarFieldEnum!], orderBy: [UserPaymentMethodOrderByWithRelationInput!], skip: Int, take: Int, where: UserPaymentMethodWhereInput): [UserPaymentMethod!]!
   userReview(cursor: UserReviewWhereUniqueInput, distinct: [UserReviewScalarFieldEnum!], orderBy: [UserReviewOrderByWithRelationInput!], skip: Int, take: Int, where: UserReviewWhereInput): [UserReview!]!
+  user_name: String!
 }
 
 type UserAddress {
@@ -6112,40 +6128,48 @@ type UserCount {
 
 type UserCountAggregate {
   _all: Int!
-  email_address: Int!
+  email: Int!
   id: Int!
   is_deleted: Int!
   password: Int!
   phone_number: Int!
+  role: Int!
+  user_name: Int!
 }
 
 input UserCountOrderByAggregateInput {
-  email_address: SortOrder
+  email: SortOrder
   id: SortOrder
   is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
+  role: SortOrder
+  user_name: SortOrder
 }
 
 input UserCreateInput {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
   shopOrder: ShopOrderCreateNestedManyWithoutUserInput
   shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
   userAddress: UserAddressCreateNestedManyWithoutUserInput
   userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
   userReview: UserReviewCreateNestedManyWithoutUserInput
+  user_name: String!
 }
 
 input UserCreateManyInput {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
+  user_name: String!
 }
 
 input UserCreateNestedOneWithoutShopOrderInput {
@@ -6204,130 +6228,154 @@ input UserCreateOrConnectWithoutUserReviewInput {
 }
 
 input UserCreateWithoutShopOrderInput {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
   shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
   userAddress: UserAddressCreateNestedManyWithoutUserInput
   userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
   userReview: UserReviewCreateNestedManyWithoutUserInput
+  user_name: String!
 }
 
 input UserCreateWithoutShoppingCartInput {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
   shopOrder: ShopOrderCreateNestedManyWithoutUserInput
   userAddress: UserAddressCreateNestedManyWithoutUserInput
   userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
   userReview: UserReviewCreateNestedManyWithoutUserInput
+  user_name: String!
 }
 
 input UserCreateWithoutUserAddressInput {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
   shopOrder: ShopOrderCreateNestedManyWithoutUserInput
   shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
   userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
   userReview: UserReviewCreateNestedManyWithoutUserInput
+  user_name: String!
 }
 
 input UserCreateWithoutUserPaymentMethodInput {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
   shopOrder: ShopOrderCreateNestedManyWithoutUserInput
   shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
   userAddress: UserAddressCreateNestedManyWithoutUserInput
   userReview: UserReviewCreateNestedManyWithoutUserInput
+  user_name: String!
 }
 
 input UserCreateWithoutUserReviewInput {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
   shopOrder: ShopOrderCreateNestedManyWithoutUserInput
   shoppingCart: ShoppingCartCreateNestedManyWithoutUserInput
   userAddress: UserAddressCreateNestedManyWithoutUserInput
   userPaymentMethod: UserPaymentMethodCreateNestedManyWithoutUserInput
+  user_name: String!
 }
 
 type UserGroupBy {
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
-  email_address: String
+  email: String
   id: String!
   is_deleted: Boolean!
   password: String
   phone_number: String
+  role: String
+  user_name: String!
 }
 
 type UserMaxAggregate {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
+  user_name: String
 }
 
 input UserMaxOrderByAggregateInput {
-  email_address: SortOrder
+  email: SortOrder
   id: SortOrder
   is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
+  role: SortOrder
+  user_name: SortOrder
 }
 
 type UserMinAggregate {
-  email_address: String
+  email: String
   id: String
   is_deleted: Boolean
   password: String
   phone_number: String
+  role: String
+  user_name: String
 }
 
 input UserMinOrderByAggregateInput {
-  email_address: SortOrder
+  email: SortOrder
   id: SortOrder
   is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
+  role: SortOrder
+  user_name: SortOrder
 }
 
 input UserOrderByWithAggregationInput {
   _count: UserCountOrderByAggregateInput
   _max: UserMaxOrderByAggregateInput
   _min: UserMinOrderByAggregateInput
-  email_address: SortOrder
+  email: SortOrder
   id: SortOrder
   is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
+  role: SortOrder
+  user_name: SortOrder
 }
 
 input UserOrderByWithRelationInput {
-  email_address: SortOrder
+  email: SortOrder
   id: SortOrder
   is_deleted: SortOrder
   password: SortOrder
   phone_number: SortOrder
+  role: SortOrder
   shopOrder: ShopOrderOrderByRelationAggregateInput
   shoppingCart: ShoppingCartOrderByRelationAggregateInput
   userAddress: UserAddressOrderByRelationAggregateInput
   userPaymentMethod: UserPaymentMethodOrderByRelationAggregateInput
   userReview: UserReviewOrderByRelationAggregateInput
+  user_name: SortOrder
 }
 
 type UserPaymentMethod {
@@ -7069,43 +7117,51 @@ input UserReviewWhereUniqueInput {
 }
 
 enum UserScalarFieldEnum {
-  email_address
+  email
   id
   is_deleted
   password
   phone_number
+  role
+  user_name
 }
 
 input UserScalarWhereWithAggregatesInput {
   AND: [UserScalarWhereWithAggregatesInput!]
   NOT: [UserScalarWhereWithAggregatesInput!]
   OR: [UserScalarWhereWithAggregatesInput!]
-  email_address: StringNullableWithAggregatesFilter
+  email: StringNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
   is_deleted: BoolWithAggregatesFilter
   password: StringNullableWithAggregatesFilter
   phone_number: StringNullableWithAggregatesFilter
+  role: StringNullableWithAggregatesFilter
+  user_name: StringWithAggregatesFilter
 }
 
 input UserUpdateInput {
-  email_address: NullableStringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  role: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
   shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
   userAddress: UserAddressUpdateManyWithoutUserNestedInput
   userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
   userReview: UserReviewUpdateManyWithoutUserNestedInput
+  user_name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateManyMutationInput {
-  email_address: NullableStringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  role: NullableStringFieldUpdateOperationsInput
+  user_name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateOneRequiredWithoutShopOrderNestedInput {
@@ -7149,63 +7205,73 @@ input UserUpdateOneRequiredWithoutUserReviewNestedInput {
 }
 
 input UserUpdateWithoutShopOrderInput {
-  email_address: NullableStringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  role: NullableStringFieldUpdateOperationsInput
   shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
   userAddress: UserAddressUpdateManyWithoutUserNestedInput
   userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
   userReview: UserReviewUpdateManyWithoutUserNestedInput
+  user_name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutShoppingCartInput {
-  email_address: NullableStringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  role: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
   userAddress: UserAddressUpdateManyWithoutUserNestedInput
   userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
   userReview: UserReviewUpdateManyWithoutUserNestedInput
+  user_name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutUserAddressInput {
-  email_address: NullableStringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  role: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
   shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
   userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
   userReview: UserReviewUpdateManyWithoutUserNestedInput
+  user_name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutUserPaymentMethodInput {
-  email_address: NullableStringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  role: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
   shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
   userAddress: UserAddressUpdateManyWithoutUserNestedInput
   userReview: UserReviewUpdateManyWithoutUserNestedInput
+  user_name: StringFieldUpdateOperationsInput
 }
 
 input UserUpdateWithoutUserReviewInput {
-  email_address: NullableStringFieldUpdateOperationsInput
+  email: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   is_deleted: BoolFieldUpdateOperationsInput
   password: NullableStringFieldUpdateOperationsInput
   phone_number: NullableStringFieldUpdateOperationsInput
+  role: NullableStringFieldUpdateOperationsInput
   shopOrder: ShopOrderUpdateManyWithoutUserNestedInput
   shoppingCart: ShoppingCartUpdateManyWithoutUserNestedInput
   userAddress: UserAddressUpdateManyWithoutUserNestedInput
   userPaymentMethod: UserPaymentMethodUpdateManyWithoutUserNestedInput
+  user_name: StringFieldUpdateOperationsInput
 }
 
 input UserUpsertWithoutShopOrderInput {
@@ -7237,20 +7303,24 @@ input UserWhereInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  email_address: StringNullableFilter
+  email: StringNullableFilter
   id: StringFilter
   is_deleted: BoolFilter
   password: StringNullableFilter
   phone_number: StringNullableFilter
+  role: StringNullableFilter
   shopOrder: ShopOrderListRelationFilter
   shoppingCart: ShoppingCartListRelationFilter
   userAddress: UserAddressListRelationFilter
   userPaymentMethod: UserPaymentMethodListRelationFilter
   userReview: UserReviewListRelationFilter
+  user_name: StringFilter
 }
 
 input UserWhereUniqueInput {
+  email: String
   id: String
+  phone_number: String
 }
 
 type Variation {

@@ -4,6 +4,7 @@ import { crossOriginOpenerPolicy, crossOriginResourcePolicy, dnsPrefetchControl,
 import morgan from "morgan";
 import actuator from "express-actuator";
 import { graphqlHTTP } from "express-graphql";
+import { verify } from "jsonwebtoken"; 
 import { GraphQLError,
     //  GraphQLInputObjectType, GraphQLInt, GraphQLObjectType, GraphQLSchema, GraphQLString
 } from "graphql";
@@ -15,14 +16,14 @@ import { buildSchema } from "type-graphql";
 import { resolvers } from "../prisma/generated/type-graphql";
 import path from "path";
 import customResolvers from "./resolvers";
-
+import expressPlayground from "graphql-playground-middleware-express";
+const JWT_SECRET= process.env.JWT_SECRET ;
 
 // Express App
 const app: Application = express();
 
 
 // * Route Files
-import first from "./routers/first";
 import prisma from "./utils/prisma-client";
 
 // * Logging (Development)
@@ -59,8 +60,6 @@ app.use(cors({ origin: true }));
 // ! Health check
 app.use(actuator());
 
-// ! Routes
-app.use("/first", first);
 
 // const a = customResolvers;
 const appConfig = async (): Promise<Application> => {
@@ -74,6 +73,45 @@ const appConfig = async (): Promise<Application> => {
         nullableByDefault: true,
         validate: false,
         emitSchemaFile: path.resolve(__dirname, "../prisma/snapshots/schema", "schema.gql"),
+        authChecker: async ({ context: { req } }, allowedRoles) => {
+            // Extract the JWT token from the request header
+            console.log("req ---- ",req);
+            console.log("allowedRoles ---- ",allowedRoles);
+            const authorization = req.headers["authorization"];
+
+            console.log("authorization ---- ", authorization); 
+            if (!authorization?.startsWith("Bearer ")) {
+                throw new Error("Unauthorized");
+            }
+        
+            const token = authorization.split(" ")[1];
+        
+            // Replace 'YOUR_SECRET_KEY' with your actual JWT secret key
+            try {
+                if(!JWT_SECRET){
+                    throw new Error("JWT_SECRET is not available");
+                }
+                const decoded = verify(token, JWT_SECRET) as {role:string};
+                if(!decoded || !decoded?.role) {
+                    return false;
+                }
+                if(!(allowedRoles.findIndex((role) => decoded.role === role)> -1)){
+                    return false; 
+                }
+                // You can access user information from the decoded token object
+        
+                // Check user roles based on decoded information (optional)
+                // if (decoded.role === 'ADMIN') {
+                //   return true; // User has admin role
+                // } else {
+                //   return false; // User doesn't have admin role
+                // }
+        
+                return true; // User is authenticated (role check can be done within resolvers)
+            } catch (err) {
+                throw new Error("Invalid token");
+            }
+        },
     });
 
   
@@ -81,8 +119,8 @@ const appConfig = async (): Promise<Application> => {
         "/graphql",
         graphqlHTTP(async (req, res, params) => ({
             schema,
-            context: { prisma },
-            graphiql: true,
+            context: { req, prisma },
+           
             validationRules: [
                 /**
            * This provides GraphQL query analysis to reject complex queries to your GraphQL server.
@@ -126,66 +164,9 @@ const appConfig = async (): Promise<Application> => {
         })),
     );
   
+    app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
+    
     return app;
 };
   
 export default appConfig;
-
-/**
- * 
- * Example build schema from scratch
- * 
- * const AuthorType = new GraphQLObjectType({
-        name: "Author",
-        description: "This is author",
-        fields: () =>({
-            id:{
-                type: GraphQLInt,
-                // resolve:()=>1
-            },
-            name:{
-                type: GraphQLString,
-                // resolve: () => "Author name"
-            }
-        })
-    });
-
-    const WhereType = new GraphQLInputObjectType({
-        name: "Where",
-        description: "This is where condition",
-        fields: () =>({
-            id:{
-                type: GraphQLInt,
-            },
-            name:{
-                type: GraphQLString,
-            }
-        })
-    });
-
-
-    const schema = new GraphQLSchema({
-        query: new GraphQLObjectType({
-            name:"test",
-            fields: ()=>({
-                message: {
-                    type: GraphQLString,
-                    resolve: () => "Hello"
-                },
-                messageId: {
-                    type: GraphQLString,
-                    args:{
-                        id: { type: GraphQLInt }
-                    },
-                    resolve: (parent, args) =>" test" + args.id
-                },
-                messageByInputObj: {
-                    type: AuthorType,
-                    args:{ where: { type: WhereType! } },
-                    resolve: (parent, args) => {
-                        return { id: args.where.id, name:"test " + args.where.name };}
-                }
-            })
-        })
-    });
- */

@@ -1,4 +1,4 @@
-import { Arg, Ctx, Query, Resolver , Mutation, Field , InputType, ObjectType } from "type-graphql";
+import { Arg, Ctx, Query, Resolver , Mutation, Field , InputType, ObjectType, Authorized } from "type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 import { Length, MaxLength } from "class-validator";
 import { Category,CategoryType, VariationOption } from "../../prisma/generated/type-graphql";
@@ -41,6 +41,7 @@ export class UpdateCategoryInput {
 @Resolver(of => Category)
 export class AdminCategoryResolver {
   // Query to fetch all product categories
+  @Authorized("admin") // T
   @Query(returns => [Category])
     async getAllAdminCategories(
     @Ctx() { prisma }: PrismaContext,

@@ -41,9 +41,11 @@ model Address {
 
 model User {
   id                String              @id @default(cuid())
-  email_address     String?
+  user_name         String
+  email             String?
   phone_number      String?
   password          String?
+  role              String?             @default("user") // admin | user | guest
   userAddress       UserAddress[]
   userPaymentMethod UserPaymentMethod[]
   shoppingCart      ShoppingCart[]
@@ -51,6 +53,8 @@ model User {
   userReview        UserReview[]
   is_deleted        Boolean             @default(false)
 
+  @@unique([phone_number])
+  @@unique([email])
   @@map(name: "user")
 }
 
@@ -69,7 +73,7 @@ model Category {
   id                 String              @id @default(cuid())
   parent_category_id String?             @default("")
   name               String
-  description        String?             @default("")
+  description        String?             @db.Text
   category_type_id   String
   categoryType       CategoryType        @relation(fields: [category_type_id], references: [id])
   promotionCategory  PromotionCategory[]
@@ -92,7 +96,7 @@ model CategoryType {
 model Promotion {
   id                String              @id @default(cuid())
   name              String
-  description       String?             @default("")
+  description       String?             @db.Text
   discount_rate     Int?                @default(0)
   start_date        String?             @default("")
   end_date          String?             @default("")
@@ -115,7 +119,7 @@ model Product {
   id             String         @id @default(cuid())
   category_id    String
   name           String
-  description    String?        @default("") @db.Text
+  description    String?        @db.Text
   product_images ProductImage[]
   price          Int?           @default(0)
   category       Category       @relation(fields: [category_id], references: [id])
