@@ -161,8 +161,7 @@ export class AdminProductResolver {
           const { productItem, ...productData } = data;
           const createdProduct = await prisma.product.create({
               data: {
-                  //   category: { connect: { id: data.category_id } }, // Connect to category
-                  ...productData, // Spread the input data
+                  ...productData, 
               },
           });
 

@@ -1380,6 +1380,10 @@ input LoginInput {
   password: String!
 }
 
+type LoginResponse {
+  token: String
+}
+
 type Mutation {
   adminDeleteUserById(id: String): User
   createAdminCategory(data: CreateCategoryInput): Category
@@ -1477,8 +1481,8 @@ type Mutation {
   deleteOneVariation(where: VariationWhereUniqueInput!): Variation
   deleteOneVariationOption(where: VariationOptionWhereUniqueInput!): VariationOption
   deleteUser(id: String): User
-  login(data: LoginInput): String
-  signup(data: SignUpInput): User
+  login(data: LoginInput): LoginResponse
+  signUp(data: SignUpInput): User
   updateAdminCategory(data: UpdateCategoryInput, id: String): Category
   updateAdminProduct(data: UpdateProductInput, id: String): Product
   updateManyAddress(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): AffectedRowsOutput!
@@ -4489,7 +4493,7 @@ type Query {
   getShopOrder(where: ShopOrderWhereUniqueInput!): ShopOrder
   getShoppingCart(where: ShoppingCartWhereUniqueInput!): ShoppingCart
   getShoppingCartItem(where: ShoppingCartItemWhereUniqueInput!): ShoppingCartItem
-  getUser(where: UserWhereUniqueInput!): User
+  getUser(token: String): User
   getUserAddress(where: UserAddressWhereUniqueInput!): UserAddress
   getUserPaymentMethod(where: UserPaymentMethodWhereUniqueInput!): UserPaymentMethod
   getUserReview(where: UserReviewWhereUniqueInput!): UserReview

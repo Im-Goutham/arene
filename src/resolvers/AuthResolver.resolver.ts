@@ -1,6 +1,6 @@
-import { Resolver, Mutation, Arg, Ctx, InputType, Field } from "type-graphql";
+import { Resolver, Mutation,Query, Arg, Ctx, InputType, Field, ObjectType } from "type-graphql";
 import { hash, compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import { PrismaContext } from "../utils/prisma-client";
 import { User } from "../../prisma/generated/type-graphql";
 
@@ -32,10 +32,17 @@ export class LoginInput {
       password: string;
 }
 
+@ObjectType()
+export class LoginResponse {
+  @Field()
+      token: string;
+}
+
+
 @Resolver()
 export class AuthResolver {
   @Mutation(() => User)
-    async signup(
+    async signUp(
     @Arg("data") data: SignUpInput, // Use the input type
     @Ctx() { prisma }: PrismaContext
     ): Promise<User> {
@@ -57,11 +64,11 @@ export class AuthResolver {
     }
 
     
-    @Mutation(() => String)
+    @Mutation(() => LoginResponse)
   async login(
       @Arg("data") data: LoginInput, // Use the input type
       @Ctx() { prisma }: PrismaContext
-  ): Promise<string> {
+  ): Promise<{ token: string}> {
       const { email, password } = data; 
       // Find the user by email
       const user: User| null = await prisma.user.findUnique({ where: { email } });
@@ -79,7 +86,28 @@ export class AuthResolver {
           throw new Error("JWT_SECRET is not available");
       }
       // Create JWT token
-      const token = sign({ email, role: user.role }, JWT_SECRET, { expiresIn: "1h" });
-      return token;
+      const token = sign({ id:user.id, email, role: user.role }, JWT_SECRET, { expiresIn: "1h" });
+
+     
+      return { token };
   }
+
+
+  @Query(returns =>User)
+    async getUser(
+        @Ctx() { prisma }: PrismaContext,
+        @Arg("token") token: string,
+    ): Promise<User| null> {
+        if(!JWT_SECRET){
+            throw new Error("JWT_SECRET is not available");
+        }
+        const decoded = verify(token, JWT_SECRET) as {id:string};
+        if(!decoded || !decoded?.id) {
+            throw new Error("Invalid credentials");
+        }
+        
+        return await prisma.user.findUnique({ where:{
+            id: decoded.id
+        } });
+    }
 }

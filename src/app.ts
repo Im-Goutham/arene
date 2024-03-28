@@ -75,17 +75,15 @@ const appConfig = async (): Promise<Application> => {
         emitSchemaFile: path.resolve(__dirname, "../prisma/snapshots/schema", "schema.gql"),
         authChecker: async ({ context: { req } }, allowedRoles) => {
             // Extract the JWT token from the request header
-            console.log("req ---- ",req);
-            console.log("allowedRoles ---- ",allowedRoles);
+         
             const authorization = req.headers["authorization"];
 
-            console.log("authorization ---- ", authorization); 
             if (!authorization?.startsWith("Bearer ")) {
                 throw new Error("Unauthorized");
             }
         
             const token = authorization.split(" ")[1];
-        
+            console.log("token --- ", token);
             // Replace 'YOUR_SECRET_KEY' with your actual JWT secret key
             try {
                 if(!JWT_SECRET){
@@ -95,6 +93,7 @@ const appConfig = async (): Promise<Application> => {
                 if(!decoded || !decoded?.role) {
                     return false;
                 }
+                console.log("allowedRoles ---- ",allowedRoles);
                 if(!(allowedRoles.findIndex((role) => decoded.role === role)> -1)){
                     return false; 
                 }
