@@ -1345,7 +1345,7 @@ input CreateProductInput {
   is_trending: Boolean
   name: String
   productItem: [ProductItemInput]
-  product_image: String
+  product_images: [ProductImageInput]
 }
 
 input IntNullableFilter {
@@ -2827,6 +2827,7 @@ type ProductImageGroupBy {
 }
 
 input ProductImageInput {
+  id: String
   image: String
 }
 
@@ -5812,7 +5813,7 @@ input UpdateProductInput {
   is_trending: Boolean
   name: String
   productItem: [ProductItemInput]
-  product_image: String
+  product_images: [ProductImageInput]
 }
 
 type User {

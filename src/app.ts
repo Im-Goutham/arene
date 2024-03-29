@@ -17,10 +17,35 @@ import { resolvers } from "../prisma/generated/type-graphql";
 import path from "path";
 import customResolvers from "./resolvers";
 import expressPlayground from "graphql-playground-middleware-express";
+import multer from "multer";
+import AWS from "aws-sdk";
+
+
 const JWT_SECRET= process.env.JWT_SECRET ;
+
 
 // Express App
 const app: Application = express();
+  
+
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION // Optional: Set your S3 bucket's region
+});
+
+const s3 = new AWS.S3();
+  
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024, // limit file size to 5MB
+    },
+});
+  
+  
+// Serve uploaded files
+app.use("/files", express.static("uploads"));
 
 
 // * Route Files
@@ -59,6 +84,27 @@ app.use(cors({ origin: true }));
 
 // ! Health check
 app.use(actuator());
+
+
+app.post("/upload", upload.single("file"), async (req: any, res) => {
+    console.log("req --- ", req.file);
+    const params: any = {
+        Bucket:  process.env.AWS_BUCKET_NAME,
+        Key: req.file.originalname,
+        Body: req.file.buffer,
+    };
+
+    s3.upload(params, (err: Error, data: {Location:string}) => {
+        if (err) {
+            res.status(500).json({ error:"Error -> " + err });
+        }
+     
+        res.json({ message: "File uploaded successfully","filename": 
+        req.file.originalname, "location": data.Location });
+    });
+   
+    return; 
+});
 
 
 // const a = customResolvers;
