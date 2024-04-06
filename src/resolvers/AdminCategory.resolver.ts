@@ -41,7 +41,7 @@ export class UpdateCategoryInput {
 @Resolver(of => Category)
 export class AdminCategoryResolver {
   // Query to fetch all product categories
-  @Authorized("admin") // T
+  @Authorized("admin") 
   @Query(returns => [Category])
     async getAllAdminCategories(
     @Ctx() { prisma }: PrismaContext,
@@ -77,6 +77,7 @@ export class AdminCategoryResolver {
     }
   
   // Query to fetch a product category by ID
+  @Authorized("admin") 
   @Query(returns => Category, { nullable: true })
   async getAdminCategoryById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<Category | null> {
       return await prisma.category.findFirst({ where: { id } });
@@ -84,6 +85,7 @@ export class AdminCategoryResolver {
 
 
   // Mutation to create a new category
+  @Authorized("admin") 
   @Mutation(returns => Category)
   async createAdminCategory(
     @Arg("data") data: CreateCategoryInput, // Use the input type
@@ -111,6 +113,7 @@ export class AdminCategoryResolver {
   }
 
   // Mutation to update an existing category
+  @Authorized("admin") 
   @Mutation(returns => Category, { nullable: true })
   async updateAdminCategory(
     @Arg("id") id: string,
@@ -131,12 +134,13 @@ export class AdminCategoryResolver {
       }
   }
 
-
+  @Authorized("admin") 
   @Query(returns => [Category])
   async getAllAdminCategoryTypes(@Ctx() { prisma }: PrismaContext): Promise<CategoryType[]> {
       return await prisma.categoryType.findMany();
   }
 
+  @Authorized("admin") 
   @Query(returns => [VariationOption])
   async getAllAdminCategoryVariationOptions(@Ctx() { prisma }: PrismaContext, @Arg("category_id") category_id: string): Promise<VariationOption[]> {
       return await prisma.variationOption.findMany({ where:{ variation:{

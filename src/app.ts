@@ -19,6 +19,7 @@ import customResolvers from "./resolvers";
 import expressPlayground from "graphql-playground-middleware-express";
 import multer from "multer";
 import AWS from "aws-sdk";
+import { v4 as uuidv4 } from "uuid";
 
 
 const JWT_SECRET= process.env.JWT_SECRET ;
@@ -87,10 +88,12 @@ app.use(actuator());
 
 
 app.post("/upload", upload.single("file"), async (req: any, res) => {
-    console.log("req --- ", req.file);
+  
+    const fileName = uuidv4()+req.file.originalname.replace(/\s/g, "_").toLowerCase() ;
+   
     const params: any = {
         Bucket:  process.env.AWS_BUCKET_NAME,
-        Key: req.file.originalname,
+        Key: fileName,
         Body: req.file.buffer,
     };
 
@@ -129,8 +132,6 @@ const appConfig = async (): Promise<Application> => {
             }
         
             const token = authorization.split(" ")[1];
-            console.log("token --- ", token);
-            // Replace 'YOUR_SECRET_KEY' with your actual JWT secret key
             try {
                 if(!JWT_SECRET){
                     throw new Error("JWT_SECRET is not available");
@@ -139,7 +140,7 @@ const appConfig = async (): Promise<Application> => {
                 if(!decoded || !decoded?.role) {
                     return false;
                 }
-                console.log("allowedRoles ---- ",allowedRoles);
+                
                 if(!(allowedRoles.findIndex((role) => decoded.role === role)> -1)){
                     return false; 
                 }

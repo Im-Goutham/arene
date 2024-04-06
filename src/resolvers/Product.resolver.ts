@@ -72,7 +72,7 @@ export class ProductResolver {
                 }
             };
         }
-  
+        console.log("baseQuery ---- ",baseQuery);
         return await prisma.product.findMany({ ...baseQuery });
     }
 

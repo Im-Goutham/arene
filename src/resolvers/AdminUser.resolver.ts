@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Arg, ObjectType, Field, InputType } from "type-graphql";
+import { Resolver, Query, Mutation, Arg, ObjectType, Field, InputType, Authorized } from "type-graphql";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -11,12 +11,14 @@ const prisma = new PrismaClient();
 @Resolver()
 export class AdminUserResolver {
   // Query to get all site users
+  @Authorized("admin") 
   @Query(() => [User])
     async getAdminUsers(): Promise<User[]> {
         return prisma.user.findMany();
     }
 
   // Query to get a specific site user by ID
+  @Authorized("admin") 
   @Query(() => User, { nullable: true })
   async getAdminUserById(@Arg("id") id: string): Promise<User | null> {
       return prisma.user.findUnique({ where: { id } });
@@ -38,6 +40,7 @@ export class AdminUserResolver {
   // }
 
   // Mutation to delete a site user
+  @Authorized("admin") 
   @Mutation(() => User, { nullable: true })
   async adminDeleteUserById(@Arg("id") id: string): Promise<User | null> {
       return prisma.user.delete({ where: { id } });

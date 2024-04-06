@@ -1,4 +1,4 @@
-import { Arg, Ctx, Field, ID, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Ctx, Field, ID, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { Product } from "../../prisma/generated/type-graphql";
 import { PrismaContext } from "../utils/prisma-client";
 import { Length, MaxLength } from "class-validator";
@@ -106,6 +106,7 @@ class ProductConfigurationInput {
 @Resolver(of => Product)
 export class AdminProductResolver {
     // Query to fetch all products
+    @Authorized("admin") 
     @Query(returns => [Product])
     async getAllAdminProducts(
     @Ctx() { prisma }: PrismaContext,
@@ -144,13 +145,15 @@ export class AdminProductResolver {
     }
 
   // Query to fetch a product by ID
+  @Authorized("admin") 
   @Query(returns => Product, { nullable: true })
     async getAdminProductById(@Arg("id") id: string, @Ctx() { prisma }: PrismaContext): Promise<Product | null> {
         return await prisma.product.findFirst({ where: { id } });
     }
 
   // Mutation to create a new product
-   @Mutation(returns => Product)
+  @Authorized("admin") 
+  @Mutation(returns => Product)
   async createAdminProduct(
       @Arg("data") data: CreateProductInput, // Use the input type
       @Ctx() { prisma }: PrismaContext
@@ -217,92 +220,93 @@ export class AdminProductResolver {
   }
   
     // Mutation to update an existing product
+    @Authorized("admin") 
     @Mutation(returns => Product, { nullable: true })
-   async updateAdminProduct(
+  async updateAdminProduct(
       @Arg("id") id: string,
       @Arg("data") data: UpdateProductInput, // Use the input type
       @Ctx() { prisma }: PrismaContext
-   ): Promise<Product | null> {
-       try {
-           const { productItem, product_images,...productData } = data;
-           const updatedProduct = await prisma.product.update({
-               where: { id },
-               data: {
-                   ...productData,
-               },
-           });
-           await prisma.productImage.deleteMany({ where:{
-               productId: updatedProduct.id
-           } });
+  ): Promise<Product | null> {
+      try {
+          const { productItem, product_images,...productData } = data;
+          const updatedProduct = await prisma.product.update({
+              where: { id },
+              data: {
+                  ...productData,
+              },
+          });
+          await prisma.productImage.deleteMany({ where:{
+              productId: updatedProduct.id
+          } });
 
-           product_images?.map(async ({ id: imageId, image })=>{
+          product_images?.map(async ({ id: imageId, image })=>{
               
-               await prisma.productImage.create({
-                   data: {
-                       image,
-                       product:{
-                           connect:{
-                               id: updatedProduct.id
-                           }
-                       }
-                   },
-               });
+              await prisma.productImage.create({
+                  data: {
+                      image,
+                      product:{
+                          connect:{
+                              id: updatedProduct.id
+                          }
+                      }
+                  },
+              });
         
-           });
+          });
 
-           productItem.map(async (d)=>{ 
-               const { productConfiguration,id: product_item_id,product_images: itemImages, ...itemData } =d;
-               const createdProductItem = await prisma.productItem.upsert({
-                   where: {
-                       id: product_item_id,
-                   },
-                   update: {
-                       ...itemData
-                   },
-                   create: {
-                       ...itemData,
-                       product:{
-                           connect:{
-                               id: id
-                           }
-                       }
-                   },
-               });
+          productItem.map(async (d)=>{ 
+              const { productConfiguration,id: product_item_id,product_images: itemImages, ...itemData } =d;
+              const createdProductItem = await prisma.productItem.upsert({
+                  where: {
+                      id: product_item_id,
+                  },
+                  update: {
+                      ...itemData
+                  },
+                  create: {
+                      ...itemData,
+                      product:{
+                          connect:{
+                              id: id
+                          }
+                      }
+                  },
+              });
 
-               await prisma.productImage.deleteMany(({ where:{
-                   productItemId: createdProductItem.id
-               } }));
+              await prisma.productImage.deleteMany(({ where:{
+                  productItemId: createdProductItem.id
+              } }));
 
-               itemImages?.map(async ({ image })=>{
-                   await prisma.productImage.create({
-                       data: {
-                           image,
-                           productItem:{
-                               connect:{
-                                   id: createdProductItem.id
-                               }
-                           }
-                       },
-                   });
-               });
+              itemImages?.map(async ({ image })=>{
+                  await prisma.productImage.create({
+                      data: {
+                          image,
+                          productItem:{
+                              connect:{
+                                  id: createdProductItem.id
+                              }
+                          }
+                      },
+                  });
+              });
 
-               await prisma.productConfiguration.deleteMany({ where:{ product_item_id: product_item_id } });
+              await prisma.productConfiguration.deleteMany({ where:{ product_item_id: product_item_id } });
        
-               await Promise.allSettled(productConfiguration.map(async (config) => {
-                   return prisma.productConfiguration.create({ data:{ variationOption:{
-                       connect:{ id: config.variation_option_id }
-                   }, productItem:{
-                       connect:{ id: createdProductItem.id }
-                   } } });
-               }));
+              await Promise.allSettled(productConfiguration.map(async (config) => {
+                  return prisma.productConfiguration.create({ data:{ variationOption:{
+                      connect:{ id: config.variation_option_id }
+                  }, productItem:{
+                      connect:{ id: createdProductItem.id }
+                  } } });
+              }));
            
-           });
+          });
         
-           return updatedProduct;
-       } catch (error) {
-           console.log("There is an error ", error);
-           throw error;
-       }
-   }
+          return updatedProduct;
+      } catch (error) {
+          console.log("There is an error ", error);
+          throw error;
+      }
+  }
   
 }
