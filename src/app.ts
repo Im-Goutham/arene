@@ -86,8 +86,35 @@ app.use(cors({ origin: true }));
 // ! Health check
 app.use(actuator());
 
+// Middleware function to verify JWT token
+const verifyToken = (req: any, res:any, next: any) => {
+    const token = req.headers.authorization;
 
-app.post("/upload", upload.single("file"), async (req: any, res) => {
+    if (!token) {
+        return res.status(401).json({ error: "Unauthorized: No token provided" });
+    }
+
+    if(!JWT_SECRET){
+        throw new Error("JWT_SECRET is not available");
+    }
+
+    
+    verify(token, JWT_SECRET, (err: any, decoded: any) => {
+        if (err) {
+            return res.status(401).json({ error: "Unauthorized: Invalid token" });
+        }
+
+        if(!decoded || !decoded?.role) {
+            return res.status(401).json({ error: "Unauthorized: Invalid token" });
+        }
+
+        req.user = decoded; // Save decoded token data to request object
+        next();
+    });
+};
+
+
+app.post("/upload", verifyToken,upload.single("file"), async (req: any, res) => {
   
     const fileName = uuidv4()+req.file.originalname.replace(/\s/g, "_").toLowerCase() ;
    
