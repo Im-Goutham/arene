@@ -3,7 +3,7 @@ import * as envalid from "envalid";
 import dotenv from "dotenv";
 
 dotenv.config();
-const config = (): IServerConfig => {
+const config = () => {
     // eslint-disable-next-line no-useless-catch
     try {
         // console.log("process.env",process.env);
