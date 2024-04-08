@@ -15,6 +15,7 @@ const PORT = serverConfig.port;
 
 const bootstrap = async () => {
     /* Server startup */
+    console.log("0000");
     const serverApp = await app();
     try {
         console.log("11111");
@@ -60,6 +61,7 @@ const bootstrap = async () => {
         console.log(`Heap Used: ${heapUsed / 1024 / 1024} MB`);
 
         console.log("err in server", e);
+        return null;
     }
 
 
