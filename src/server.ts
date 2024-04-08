@@ -4,10 +4,8 @@ import serverConfig from "./utils/config-validate";
 import app from "./app";
 const { rss, heapUsed } = process.memoryUsage();
 
-// import config from "config";
-// const dbConf = config.get("db");
-// const mail = config.get("mail");
-
+console.log(`Resident Set Size (RSS): ${rss / 1024 / 1024} MB`);
+console.log(`Heap Used: ${heapUsed / 1024 / 1024} MB`);
 
 const TAG = "server ====> ";
 
